@@ -1,5 +1,5 @@
 {
-  "name": "daycare-react-app",
+  "name": "frontend",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -29,4 +29,6 @@
   "devDependencies": {
     "eslint-plugin-react-app": "^6.2.2"
   }
+
+  
 }
