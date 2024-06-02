@@ -1,15 +1,17 @@
 import React from 'react';
-import TicTacToePage from './pages/TicTacToePage';  
-import './tic-tac-toe.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import TicTacToe from './pages/TicTacToePage'
 
-const App = () => {
-  
-  return (
-    <div className="App">
-    <div className="tic-tac-toe-background"></div>
-      <TicTacToePage />
+function App(){
+  return(
+    <Router>
+      <div>
+        <Switch>
+          <Route path = "/tic-tac-toe" exact component = {TicTacToe} />
+        </Switch>
       </div>
+    </Router>
   );
-};
+}
 
 export default App;
