@@ -1,0 +1,149 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.title {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size: x-large;
+}
+
+
+.tic-tac-toe-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; 
+  background-image: url('../public/tic-tac-toe-background.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.App {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1; 
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.game-title{
+  color: white;
+  text-align: center;
+  text-shadow: 
+   -1px -1px 0 #000, 
+    1px -1px 0 #000, 
+   -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.status {
+  padding: 10px 20px;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+  background-color: #ffffff8e; 
+  border: 2px solid #ccc;
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.2); 
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  font-size: 36px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  line-height: 100px;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.square.populated {
+  background-color: rgba(255, 255, 255, 0.66);
+}
+
+.square:hover {
+  background-color: rgba(255, 255, 255, 0.66);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.square:active {
+  background-color: rgba(255, 255, 255, 0.706); 
+  box-shadow: none; 
+}
+
+.square-content {
+  background: linear-gradient(45deg, #4eb3fb, #00ffff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: bolder; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+}
+
+.square.o .square-content {
+  background: linear-gradient(45deg, #ffed47, #f88604);
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.square.winner {
+  background-color: rgba(255, 255, 255, 0.878);
+  border-color: rgba(242, 34, 253, 0.569);
+  border-width: 4px;
+
+
+}
+
+.refresh-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #6ef5f7aa;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.refresh-btn:hover {
+  background-color: #63b6e0d2;
+}

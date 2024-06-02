@@ -1,7 +1,5 @@
-// src/components/Board.js
 import React, { useState } from 'react';
-
-import Square from '/Square';
+import Square from './Square';
 
 const Board = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
@@ -18,39 +16,35 @@ const Board = () => {
   };
 
   const renderSquare = (index) => {
+    const winnerInfo = calculateWinner(squares);
+    const isWinningSquare = winnerInfo && winnerInfo.includes(index);
+
     return (
       <Square
+        key={index}
         value={squares[index]}
         onClick={() => handleClick(index)}
+        isWinningSquare={isWinningSquare}
       />
     );
   };
 
   const winner = calculateWinner(squares);
   let status;
+ 
   if (winner) {
-    status = `Winner: ${winner}`;
+  
+    status = `Winner: ${squares[winner[0]]}`;
   } else {
     status = `Next player: ${isXNext ? 'X' : 'O'}`;
+    
   }
 
   return (
     <div>
       <div className="status">{status}</div>
-      <div className="board-row">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
-      </div>
-      <div className="board-row">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className="board-row">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
+      <div className="game-board">
+        {squares.map((_, index) => renderSquare(index))}
       </div>
     </div>
   );
@@ -71,7 +65,7 @@ const calculateWinner = (squares) => {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return lines[i];
     }
   }
   return null;
