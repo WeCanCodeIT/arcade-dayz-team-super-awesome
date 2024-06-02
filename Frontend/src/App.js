@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import TicTacToe from './pages/TicTacToePage'
-import PongGame from './page/PongGamePage'
+import PongGame from './pages/PongGamePage'
 
 function App(){
   return(
