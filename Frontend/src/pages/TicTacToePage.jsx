@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Board from '../components/Board';
 import './TicTacToePage.jsx';
+import '../tic-tac-toe.css';
 
 const TicTacToePage = () => {
   const [refreshData, setRefreshData] = useState(false);
@@ -11,7 +12,8 @@ const TicTacToePage = () => {
   };
 
   return (
-    <div className="tic-tac-toe-page">
+    <div className="App">
+    <div className="tic-tac-toe-background"></div>
     <div className="game-title">
       <h1>Tic Tac Toe</h1>
       </div>
