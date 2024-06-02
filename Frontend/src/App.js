@@ -1,17 +1,7 @@
 import React from 'react';
-<<<<<<< HEAD
-import TicTacToePage from './pages/TicTacToePage'; 
-import PongGamePage from './pages/PongGamePage'; 
-import './tic-tac-toe.css';
-
-const App = () => {
-  
-  return (
-    <div className="App">
-    <div className="tic-tac-toe-background"></div>
-=======
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import TicTacToe from './pages/TicTacToePage'
+import PongGame from './page/PongGamePage'
 
 function App(){
   return(
@@ -19,8 +9,8 @@ function App(){
       <div>
         <Switch>
           <Route path = "/tic-tac-toe" exact component = {TicTacToe} />
+          <Route path = "/pong-game" exact component={ PongGame } />
         </Switch>
->>>>>>> main
       </div>
     </Router>
   );

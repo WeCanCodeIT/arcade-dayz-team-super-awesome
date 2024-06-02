@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import TicTacToe from '../src/pages/TicTacToe'
-import PongGamePage from './pages/PongGamePage';
+import PongGame from '../src/pages/PongGame';
 
 function App(){
   return(
@@ -9,7 +9,7 @@ function App(){
       <div>
         <Switch>
           <Route path = "/tic-tac-toe" exact component = {TicTacToe} />
-          <Route path = "/pong-game-page" exact component = {PongGamePage} />
+          <Route path = "/pong-game-page" exact component = {PongGame} />
           <Route path = "/infants" component = {InfantsPage} />
           <Route path = "/toddlers" component = {ToddlersPage} />
         </Switch>
