@@ -1,0 +1,46 @@
+.whac-a-mole {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  position: relative;
+  cursor: none;
+}
+
+.mole-background{
+  z-index: -3;
+  background-image: url('/public/mole-background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  margin: 0;
+  padding: 0;
+}
+
+.score {
+  margin: 20px;
+  font-size: 24px;
+}
+
+.holes {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin: 0 auto;
+}
+
+.mole-hole {
+  cursor: none; 
+}
+
+.hammer {
+  position: fixed;
+  width: 110px;  
+  height: auto;
+  pointer-events: none;  
+  transform: translate(-50px, -50px) rotate(45deg);  
+  transition: transform 0.05s;
+  z-index: 1000; 
+}
+
+.hammer.down {
+  transform: translate(-50px, -50px) rotate(20deg);  
+}
