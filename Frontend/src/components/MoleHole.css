@@ -1,0 +1,22 @@
+.mole-hole {
+  width: 80px;
+  height: 80px;
+  background-color: #dddddd53;
+  border-radius: 50%;
+  position: absolute;
+  cursor: none;  
+}
+
+.burst {
+  width: 75px; 
+  height: 75px;
+
+}
+
+.hole-0 { top: 10px; left: 120px; }
+.hole-1 { top: 70px; left: 20px; }
+.hole-2 { top: 70px; right: 20px; }
+.hole-3 { bottom: 70px; left: 20px; }
+.hole-4 { bottom: 70px; right: 20px; }
+.hole-5 { bottom: 10px; left: 120px; }
+.hole-6 { top: 50%; left: 50%; transform: translate(-50%, -50%); }
