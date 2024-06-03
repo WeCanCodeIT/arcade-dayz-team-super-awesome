@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import {BrowserRouter as Router, Route, Switch, useLocation} from 'react-router-dom';
 import TicTacToe from './pages/TicTacToePage'
 import RPSJokerAce from './pages/RPSJokerAcePage';
+
+import PongGame from './pages/PongGamePage';
+
 import WhacAMole from './pages/WhacAMolePage';
+
 
 
 const App = () => {
@@ -32,7 +36,11 @@ const App = () => {
         <Switch>
           <Route path = "/tic-tac-toe" exact component = {TicTacToe} />
           <Route path = "/RPSJokerAce" exact component = {RPSJokerAce} />
+ feature/create-pong-game
+          <Route path = "/PongGame" exact component = {PongGame} />
+
           <Route path = "/mole-smash" exact component = {WhacAMole} />
+
         </Switch>
       </div>
     </Router>
