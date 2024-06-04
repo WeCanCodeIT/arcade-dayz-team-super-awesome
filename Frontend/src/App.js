@@ -1,17 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {BrowserRouter as Router, Route, Switch, useLocation} from 'react-router-dom';
 import TicTacToe from './pages/TicTacToePage'
 import RPSJokerAce from './pages/RPSJokerAcePage';
-
 import PongGame from './pages/PongGamePage';
-
 import WhacAMole from './pages/WhacAMolePage';
+import WhacAMoleScoreBadge from './components/WhacAMoleScoreBadge';
 
 
 
 const App = () => {
 
   const location = useLocation();
+  const [score, setScore] = useState(0);
+  
 
   useEffect(() => {
     document.body.classList.remove(
@@ -26,7 +27,7 @@ const App = () => {
     } else if (location.pathname === "/mole-smash") {
       document.body.classList.add("mole-background");
     } else {
-      document.body.classList.add("habitat_background");
+      document.body.classList.add("");
     }
     
   }, [location]);
@@ -36,14 +37,19 @@ const App = () => {
         <Switch>
           <Route path = "/tic-tac-toe" exact component = {TicTacToe} />
           <Route path = "/RPSJokerAce" exact component = {RPSJokerAce} />
- feature/create-pong-game
           <Route path = "/PongGame" exact component = {PongGame} />
-
-          <Route path = "/mole-smash" exact component = {WhacAMole} />
-
-        </Switch>
+          <Route path = "/mole-smash" exact>
+          <WhacAMole score={score} setScore={setScore} />
+          </Route>
+      </Switch>
+      {location.pathname === '/mole-smash' && (
+        <div className="app">
+          <WhacAMoleScoreBadge score={score} />
+        </div>
+      )}
       </div>
     </Router>
+    
   );
 };
 

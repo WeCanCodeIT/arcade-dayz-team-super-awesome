@@ -4,13 +4,12 @@
   background-color: #dddddd53;
   border-radius: 50%;
   position: absolute;
-  cursor: none;  
+  cursor: none;
 }
 
 .burst {
-  width: 75px; 
+  width: 75px;
   height: 75px;
-
 }
 
 .hole-0 { top: 10px; left: 120px; }

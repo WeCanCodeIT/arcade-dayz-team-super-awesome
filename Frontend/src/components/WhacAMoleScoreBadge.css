@@ -1,0 +1,44 @@
+.badge {
+  position: absolute; 
+  top: -425px; 
+  right: 16.5%; 
+  padding: 10px 20px;
+  transform: translate(-50%);
+  background: linear-gradient(45deg, #e18c15dc 35%,#d8d406 100%, #928102a5 35%);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: #000000;
+  font-family: 'Arial', cursive;
+  border: 2px  #ffa303;
+  border-radius: 25px;
+}
+
+.badge-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badge-text {
+  font-size: 24px;
+}
+
+.badge-score {
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.badge::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff;
+}
