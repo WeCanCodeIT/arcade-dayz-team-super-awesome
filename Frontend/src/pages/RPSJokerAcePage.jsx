@@ -12,6 +12,8 @@ const RPSJokerAcePage = () => {
 
   return (
     <div className="rps-joker-ace-page">
+          <div className="RPSJokerace-background"></div>
+
       <div className="game-title">
         <h1>Rock, Paper, Scissors, Joker, Ace Game</h1>
       </div>

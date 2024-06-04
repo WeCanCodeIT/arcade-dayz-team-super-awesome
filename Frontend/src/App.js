@@ -18,7 +18,8 @@ const App = () => {
     document.body.classList.remove(
       "tic-tac-toe-background",
       "mole-background",
-      "habitat_background"
+      "habitat_background",
+      "RPS_background",
       
     );
 
@@ -26,6 +27,8 @@ const App = () => {
       document.body.classList.add("tic-tac-toe-background");
     } else if (location.pathname === "/mole-smash") {
       document.body.classList.add("mole-background");
+    } else if (location.pathname === "/RPSJokerAce") {
+      document.body.classList.add("RPS_background");  
     } else {
       document.body.classList.add("");
     }

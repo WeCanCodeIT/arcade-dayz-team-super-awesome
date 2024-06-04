@@ -90,11 +90,11 @@ const RPSJokerAceGame = () => {
   return (
     <div className="game">
       <h1>Rock, Paper, Scissors, Joker, Ace Game</h1>
-      <Player name="Player" choice={playerChoice} setChoice={setPlayerChoice} disabledOptions={disabledOptions} />
       <div className="cpu">
         <h2>CPU</h2>
         <p>{cpuChoice}</p>
       </div>
+      <Player name="Player" choice={playerChoice} setChoice={setPlayerChoice} disabledOptions={disabledOptions} />
       <button onClick={playGame} disabled={!playerChoice}>
         Play
       </button>
