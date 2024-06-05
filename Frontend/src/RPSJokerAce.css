@@ -108,4 +108,36 @@ h2 {
   z-index: 101; 
 }
 
+.card-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 
+.card {
+  width: 100px;
+  height: 150px;
+  cursor: pointer;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card.selected {
+  box-shadow: 0 0 10px 5px rgba(255, 215, 0, 0.8); 
+}
+
+.card.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
