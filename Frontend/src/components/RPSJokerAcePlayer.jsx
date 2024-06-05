@@ -1,6 +1,7 @@
 import React from 'react';
+import '../RPSJokerAce.css'; 
 
-const Player = ({ name, choice, setChoice, disabledOptions }) => {
+const Player = ({ name, choice, setChoice, availableChoices }) => {
   const handleChoice = (event) => {
     setChoice(event.target.value);
   };
@@ -10,11 +11,16 @@ const Player = ({ name, choice, setChoice, disabledOptions }) => {
       <h2>{name}</h2>
       <select value={choice} onChange={handleChoice}>
         <option value="">Select</option>
-        <option value="rock" disabled={disabledOptions.includes("rock")}>Rock</option>
-        <option value="paper" disabled={disabledOptions.includes("paper")}>Paper</option>
-        <option value="scissors" disabled={disabledOptions.includes("scissors")}>Scissors</option>
-        <option value="joker" disabled={disabledOptions.includes("joker")}>Joker</option>
-        <option value="ace" disabled={disabledOptions.includes("ace")}>Ace</option>
+        {availableChoices.map(choice => (
+          <option
+            key={choice}
+            value={choice}
+            disabled={choice === '' || choice === null}
+            className={choice === '' || choice === null ? '' : 'disabled'}
+          >
+            {choice.charAt(0).toUpperCase() + choice.slice(1)}
+          </option>
+        ))}
       </select>
     </div>
   );
