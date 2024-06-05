@@ -7,15 +7,52 @@
   cursor: none;
 }
 
-.burst {
-  width: 75px;
-  height: 75px;
+.burst-image {
+  z-index: 999;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.hole-0 { top: 10px; left: 120px; }
-.hole-1 { top: 70px; left: 20px; }
-.hole-2 { top: 70px; right: 20px; }
-.hole-3 { bottom: 70px; left: 20px; }
-.hole-4 { bottom: 70px; right: 20px; }
-.hole-5 { bottom: 10px; left: 120px; }
-.hole-6 { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.splat-image {
+  z-index: 999;
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hole-0 {
+  top: 10px;
+  left: 120px;
+}
+.hole-1 {
+  top: 70px;
+  left: 20px;
+}
+.hole-2 {
+  top: 70px;
+  right: 20px;
+}
+.hole-3 {
+  bottom: 70px;
+  left: 20px;
+}
+.hole-4 {
+  bottom: 70px;
+  right: 20px;
+}
+.hole-5 {
+  bottom: 10px;
+  left: 120px;
+}
+.hole-6 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
