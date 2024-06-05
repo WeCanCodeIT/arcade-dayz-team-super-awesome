@@ -1,20 +1,39 @@
-import React, { useState } from 'react';
-import Player from './RPSJokerAcePlayer';
-import '../RPSJokerAce.css';
+import React, { useState } from "react";
+import Player from "./RPSJokerAcePlayer";
+import RPSRulesModal from "./RPSRulesModal";
+import "../RPSJokerAce.css";
 
 const RPSJokerAceGame = () => {
-  const [playerChoice, setPlayerChoice] = useState('');
-  const [cpuChoice, setCpuChoice] = useState('');
-  const [result, setResult] = useState('');
-  const [disabledOptions, setDisabledOptions] = useState([]);
-
-  const choices = ["rock", "paper", "scissors", "joker", "ace"];
+  const [playerChoice, setPlayerChoice] = useState("");
+  const [cpuChoice, setCpuChoice] = useState("");
+  const [result, setResult] = useState("");
+  const [playerMatchScore, setPlayerMatchScore] = useState(0);
+  const [cpuMatchScore, setCpuMatchScore] = useState(0);
+  const [playerChoices, setPlayerChoices] = useState([
+    "rock",
+    "paper",
+    "scissors",
+    "joker",
+    "ace",
+  ]);
+  const [cpuChoices, setCpuChoices] = useState([
+    "rock",
+    "paper",
+    "scissors",
+    "joker",
+    "ace",
+  ]);
+  const [playerUsedChoices, setPlayerUsedChoices] = useState([]);
+  const [cpuUsedChoices, setCpuUsedChoices] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [matchEnded, setMatchEnded] = useState(false);
 
   const getCpuChoice = () => {
-    const availableChoices = choices.filter(choice => !disabledOptions.includes(choice));
-    const randomIndex = Math.floor(Math.random() * availableChoices.length);
-    const randomChoice = availableChoices[randomIndex];
-    setCpuChoice(randomChoice);
+    const availableCpuChoices = cpuChoices.filter(
+      (choice) => !cpuUsedChoices.includes(choice)
+    );
+    const randomIndex = Math.floor(Math.random() * availableCpuChoices.length);
+    const randomChoice = availableCpuChoices[randomIndex];
     return randomChoice;
   };
 
@@ -24,83 +43,148 @@ const RPSJokerAceGame = () => {
     }
 
     switch (player) {
-      case 'rock':
+      case "rock":
         switch (cpu) {
-          case 'scissors':
-          case 'joker':
-            return 'Player wins!';
-          case 'paper':
-          case 'ace':
-            return 'CPU wins!';
+          case "scissors":
+          case "joker":
+            return "Player wins!";
+          case "paper":
+          case "ace":
+            return "CPU wins!";
           default:
             return "It's a tie!";
         }
-      case 'paper':
+      case "paper":
         switch (cpu) {
-          case 'rock':
-          case 'joker':
-            return 'Player wins!';
-          case 'scissors':
-          case 'ace':
-            return 'CPU wins!';
+          case "rock":
+          case "joker":
+            return "Player wins!";
+          case "scissors":
+          case "ace":
+            return "CPU wins!";
           default:
             return "It's a tie!";
         }
-      case 'scissors':
+      case "scissors":
         switch (cpu) {
-          case 'paper':
-          case 'joker':
-            return 'Player wins!';
-          case 'rock':
-          case 'ace':
-            return 'CPU wins!';
+          case "paper":
+          case "joker":
+            return "Player wins!";
+          case "rock":
+          case "ace":
+            return "CPU wins!";
           default:
             return "It's a tie!";
         }
-      case 'joker':
+      case "joker":
         switch (cpu) {
-          case 'ace':
-            return 'Player wins!';
+          case "ace":
+            return "Player wins!";
           default:
-            return 'CPU wins!';
+            return "CPU wins!";
         }
-      case 'ace':
+      case "ace":
         switch (cpu) {
-          case 'rock':
-          case 'paper':
-          case 'scissors':
-            return 'Player wins!';
-          case 'joker':
-            return 'CPU wins!';
+          case "rock":
+          case "paper":
+          case "scissors":
+            return "Player wins!";
+          case "joker":
+            return "CPU wins!";
           default:
             return "It's a tie!";
         }
       default:
-        return "Invalid choice!";
+        return "Player wins!";
     }
   };
 
   const playGame = () => {
-    const cpuChoice = getCpuChoice();
-    const gameResult = determineWinner(playerChoice, cpuChoice);
+    const newCpuChoice = getCpuChoice();
+    setCpuChoice(newCpuChoice);
+    const gameResult = determineWinner(playerChoice, newCpuChoice);
     setResult(gameResult);
-    setDisabledOptions(prevDisabledOptions => [...prevDisabledOptions, playerChoice]);
+
+    if (gameResult === "Player wins!") {
+      setPlayerMatchScore(playerMatchScore + 1);
+    } else if (gameResult === "CPU wins!") {
+      setCpuMatchScore(cpuMatchScore + 1);
+    }
+
+    setPlayerUsedChoices([...playerUsedChoices, playerChoice]);
+    setCpuUsedChoices([...cpuUsedChoices, newCpuChoice]);
+  };
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleEndMatch = () => {
+    setMatchEnded(true);
+
+    if (playerMatchScore > cpuMatchScore) {
+      setResult("Player wins the game!");
+    } else if (cpuMatchScore > playerMatchScore) {
+      setResult("CPU wins the game!");
+    } else {
+      setResult("It's a tie game!");
+    }
+  };
+
+  const handleRefreshClick = () => {
+    setPlayerChoice("");
+    setCpuChoice("");
+    setResult("");
+    setPlayerMatchScore(0);
+    setCpuMatchScore(0);
+    setPlayerUsedChoices([]);
+    setCpuUsedChoices([]);
+    setShowModal(false);
+    setMatchEnded(false);
   };
 
   return (
     <div className="game">
       <h1>Rock, Paper, Scissors, Joker, Ace Game</h1>
-      <div className="cpu">
-        <h2>CPU</h2>
-        <p>{cpuChoice}</p>
+      <div className="scoreboard">
+        <div className="match-score">
+          <p>Player Match Score: {playerMatchScore}</p>
+          <p>CPU Match Score: {cpuMatchScore}</p>
+        </div>
       </div>
-      <Player name="Player" choice={playerChoice} setChoice={setPlayerChoice} disabledOptions={disabledOptions} />
-      <button onClick={playGame} disabled={!playerChoice}>
-        Play
-      </button>
+      <div className="player-container">
+        <Player
+          name="Player"
+          choice={playerChoice}
+          setChoice={setPlayerChoice}
+          availableChoices={playerChoices.filter(
+            (choice) => !playerUsedChoices.includes(choice)
+          )}
+        />
+      </div>
+      <div className="button-container">
+        <button className="rules-btn" onClick={handleShowModal}>
+          Rules
+        </button>
+        {!matchEnded && (
+          <button onClick={playGame} disabled={!playerChoice}>
+            Play
+          </button>
+        )}
+        <button onClick={handleRefreshClick}>Refresh</button>
+      </div>
+      <div className="cpu-container">
+        {cpuChoice && <p>CPU chose: {cpuChoice}</p>}
+      </div>
       {result && <h2>{result}</h2>}
+      <RPSRulesModal show={showModal} handleClose={handleCloseModal} />
     </div>
   );
 };
 
 export default RPSJokerAceGame;
+
