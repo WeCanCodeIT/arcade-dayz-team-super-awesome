@@ -2,26 +2,28 @@ import React from 'react';
 import '../RPSJokerAce.css'; 
 
 const Player = ({ name, choice, setChoice, availableChoices }) => {
-  const handleChoice = (event) => {
-    setChoice(event.target.value);
+  const handleChoice = (selectedChoice) => {
+    setChoice(selectedChoice);
   };
 
   return (
     <div className="player">
       <h2>{name}</h2>
-      <select value={choice} onChange={handleChoice}>
-        <option value="">Select</option>
-        {availableChoices.map(choice => (
-          <option
-            key={choice}
-            value={choice}
-            disabled={choice === '' || choice === null}
-            className={choice === '' || choice === null ? '' : 'disabled'}
+      <div className="card-row">
+        {availableChoices.map(card => (
+          <div
+            key={card}
+            className={`card ${card} ${card === choice ? 'selected' : ''}`}
+            onClick={() => handleChoice(card)}
+            style={{ 
+              opacity: card === '' || card === null ? 0.5 : 1, 
+              pointerEvents: card === '' || card === null ? 'none' : 'auto'
+            }}
           >
-            {choice.charAt(0).toUpperCase() + choice.slice(1)}
-          </option>
+            <img src={`../images/${card}.png`} alt={card} />
+          </div>
         ))}
-      </select>
+      </div>
     </div>
   );
 };

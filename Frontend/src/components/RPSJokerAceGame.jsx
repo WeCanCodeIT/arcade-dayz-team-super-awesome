@@ -9,14 +9,14 @@ const RPSJokerAceGame = () => {
   const [result, setResult] = useState("");
   const [playerMatchScore, setPlayerMatchScore] = useState(0);
   const [cpuMatchScore, setCpuMatchScore] = useState(0);
-  const [playerChoices, setPlayerChoices] = useState([
+  const [playerChoices] = useState([
     "rock",
     "paper",
     "scissors",
     "joker",
     "ace",
   ]);
-  const [cpuChoices, setCpuChoices] = useState([
+  const [cpuChoices] = useState([
     "rock",
     "paper",
     "scissors",
@@ -105,7 +105,9 @@ const RPSJokerAceGame = () => {
     const gameResult = determineWinner(playerChoice, newCpuChoice);
     setResult(gameResult);
 
-    if (gameResult === "Player wins!") {
+    if (playerUsedChoices.length === 5) {
+      handleEndMatch();
+    } else if(gameResult === "Player wins!") {
       setPlayerMatchScore(playerMatchScore + 1);
     } else if (gameResult === "CPU wins!") {
       setCpuMatchScore(cpuMatchScore + 1);
@@ -124,14 +126,14 @@ const RPSJokerAceGame = () => {
   };
 
   const handleEndMatch = () => {
-    setMatchEnded(true);
-
+    let matchResult;
+  
     if (playerMatchScore > cpuMatchScore) {
-      setResult("Player wins the game!");
+      matchResult = "Player wins the game!";
     } else if (cpuMatchScore > playerMatchScore) {
-      setResult("CPU wins the game!");
+      matchResult = "CPU wins the game!";
     } else {
-      setResult("It's a tie game!");
+      matchResult = "It's a tie game!";
     }
   };
 
@@ -187,4 +189,3 @@ const RPSJokerAceGame = () => {
 };
 
 export default RPSJokerAceGame;
-
