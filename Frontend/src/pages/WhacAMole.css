@@ -9,17 +9,15 @@
   position: relative;
   cursor: none;
   overflow: hidden;
-
-
 }
 
-.app{
+.app {
   position: relative;
 }
 
-.mole-background{
+.mole-background {
   z-index: -3;
-  background-image: url('/public/mole-background.png');
+  background-image: url("/public/mole-background.png");
   background-size: cover;
   background-position: center;
   background-repeat: repeat;
@@ -36,12 +34,11 @@
   justify-content: center;
   align-items: center;
   margin-top: 125px;
-
 }
 
 .mole-hole {
   justify-content: center;
-  cursor: none; 
+  cursor: none;
 }
 
 .mole-title {
@@ -49,21 +46,84 @@
   background-color: rgb(24, 178, 37);
   border-radius: 10px;
   margin-top: 25px;
-
-
-
 }
 
 .hammer {
   position: fixed;
-  width: 110px;  
+  width: 110px;
   height: auto;
-  pointer-events: none;  
-  transform: translate(-50px, -50px) rotate(45deg);  
+  pointer-events: none;
+  transform: translate(-50px, -50px) rotate(45deg);
   transition: transform 0.05s;
-  z-index: 1000; 
+  z-index: 1000;
 }
 
 .hammer.down {
-  transform: translate(-50px, -50px) rotate(20deg);  
+  transform: translate(-50px, -50px) rotate(20deg);
 }
+
+.hit-message{
+  z-index: 1001;
+  margin-top: 155px;
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
+  color: red;
+  font-weight: bold;
+  border: 2px solid black;
+  border-radius: 15px;
+  background-color: rgba(234, 255, 0, 0.578);
+}
+
+
+.game-over h2 {
+  color: red;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.game-over button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hit-message {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
+  color: red;
+  font-weight: bold;
+}
+
+
+.game-over h2 {
+  color: red;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.play-again {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.play-again button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+

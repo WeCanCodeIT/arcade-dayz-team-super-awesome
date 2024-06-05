@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import './WhacAMoleScoreBadge.css';
+import React, { useState } from "react";
+import "./WhacAMoleScoreBadge.css";
 
 const WhacAMoleScoreBadge = ({ score }) => {
-
-
-
   return (
     <div className="badge">
       <div className="badge-content">

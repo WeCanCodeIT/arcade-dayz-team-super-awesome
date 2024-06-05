@@ -1,12 +1,9 @@
-import React from 'react';
-import '../Monster.css'; 
+import React from "react";
+import "../Monster.css";
+import monsterImage from "./monster.png";
 
 const Monster = () => {
-  return (
-  <div className="monster">
-  <img src="/monster.png" alt="Monster" />
-  </div>
-  );
+  return <img src={monsterImage} alt="Mole" className="mole" />;
 };
 
 export default Monster;
