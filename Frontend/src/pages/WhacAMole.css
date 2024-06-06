@@ -2,13 +2,22 @@
   position: relative;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   flex-wrap: wrap;
   text-align: center;
   font-family: Arial, sans-serif;
-  position: relative;
-  cursor: none;
   overflow: hidden;
+  padding-top: 200px;
+ 
+}
+
+.whac-a-mole-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.hide-cursor {
+  cursor: none;
 }
 
 .app {
@@ -23,7 +32,11 @@
   background-repeat: repeat;
   margin: 0;
   padding: 0;
+
+  
 }
+
+
 
 .holes {
   position: relative;
@@ -31,14 +44,13 @@
   width: 320px;
   height: 320px;
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
-  margin-top: 125px;
+  margin-top: 100px;
 }
 
 .mole-hole {
   justify-content: center;
-  cursor: none;
 }
 
 .mole-title {
@@ -62,12 +74,13 @@
   transform: translate(-50px, -50px) rotate(20deg);
 }
 
-.hit-message{
+.hit-message {
   z-index: 1001;
-  margin-top: 155px;
-  position: absolute;
-  top: 10px;
-  width: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
   text-align: center;
   font-size: 24px;
   color: red;
@@ -75,39 +88,16 @@
   border: 2px solid black;
   border-radius: 15px;
   background-color: rgba(234, 255, 0, 0.578);
+  padding: 10px;
 }
 
-
-.game-over h2 {
-  color: red;
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-
-.game-over button {
-  padding: 10px 20px;
-  font-size: 18px;
-  background-color: #ffcc00;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.hit-message {
+.hit.game-over {
   position: absolute;
-  top: 10px;
-  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  font-size: 24px;
-  color: red;
-  font-weight: bold;
-}
-
-
-.game-over h2 {
-  color: red;
-  font-size: 36px;
-  margin-bottom: 20px;
+  
 }
 
 .play-again {
@@ -124,6 +114,5 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 110px;
 }
-
-

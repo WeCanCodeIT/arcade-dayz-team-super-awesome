@@ -4,7 +4,10 @@
   background-color: #dddddd53;
   border-radius: 50%;
   position: absolute;
-  cursor: none;
+}
+
+.mole-hole.game-over {
+  cursor: pointer;
 }
 
 .burst-image {
