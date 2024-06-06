@@ -11,7 +11,7 @@ function App() {
       <div>
         <Switch>
           <Route path="/tic-tac-toe" exact component={TicTacToe} />
-          <Route path="/pong-game-page" exact component={PongGame} />
+          <Route path="/PongGame" exact component={PongGame} />
           <Route path="/RPSJokerAce" component={RPSJokerAce} />
           <Route path="/mole-smash" exact component={WhacAMole} />
         </Switch>
