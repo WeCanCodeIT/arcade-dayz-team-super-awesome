@@ -3,9 +3,9 @@ import "./MoleHole.css";
 import Mole from "./Mole";
 import Monster from "./Monster";
 
-const MoleHole = ({ index, isActive, isHit, activeCharacter }) => {
+const MoleHole = ({ index, isActive, isHit, activeCharacter, isGameOver }) => {
   return (
-    <div className={`mole-hole hole-${index}`}>
+    <div className={`mole-hole hole-${index} ${isGameOver} ? "game-over" : ""}`}>
       {isActive && !isHit && activeCharacter === "mole" && <Mole />}
       {isActive && !isHit && activeCharacter === "monster" && <Monster />}
       {isHit && activeCharacter === "mole" && (
