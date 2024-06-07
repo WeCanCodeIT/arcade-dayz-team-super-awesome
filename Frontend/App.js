@@ -15,7 +15,7 @@ function App() {
           <Route path="/PongGame" exact component={PongGame} />
           <Route path="/RPSJokerAce" component={RPSJokerAce} />
           <Route path="/mole-smash" exact component={WhacAMole} />
-          <Route path="/mole-smash" exact component={AlienGame} />
+          <Route path="/alien-jump" exact component={AlienGame} />
         </Switch>
       </div>
     </Router>
