@@ -32,9 +32,9 @@ const GameCanvas = ({ updateScore }) => {
       context.font = "bold 20px Arial";
       context.fillStyle = "#FFFFFF";
       context.textAlign = "left";
-      context.fillText("Player 1", 10, 30);
+      context.fillText(`Player 1: ${scores.player1}`, 10, 70);
       context.textAlign = "right";
-      context.fillText("Player 2", canvas.width - 10, 30);
+      context.fillText(`Player 2: ${scores.player2}`, canvas.width - 10, 70);
     };
 
     const intervalId = setInterval(() => {
@@ -92,11 +92,11 @@ const GameCanvas = ({ updateScore }) => {
       let newDy = prevBall.dy;
       let player1Scored = false;
       let player2Scored = false;
-  
+
       if (prevBall.y <= 10 || prevBall.y >= 390) {
         newDy = -prevBall.dy;
       }
-  
+
       if (
         (prevBall.x <= 50 &&
           prevBall.y >= paddles.left &&
@@ -107,13 +107,13 @@ const GameCanvas = ({ updateScore }) => {
       ) {
         newDx = -prevBall.dx;
       }
-  
+
       if (prevBall.x < 0) {
         player2Scored = true;
       } else if (prevBall.x > 600) {
         player1Scored = true;
       }
-  
+
       if (player1Scored && scores.player1 < 100) {
         setScores((prevScores) => ({
           ...prevScores,
@@ -125,13 +125,13 @@ const GameCanvas = ({ updateScore }) => {
           player2: Math.min(prevScores.player2 + 20, 100),
         }));
       }
-  
+
       if (scores.player1 >= 100 || scores.player2 >= 100) {
         setGameOver(true);
         setGameRunning(false);
         setWinningPlayer(scores.player1 >= 100 ? "Player 1" : "Player 2");
       }
-  
+
       return {
         ...prevBall,
         x: prevBall.x + newDx,
@@ -141,11 +141,6 @@ const GameCanvas = ({ updateScore }) => {
       };
     });
   };
-  
-  
-  
-  
-  
 
   const startGame = () => {
     setGameRunning(true);
