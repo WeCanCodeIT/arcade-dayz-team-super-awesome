@@ -12,8 +12,13 @@ const PongGamePage = () => {
 
   return (
     <div className="pong-game-page">
-      <h1 className="title">Welcome to the Pong Game</h1>
-       <Header leftScore={score.player1} rightScore={score.player2} />       <GameCanvas updateScore={updateScore} />
+      <div className="game-container">
+        <h1 className="title">Welcome to the Pong Game</h1>
+        <div className="player-info"></div>
+        <div className="game-border">
+          <GameCanvas updateScore={updateScore} />
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,43 +1,55 @@
+
 html
+
 body {
   margin: 0;
   padding: 0;
   font-family: "Bungee Hairline", cursive;
   height: 100%;
   width: 100%;
-  background-image: url('/public/arcade-pong1.jpg');
+  background-image: url("/public/arcade-pong1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-}
-
-.pong-game-page {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start; 
+  align-items: center;
   justify-content: center;
-  width: 600px;
-  height: 260px;
-  margin: auto;
-  margin-top: 180px; 
-  border: 4px solid black;
-  padding: 0px; 
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  color: rgb(202, 35, 88);
+  color: white;
   font-size: 30px;
   text-align: center;
   margin-bottom: 10px;
   margin-top: 100px;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
 }
 
 .score {
   flex: 1;
   text-align: center;
+}
+
+.scores {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.player-score {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+  border: 2px solid white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.player-score span {
+  font-weight: bold;
 }
 
 .bubble {
@@ -54,10 +66,10 @@ canvas {
 }
 
 .controls {
-  position: absolute; 
-  top: 20%; 
-  left: 20px; 
-  transform: translateY(-50%); 
+  position: absolute;
+  top: 20%;
+  left: 20px;
+  transform: translateY(-50%);
 }
 
 .controls button {
@@ -65,7 +77,7 @@ canvas {
   color: white;
   border: none;
   padding: 10px 20px;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
   cursor: pointer;
   font-size: 16px;
   border-radius: 5px;
@@ -76,7 +88,7 @@ canvas {
 }
 
 .game-over {
-  color: rgb(202, 35, 88);
+  color: white;
   font-size: 24px;
   font-weight: bold;
   margin-top: 20px;
@@ -84,11 +96,75 @@ canvas {
   position: absolute;
   left: 20px;
   bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
 }
 
 .title {
-  color: rgb(250, 0, 117);
+  color: white;
   font-size: 24px;
   margin-bottom: 20px;
   text-align: left;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.player-border {
+  border: 4px solid white;
+  border-radius: 20px;
+}
+
+.player {
+  color: white;
+  font-size: 24px;
+  margin: 10px;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.game-border {
+  border: 4px solid white;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 450px;
+}
+
+.player-border {
+  border: 4px solid white;
+  border-radius: 20px;
+}
+
+.player {
+  color: white;
+  font-size: 30px;
+  margin: 10px;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.game-border {
+  border: 4px solid white;
+  border-radius: 20px;
+  padding: 20px;
 }
