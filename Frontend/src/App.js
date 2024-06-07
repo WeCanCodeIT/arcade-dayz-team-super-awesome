@@ -5,6 +5,7 @@ import RPSJokerAce from './pages/RPSJokerAcePage';
 import PongGame from './pages/PongGamePage';
 import WhacAMole from './pages/WhacAMolePage';
 import WhacAMoleScoreBadge from './components/WhacAMoleScoreBadge';
+import AlienGame from './pages/AlienGamePage';
 
 const App = () => {
   const location = useLocation();
@@ -14,9 +15,9 @@ const App = () => {
     document.body.classList.remove(
       "tic-tac-toe-background",
       "mole-background",
-      "habitat_background",
       "RPS_background",
-      "arcade-pong1"
+      "arcade-pong1",
+      "alien-background"
     );
 
     if (location.pathname === "/tic-tac-toe") {
@@ -27,7 +28,10 @@ const App = () => {
       document.body.classList.add("RPS_background");  
     } else if (location.pathname === "/PongGame"){
       document.body.classList.add("arcade-pong1");
+    } else if (location.pathname === "/alien-jump"){
+      document.body.classList.add("alien-background");
     } 
+
     
   }, [location]);
   
@@ -38,6 +42,7 @@ const App = () => {
           <Route path="/tic-tac-toe" exact component={TicTacToe} />
           <Route path="/RPSJokerAce" exact component={RPSJokerAce} />
           <Route path="/PongGame" exact component={PongGame} />
+          <Route path="/alien-jump" exact component={AlienGame} />
           <Route path="/mole-smash" exact>
             <WhacAMole score={score} setScore={setScore} />
           </Route>

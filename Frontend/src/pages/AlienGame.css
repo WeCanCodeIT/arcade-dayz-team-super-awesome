@@ -1,0 +1,16 @@
+.alien-game{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  flex: wrap;
+}
+
+.alien-background{
+    z-index: -3;
+    background-image: url("/public/alien-images/alien-background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+   }
