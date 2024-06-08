@@ -5,6 +5,7 @@ import RPSJokerAce from './pages/RPSJokerAcePage';
 import PongGame from './pages/PongGamePage';
 import WhacAMole from './pages/WhacAMolePage';
 import WhacAMoleScoreBadge from './components/WhacAMoleScoreBadge';
+import DiceGame from './components/DiceGame';
 
 import ConnectFourBoard from './components/ConnectFourBoard';
 
