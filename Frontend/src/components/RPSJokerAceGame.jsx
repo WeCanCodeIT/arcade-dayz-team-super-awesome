@@ -159,7 +159,6 @@ const RPSJokerAceGame = () => {
         </div>
         <div className="player-container">
           <Player
-            name="Player"
             choice={playerChoice}
             setChoice={setPlayerChoice}
             availableChoices={playerChoices.filter(

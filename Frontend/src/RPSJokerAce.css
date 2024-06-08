@@ -1,10 +1,11 @@
-.RPSJokerAce-container body {
+.RPSJokerAce-container {
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
+  width: 100%;
 }
 
 .RPSJokerAce-container .App {
@@ -12,10 +13,11 @@
 }
 
 .RPSJokerAce-container .game {
-  background-color: rgb(255, 156, 156);
+  background: rgba(255, 146, 146, 0.827);
+  border: 5px solid #ffa3a3;
+ 
   padding: 20px;
   border-radius: 10px;
-  background-size: cover;
   color: #ffffff;
 }
 
@@ -25,9 +27,11 @@
   color: #ffffff;
   font-size: 24px;
   padding: 10px;
-  background-color: #645151;
+  background-color: #d64747;
   border-radius: 15px;
   margin-bottom: 20px;
+  border: 5px solid #ffa3f6;
+
 }
 
 body.RPS_background {
@@ -41,10 +45,10 @@ body.RPS_background {
   background-repeat: repeat;
 }
 
-
 .RPSJokerAce-container .player,
 .RPSJokerAce-container .cpu {
-  margin: 20px 0;
+  margin: 20px;
+  width: 50%;
 }
 
 .RPSJokerAce-container .player-container,
@@ -52,25 +56,27 @@ body.RPS_background {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
 
 .RPSJokerAce-container .player-container {
-  order: 2; 
+  order: 2;
 }
 
 .RPSJokerAce-container .cpu-container {
-  order: 1; 
+  order: 1;
 }
 
 .RPSJokerAce-container button {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  width: 120px; 
+  width: 120px;
   margin: 0 10px;
   border-radius: 25px;
   border: none;
+  border: 5px solid #ffa3a3;
+
   background-color: #ff6f61;
   color: white;
   transition: background-color 0.3s, transform 0.3s;
@@ -92,10 +98,10 @@ body.RPS_background {
 
 .RPSJokerAce-container .button-container {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   position: absolute;
-  bottom: 20px; 
-  width: 100%; 
+  bottom: 20px;
+  width: 100%;
 }
 
 .RPSJokerAce-container .modal-backdrop {
@@ -104,19 +110,22 @@ body.RPS_background {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 100; 
-  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .RPSJokerAce-container .modal {
   background-color: #d79090;
+  border: 5px solid #ffa3f6;
+
   padding: 20px;
   border-radius: 10px;
-  max-width: 80%; 
-  z-index: 101; 
+  max-width: 80%;
+  z-index: 101;
 }
 
 .RPSJokerAce-container .card-row {
@@ -129,7 +138,8 @@ body.RPS_background {
   width: 100px;
   height: 150px;
   cursor: pointer;
-  border: 2px solid #fff;
+  border: 5px solid #ffa3f6;
+  background-color: #ffffff;
   border-radius: 10px;
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -138,6 +148,7 @@ body.RPS_background {
   width: 100%;
   height: 100%;
   border-radius: 10px;
+
 }
 
 .RPSJokerAce-container .card:hover {
@@ -145,7 +156,7 @@ body.RPS_background {
 }
 
 .RPSJokerAce-container .card.selected {
-  box-shadow: 0 0 10px 5px rgba(255, 215, 0, 0.8); 
+  box-shadow: 0 0 10px 5px rgba(255, 215, 0, 0.8);
 }
 
 .RPSJokerAce-container .card.disabled {
