@@ -114,22 +114,38 @@ const GameCanvas = ({ updateScore }) => {
         player1Scored = true;
       }
 
-      if (player1Scored && scores.player1 < 100) {
-        setScores((prevScores) => ({
-          ...prevScores,
-          player1: Math.min(prevScores.player1 + 20, 100),
-        }));
-      } else if (player2Scored && scores.player2 < 100) {
-        setScores((prevScores) => ({
-          ...prevScores,
-          player2: Math.min(prevScores.player2 + 20, 100),
-        }));
+      if (player1Scored) {
+        setScores((currentScores) => {
+          const newScore = currentScores.player1 += 20;
+          return {
+            ...currentScores,
+            player1: newScore > 100 ? 100 : newScore,
+          };
+        });
+      } else if (player2Scored) {
+        setScores((currentScores) => {
+          const newScore = currentScores.player2 + 20;
+          return {
+            ...currentScores,
+            player2: newScore > 100 ? 100 : newScore,
+          };
+        });
       }
 
       if (scores.player1 >= 100 || scores.player2 >= 100) {
         setGameOver(true);
         setGameRunning(false);
         setWinningPlayer(scores.player1 >= 100 ? "Player 1" : "Player 2");
+      }
+
+      if (player1Scored || player2Scored) {
+        return {
+          ...prevBall,
+          x: 300,
+          y: 200,
+          dx: newDx,
+          dy: newDy,
+        };
       }
 
       return {
