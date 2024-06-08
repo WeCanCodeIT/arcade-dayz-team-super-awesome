@@ -39,7 +39,7 @@ const App = () => {
 
     } else if (location.pathname === "/connect-four") {
       document.body.classList.add("retro-connect-four-background")
-    }
+    
 
     } else if (location.pathname === "/alien-jump"){
       document.body.classList.add("alien-background");
