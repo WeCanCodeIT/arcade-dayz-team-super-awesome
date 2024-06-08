@@ -1,0 +1,126 @@
+.dice-game {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    border: 5px solid #4fffe5;
+    border-radius: 15px;
+    cursor: pointer;
+    color: aliceblue;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+
+.dice-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.buttons-container button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background: rgb(0, 0, 0);
+  border: 5px solid #4fffe5;
+  border-radius: 15px;
+  cursor: pointer;
+  color: aliceblue;
+}
+.dice-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+.die {
+    width: 100px; 
+    height: 100px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    font-size: 24px;
+    background-size: contain; 
+  background-repeat: no-repeat;
+  }
+  
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+body.Dice_background {
+  background-size: cover;
+  z-index: -1;
+  background-image: url("../public/Dice_background.jpeg");
+}
+
+.rolling-gif {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.rolling-gif img {
+  width: 100px;
+  height: auto;
+}
+
+.winner-message {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: green;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: rgb(0, 0, 0);
+  padding: 20px;
+
+  border: 5px solid #4fffe5;
+  border-radius: 15px;
+  width: 300px;
+  text-align: left;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content ul {
+  padding-left: 20px;
+}
+
+.modal-content button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
