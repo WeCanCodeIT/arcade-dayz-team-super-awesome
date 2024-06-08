@@ -5,6 +5,7 @@ import RPSJokerAce from './pages/RPSJokerAcePage';
 import PongGame from './pages/PongGamePage';
 import WhacAMole from './pages/WhacAMolePage';
 import WhacAMoleScoreBadge from './components/WhacAMoleScoreBadge';
+import ConnectFourBoard from './components/ConnectFourBoard';
 
 const App = () => {
   const location = useLocation();
@@ -16,7 +17,8 @@ const App = () => {
       "mole-background",
       "habitat_background",
       "RPS_background",
-      "arcade-pong1"
+      "arcade-pong1",
+      "retro-connect-four-background"
     );
 
     if (location.pathname === "/tic-tac-toe") {
@@ -27,7 +29,9 @@ const App = () => {
       document.body.classList.add("RPS_background");  
     } else if (location.pathname === "/PongGame"){
       document.body.classList.add("arcade-pong1");
-    } 
+    } else if (location.pathname === "/connect-four") {
+      document.body.classList.add("retro-connect-four-background")
+    }
     
   }, [location]);
   
@@ -41,6 +45,7 @@ const App = () => {
           <Route path="/mole-smash" exact>
             <WhacAMole score={score} setScore={setScore} />
           </Route>
+          <Route path="/connect-four" exact component={ConnectFourBoard} />
         </Switch>
         {location.pathname === '/mole-smash' && (
           <div className="app">

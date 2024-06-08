@@ -1,13 +1,9 @@
 import React from 'react';
-import './ConnectFourSlot.css';
 
 const ConnectFourSlot = ({ value, onClick }) => {
-  const getColor = () => {
-    return value === 'Red' ? 'red' : value === 'Yellow' ? 'yellow' : 'white';
-  };
-
+  const colorClass = value === 'Player 1' ? 'player1' : value === 'Player 2' ? 'player2' : '';
   return (
-    <div className="slot" onClick={onClick} style={{ backgroundColor: getColor() }}></div>
+    <div className={`slot ${colorClass}`} onClick={onClick} />
   );
 };
 

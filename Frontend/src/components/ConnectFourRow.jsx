@@ -1,7 +1,7 @@
 import React from 'react';
 import ConnectFourSlot from './ConnectFourSlot';
 
-const Row = ({ row, onDrop }) => {
+const ConnectFourRow = ({ row, onDrop }) => {
   return (
     <tr>
       {row.map((cell, columnIndex) => (
@@ -15,4 +15,4 @@ const Row = ({ row, onDrop }) => {
   );
 };
 
-export default Row;
+export default ConnectFourRow;
