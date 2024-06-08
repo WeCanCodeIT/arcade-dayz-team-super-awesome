@@ -66,14 +66,47 @@ const Alien = ({ platforms, spaceshipPosition, onWin }) => {
     return null;
   };
 
+  const checkFireballCollision = (pos) => {
+    for (let fireball of fireballs) {
+      const fireballLeft = fireball.left;
+      const fireballRight = fireball.left + 50;
+      const fireballTop = fireball.top;
+      const fireballBottom = fireball.top + 50
+
+      if (
+        pos.left + PLAYER_WIDTH > fireballLeft &&
+        pos.left < fireballRight &&
+        pos.top + PLAYER_HEIGHT > fireballTop &&
+        pos.top < fireballBottom
+      ) {
+        return true;
+      }
+
+      return false;
+    }
+
+
+   
+
+    return (
+      playerRight > fireballLeft &&
+      playerLeft < fireballRight &&
+      playerBottom > fireballTop &&
+      playerTop < fireballBottom
+    );
+
+  };
+
   const checkSpaceshipCollision = (pos) => {
-    const spaceshipLeft = spaceshipPosition.left;
-    const spaceshipRight = spaceshipPosition.left + spaceshipPosition.width;
-    const spaceshipBottom = spaceshipPosition.top + spaceshipPosition.height;
+    const offset = -45;
+    const offsetBottom = -38;
+    const spaceshipLeft = spaceshipPosition.left + offset;
+    const spaceshipRight = spaceshipPosition.left + spaceshipPosition.width - offset;
+    const spaceshipBottom = spaceshipPosition.top + spaceshipPosition.height + offsetBottom;
 
     if (
-      pos.left + PLAYER_WIDTH / 2 > spaceshipLeft + spaceshipPosition.width / 4 && 
-      pos.left + PLAYER_WIDTH / 2 < spaceshipRight - spaceshipPosition.width / 4 &&
+      pos.left + PLAYER_WIDTH / 2 > spaceshipLeft && 
+      pos.left + PLAYER_WIDTH / 2 < spaceshipRight &&
       pos.top + PLAYER_HEIGHT >= spaceshipBottom &&
       pos.top <= spaceshipBottom + 10 
     ) {
@@ -112,12 +145,18 @@ const Alien = ({ platforms, spaceshipPosition, onWin }) => {
           return prev;
         }
 
+        const fireballCollision = checkFireballCollision({ left: newLeft, top: newTop});
+        if (fireballCollision) {
+          onLose();
+          return prev;
+        }
+
         return { left: newLeft, top: newTop };
       });
     }, 20);
 
     return () => clearInterval(gameLoop);
-  }, [velocity, platforms, spaceshipPosition, onWin]);
+  }, [velocity, platforms, spaceshipPosition, onWin, onLose]);
 
   useEffect(() => {
     if (onPlatform && onPlatform.isMoving) {
