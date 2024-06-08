@@ -22,7 +22,7 @@ const App = () => {
       "RPS_background",
       "arcade-pong1",
 
-      "retro-connect-four-background"
+      "retro-connect-four-background",
 
       "alien-background",
       "Dice_background"
