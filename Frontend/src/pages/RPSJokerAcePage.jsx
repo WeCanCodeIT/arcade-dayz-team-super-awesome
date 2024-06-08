@@ -13,7 +13,6 @@ const RPSJokerAcePage = () => {
     <div className="rps-joker-ace-page">
       <div className="RPSJokerace-background"></div>
       <div className="game-title">
-        <h1>Rock, Paper, Scissors, Joker, Ace</h1>
       </div>
       <RPSJokerAceGame key={refreshData} handleRefresh={handleRefresh} />
     </div>

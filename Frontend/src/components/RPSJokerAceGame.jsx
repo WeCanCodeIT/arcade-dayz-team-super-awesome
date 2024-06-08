@@ -51,8 +51,6 @@ const RPSJokerAceGame = () => {
           case "paper":
           case "ace":
             return "CPU wins!";
-          default:
-            return "It's a tie!";
         }
       case "paper":
         switch (cpu) {
@@ -62,8 +60,6 @@ const RPSJokerAceGame = () => {
           case "scissors":
           case "ace":
             return "CPU wins!";
-          default:
-            return "It's a tie!";
         }
       case "scissors":
         switch (cpu) {
@@ -73,8 +69,6 @@ const RPSJokerAceGame = () => {
           case "rock":
           case "ace":
             return "CPU wins!";
-          default:
-            return "It's a tie!";
         }
       case "joker":
         switch (cpu) {
@@ -91,30 +85,33 @@ const RPSJokerAceGame = () => {
             return "Player wins!";
           case "joker":
             return "CPU wins!";
-          default:
-            return "It's a tie!";
         }
       default:
-        return "Player wins!";
+        return "Thanks for playing!";
     }
   };
 
   const playGame = () => {
     const newCpuChoice = getCpuChoice();
-    setCpuChoice(newCpuChoice);
     const gameResult = determineWinner(playerChoice, newCpuChoice);
-    setResult(gameResult);
 
-    if (playerUsedChoices.length === 5) {
-      handleEndMatch();
-    } else if(gameResult === "Player wins!") {
+    if (gameResult === "Player wins!") {
       setPlayerMatchScore(playerMatchScore + 1);
     } else if (gameResult === "CPU wins!") {
       setCpuMatchScore(cpuMatchScore + 1);
+    } else {
+      setPlayerMatchScore(playerMatchScore);
+      setCpuMatchScore(cpuMatchScore);
     }
 
     setPlayerUsedChoices([...playerUsedChoices, playerChoice]);
     setCpuUsedChoices([...cpuUsedChoices, newCpuChoice]);
+    setCpuChoice(newCpuChoice);
+    setResult(gameResult);
+
+    if (playerUsedChoices.length === 5) { 
+      handleEndMatch();
+    }
   };
 
   const handleShowModal = () => {
@@ -126,8 +123,8 @@ const RPSJokerAceGame = () => {
   };
 
   const handleEndMatch = () => {
+    setMatchEnded(true); 
     let matchResult;
-  
     if (playerMatchScore > cpuMatchScore) {
       matchResult = "Player wins the game!";
     } else if (cpuMatchScore > playerMatchScore) {
@@ -135,6 +132,7 @@ const RPSJokerAceGame = () => {
     } else {
       matchResult = "It's a tie game!";
     }
+    window.alert(matchResult); 
   };
 
   const handleRefreshClick = () => {
@@ -150,40 +148,41 @@ const RPSJokerAceGame = () => {
   };
 
   return (
-    <div className="game">
-      <h1>Rock, Paper, Scissors, Joker, Ace Game</h1>
-      <div className="scoreboard">
-        <div className="match-score">
-          <p>Player Match Score: {playerMatchScore}</p>
-          <p>CPU Match Score: {cpuMatchScore}</p>
+    <div className="RPSJokerAce-container">
+      <div className="game">
+        <h1 className="game-title">Rock, Paper, Scissors, Joker, Ace Game</h1>
+        <div className="scoreboard">
+          <div className="match-score">
+            <p>Player Match Score: {playerMatchScore}</p>
+            <p>CPU Match Score: {cpuMatchScore}</p>
+          </div>
         </div>
-      </div>
-      <div className="player-container">
-        <Player
-          name="Player"
-          choice={playerChoice}
-          setChoice={setPlayerChoice}
-          availableChoices={playerChoices.filter(
-            (choice) => !playerUsedChoices.includes(choice)
-          )}
-        />
-      </div>
-      <div className="button-container">
-        <button className="rules-btn" onClick={handleShowModal}>
-          Rules
-        </button>
-        {!matchEnded && (
-          <button onClick={playGame} disabled={!playerChoice}>
-            Play
+        <div className="player-container">
+          <Player
+            choice={playerChoice}
+            setChoice={setPlayerChoice}
+            availableChoices={playerChoices.filter(
+              (choice) => !playerUsedChoices.includes(choice)
+            )}
+          />
+        </div>
+        <div className="button-container">
+          <button className="rules-btn" onClick={handleShowModal}>
+            Rules
           </button>
-        )}
-        <button onClick={handleRefreshClick}>Refresh</button>
+          {!matchEnded && (
+            <button onClick={playGame} disabled={!playerChoice}>
+              Play
+            </button>
+          )}
+          <button onClick={handleRefreshClick}>Refresh</button>
+        </div>
+        <div className="cpu-container">
+          {cpuChoice && <p>CPU chose: {cpuChoice}</p>}
+        </div>
+        {result && <h2>{result}</h2>}
+        <RPSRulesModal show={showModal} handleClose={handleCloseModal} />
       </div>
-      <div className="cpu-container">
-        {cpuChoice && <p>CPU chose: {cpuChoice}</p>}
-      </div>
-      {result && <h2>{result}</h2>}
-      <RPSRulesModal show={showModal} handleClose={handleCloseModal} />
     </div>
   );
 };
