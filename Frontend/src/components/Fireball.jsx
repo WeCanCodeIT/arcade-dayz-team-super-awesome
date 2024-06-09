@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../Fireball.css";
 
-const Fireball = ({ position, onHit, gameArea }) => {
+const Fireball = ({ position, onHit, gameArea, playerPosition }) => {
   const [currentPosition, setCurrentPosition] = useState(position);
 
   useEffect(() => {
-    if(!gameArea.height) return;
-    
+    if (!gameArea.height) return;
+
     const interval = setInterval(() => {
       setCurrentPosition((prevPosition) => {
         const newTop = prevPosition.top + 15;
@@ -22,29 +22,29 @@ const Fireball = ({ position, onHit, gameArea }) => {
   }, [gameArea]);
 
   useEffect(() => {
-   const detectCollision = () => {
-    const fireballLeft = currentPosition.left;
-    const fireballRight = currentPosition.left + 50;
-    const fireballTop = currentPosition.top;
-    const fireballBottom = currentPosition.top + 50;
+    const detectCollision = () => {
+      const fireballLeft = currentPosition.left;
+      const fireballRight = currentPosition.left + 50;
+      const fireballTop = currentPosition.top;
+      const fireballBottom = currentPosition.top + 50;
 
-    const playerLeft = position.left;
-    const playerRight = position + position.width;
-    const playerTop = position.top;
-    const playerBottom = position.top + position.height;
+      const playerLeft = playerPosition.left;
+      const playerRight = playerPosition.left + playerPosition.width;
+      const playerTop = playerPosition.top;
+      const playerBottom = playerPosition.top + playerPosition.height;
 
-    if (
-      fireballLeft < playerRight &&
-      fireballRight > playerLeft &&
-      fireballTop < playerBottom &&
-      fireballBottom > playerTop
-    ) {
-      onHit();
-    }
-  };
+      if (
+        fireballLeft < playerRight &&
+        fireballRight > playerLeft &&
+        fireballTop < playerBottom &&
+        fireballBottom > playerTop
+      ) {
+        onHit();
+      }
+    };
 
-  detectCollision();
-}, [currentPosition, position, onHit]); 
+    detectCollision();
+  }, [currentPosition, playerPosition, onHit]);
 
   return <img className="fireball" src="/alien-images/fireball.png" style={{ top: currentPosition.top, left: currentPosition.left, position: 'absolute' }} alt="Fireball" />;
 };

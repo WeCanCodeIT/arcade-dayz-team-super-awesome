@@ -43,3 +43,11 @@
     text-align: center;
 
   }
+
+  .start-button {
+    position: absolute;
+    bottom: 30%; 
+    left: 45%;
+    text-align: center;
+  
+  }

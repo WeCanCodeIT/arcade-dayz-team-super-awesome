@@ -7,7 +7,7 @@ const PLAYER_HEIGHT = 50;
 const PLAYER_WIDTH = 50;
 const COLLISION_OFFSET = 12;
 
-const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs }) => {
+const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updatePlayerPosition, gameArea }) => {
   const [position, setPosition] = useState({ left: platforms[0].left, top: platforms[0].top - PLAYER_HEIGHT });
   const [velocity, setVelocity] = useState({ x: 0, y: 0 });
   const [isJumping, setIsJumping] = useState(false);
@@ -67,7 +67,7 @@ const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs }) => {
   };
 
   const checkFireballCollision = (pos) => {
-    if(!Array.isArray(fireballs)) return false;
+    if (!Array.isArray(fireballs)) return false;
     
     for (let i = 0; i < fireballs.length; i++) {
       const fireball = fireballs[i];
@@ -86,9 +86,8 @@ const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs }) => {
       }
     }
 
-return false;
-   
-};
+    return false;
+  };
 
   const checkSpaceshipCollision = (pos) => {
     const offset = -45;
@@ -138,20 +137,25 @@ return false;
           return prev;
         }
 
-        const fireballCollision = checkFireballCollision({ left: newLeft, top: newTop});
+        const fireballCollision = checkFireballCollision({ left: newLeft, top: newTop });
         if (fireballCollision) {
           onLose();
           return prev;
         }
 
-        setPosition({ left: newLeft, top: newTop, width: PLAYER_WIDTH, height: PLAYER_HEIGHT });
+        if (newTop > gameArea.height) {
+          onLose();
+          return prev;
+        }
 
-        return { left: newLeft, top: newTop };
+        const newPosition = { left: newLeft, top: newTop, width: PLAYER_WIDTH, height: PLAYER_HEIGHT };
+        updatePlayerPosition(newPosition);
+        return newPosition;
       });
     }, 20);
 
     return () => clearInterval(gameLoop);
-  }, [velocity, platforms, spaceshipPosition, fireballs, onWin, onLose]);
+  }, [velocity, platforms, spaceshipPosition, fireballs, gameArea, onWin, onLose, updatePlayerPosition]);
 
   useEffect(() => {
     if (onPlatform && onPlatform.isMoving) {
