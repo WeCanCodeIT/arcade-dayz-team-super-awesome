@@ -35,6 +35,7 @@ const AlienGame = () => {
   const gameAreaRef = useRef(null);
   const [gameArea, setGameArea] = useState({ width: 0, height: 0 });
   const [fireballs, setFireballs] = useState([]);
+  const [playerPosition, setPlayerPosition] = useState({ left: 0, top: 0, width: 50, height: 50 });
 
   useEffect(() => {
     const updateGameArea = () => {
@@ -85,6 +86,10 @@ const AlienGame = () => {
     setGameLost(true);
   };
 
+  const updatePlayerPosition = (newPosition) => {
+    setPlayerPosition(newPosition);
+  };
+
   if (gameLost) {
     return <div className="game-container"><div className="win-message">Game Over! The alien was hit!</div></div>;
   }
@@ -95,7 +100,13 @@ const AlienGame = () => {
       <div className="alien-game">
         <Spaceship position={spaceshipPosition} />
         {!gameWon && !gameLost && (
-          <Alien platforms={platforms} spaceshipPosition={spaceshipPosition} onWin={handleWin} />
+          <Alien platforms={platforms} 
+          spaceshipPosition={spaceshipPosition} 
+          fireballs={fireballs}
+          onWin={handleWin} 
+          onLose={handleHit} 
+          updatePlayerPosition={updatePlayerPosition}  
+          />
         )}
         {platforms.map((platform) => (
           <Platform
@@ -110,7 +121,7 @@ const AlienGame = () => {
           />
         ))}
         {!gameWon && !gameLost && fireballs.map((fireball) => (
-          <Fireball key={fireball.id} position={fireball} gameArea={gameArea} onHit={handleHit} />
+          <Fireball key={fireball.id} position={fireball} gameArea={gameArea} updatePlayerPosition={updatePlayerPosition} onHit={handleHit} />
         ))}
       </div>
     </div>

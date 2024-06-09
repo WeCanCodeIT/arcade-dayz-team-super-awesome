@@ -22,9 +22,29 @@ const Fireball = ({ position, onHit, gameArea }) => {
   }, [gameArea]);
 
   useEffect(() => {
-    // Collision detection logic here
-    // If collision is detected, call onHit
-  }, [currentPosition, onHit]);
+   const detectCollision = () => {
+    const fireballLeft = currentPosition.left;
+    const fireballRight = currentPosition.left + 50;
+    const fireballTop = currentPosition.top;
+    const fireballBottom = currentPosition.top + 50;
+
+    const playerLeft = position.left;
+    const playerRight = position + position.width;
+    const playerTop = position.top;
+    const playerBottom = position.top + position.height;
+
+    if (
+      fireballLeft < playerRight &&
+      fireballRight > playerLeft &&
+      fireballTop < playerBottom &&
+      fireballBottom > playerTop
+    ) {
+      onHit();
+    }
+  };
+
+  detectCollision();
+}, [currentPosition, position, onHit]); 
 
   return <img className="fireball" src="/alien-images/fireball.png" style={{ top: currentPosition.top, left: currentPosition.left, position: 'absolute' }} alt="Fireball" />;
 };
