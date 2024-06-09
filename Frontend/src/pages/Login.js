@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigation();
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();

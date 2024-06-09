@@ -4,6 +4,7 @@ import TicTacToe from './pages/TicTacToePage';
 import RPSJokerAce from './pages/RPSJokerAcePage';
 import PongGame from './pages/PongGamePage';
 import WhacAMole from './pages/WhacAMolePage';
+import HomePage from './pages/HomePage';
 import WhacAMoleScoreBadge from './components/WhacAMoleScoreBadge';
 import DiceGame from './components/DiceGame';
 import Login from './pages/Login';
@@ -59,6 +60,7 @@ const App = () => {
         <Route path="/userInfo" element={<UserInfo />} />
         <Route path="/mole-smash" element={<WhacAMole score={score} setScore={setScore} />} />
         <Route path="/connect-four" element={<ConnectFourBoard />} />
+        <Route path="/" exact component={HomePage} />
       </Routes>
       {location.pathname === '/mole-smash' && (
         <div className="app">

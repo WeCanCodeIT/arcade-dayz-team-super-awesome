@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
 const UserInfo = () => {
     const [user, setUser] = useState(null);
-    const [useLocation] = useLocation();
-    const username = useLocation.get('username');
+    const location = useLocation();
+    const query = useQuery();
+    const username = query.get('username');
 
     useEffect(() => {
         const fetchUser = async () => {
