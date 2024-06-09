@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const UserInfo = () => {
     const [user, setUser] = useState(null);
-    const [searchParams] = useSearchParams();
-    const username = searchParams.get('username');
+    const [useLocation] = useLocation();
+    const username = useLocation.get('username');
 
     useEffect(() => {
         const fetchUser = async () => {
