@@ -17,7 +17,7 @@ const Platform = ({
         setCurrentPosition((prev) => {
           let newPos = prev + direction * speed;
           if (newPos > range.end || newPos < range.start) {
-            setDirection(-direction);
+            setDirection((dir) => -dir);
             newPos = prev + direction * speed;
           }
 
@@ -34,8 +34,6 @@ const Platform = ({
     <div
       className="platform"
       style={{ left: `${currentPosition}px`, top: `${position.top}px` }}
-      data-left={currentPosition}
-      data-top={position.top}
     >
       <img src="/alien-images/wood-plank.png" alt="Platform" />
     </div>

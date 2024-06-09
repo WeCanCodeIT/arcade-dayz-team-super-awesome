@@ -7,7 +7,7 @@ const PLAYER_HEIGHT = 50;
 const PLAYER_WIDTH = 50;
 const COLLISION_OFFSET = 12;
 
-const Alien = ({ platforms, spaceshipPosition, onWin }) => {
+const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updatePlayerPosition, gameArea }) => {
   const [position, setPosition] = useState({ left: platforms[0].left, top: platforms[0].top - PLAYER_HEIGHT });
   const [velocity, setVelocity] = useState({ x: 0, y: 0 });
   const [isJumping, setIsJumping] = useState(false);
@@ -66,14 +66,39 @@ const Alien = ({ platforms, spaceshipPosition, onWin }) => {
     return null;
   };
 
+  const checkFireballCollision = (pos) => {
+    if (!Array.isArray(fireballs)) return false;
+    
+    for (let i = 0; i < fireballs.length; i++) {
+      const fireball = fireballs[i];
+      const fireballLeft = fireball.left;
+      const fireballRight = fireball.left + 50;
+      const fireballTop = fireball.top;
+      const fireballBottom = fireball.top + 50
+
+      if (
+        pos.left + PLAYER_WIDTH > fireballLeft &&
+        pos.left < fireballRight &&
+        pos.top + PLAYER_HEIGHT > fireballTop &&
+        pos.top < fireballBottom
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
   const checkSpaceshipCollision = (pos) => {
-    const spaceshipLeft = spaceshipPosition.left;
-    const spaceshipRight = spaceshipPosition.left + spaceshipPosition.width;
-    const spaceshipBottom = spaceshipPosition.top + spaceshipPosition.height;
+    const offset = -45;
+    const offsetBottom = -38;
+    const spaceshipLeft = spaceshipPosition.left + offset;
+    const spaceshipRight = spaceshipPosition.left + spaceshipPosition.width - offset;
+    const spaceshipBottom = spaceshipPosition.top + spaceshipPosition.height + offsetBottom;
 
     if (
-      pos.left + PLAYER_WIDTH / 2 > spaceshipLeft + spaceshipPosition.width / 4 && 
-      pos.left + PLAYER_WIDTH / 2 < spaceshipRight - spaceshipPosition.width / 4 &&
+      pos.left + PLAYER_WIDTH / 2 > spaceshipLeft && 
+      pos.left + PLAYER_WIDTH / 2 < spaceshipRight &&
       pos.top + PLAYER_HEIGHT >= spaceshipBottom &&
       pos.top <= spaceshipBottom + 10 
     ) {
@@ -112,12 +137,25 @@ const Alien = ({ platforms, spaceshipPosition, onWin }) => {
           return prev;
         }
 
-        return { left: newLeft, top: newTop };
+        const fireballCollision = checkFireballCollision({ left: newLeft, top: newTop });
+        if (fireballCollision) {
+          onLose();
+          return prev;
+        }
+
+        if (newTop > gameArea.height) {
+          onLose();
+          return prev;
+        }
+
+        const newPosition = { left: newLeft, top: newTop, width: PLAYER_WIDTH, height: PLAYER_HEIGHT };
+        updatePlayerPosition(newPosition);
+        return newPosition;
       });
     }, 20);
 
     return () => clearInterval(gameLoop);
-  }, [velocity, platforms, spaceshipPosition, onWin]);
+  }, [velocity, platforms, spaceshipPosition, fireballs, gameArea, onWin, onLose, updatePlayerPosition]);
 
   useEffect(() => {
     if (onPlatform && onPlatform.isMoving) {
