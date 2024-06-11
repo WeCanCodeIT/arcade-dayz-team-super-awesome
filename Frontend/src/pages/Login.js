@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css'
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -27,7 +28,7 @@ const Login = () => {
             if (response.ok) {
                 const data = await response.text();
                 alert(data);
-                navigate(`/userinfo?username=${username}`);
+                navigate(`/login?username=${username}`);
             } else {
                 const errorText = await response.text();
                 alert(`Error: ${errorText}`);
@@ -39,11 +40,16 @@ const Login = () => {
         }
     };
 
+    const handleSignup = () => {
+        navigate('/signup');
+    };
+
     return (
-        <div>
+        <div className="login-background">
+        <div className="login-container">
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
-                <div>
+                <div className="username">
                     <label>Username: </label>
                     <input
                         type="text"
@@ -51,7 +57,7 @@ const Login = () => {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
-                <div>
+                <div className="password">
                     <label>Password: </label>
                     <input
                         type="password"
@@ -59,10 +65,14 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+                <div className="login-buttons">
                 <button type="submit" disabled={loading}>
                     {loading ? 'Logging in...' : 'Login'}
                 </button>
+                <button onClick={handleSignup}>Sign up</button> 
+                </div>
             </form>
+        </div>
         </div>
     );
 };
