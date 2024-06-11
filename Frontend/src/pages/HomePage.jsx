@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../pages/HomePageStyle.css";
-import NavBar from "../components/NavBar";
+import NavBar from "../pages/NavBar";
 import "../components/NavBar.css";
 
 function HomePage({ user }) {
   return (
-    <><NavBar /><div className="navbar">
+
       <div className="home-container">
         <h1>Arcade Dayz</h1>
         <div className="home-links-container">
@@ -20,7 +20,7 @@ function HomePage({ user }) {
         </div>
       </div>
 
-    </div></>
+   
    
   );
 }

@@ -47,15 +47,11 @@ public class TicTacToeController {
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/userinfo")
-    public ResponseEntity<?> userInfo(@RequestParam(required = false) String username) {
-        if (username == null || username.isEmpty()) {
-            return ResponseEntity.badRequest().body("Username parameter is missing");
+    @GetMapping("/records")
+    public ResponseEntity<?> userInfo() {
+        if (!ticTacToeServiceImpl.findTopThree().isEmpty()){
+            return ResponseEntity.ok(ticTacToeServiceImpl.findTopThree());
         }
-        User user = userServiceImpl.findByUsername(username);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok("list is empty");
     }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes, useLocation,} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import TicTacToe from "./pages/TicTacToePage";
 import RPSJokerAce from "./pages/RPSJokerAcePage";
 import PongGame from "./pages/PongGamePage";
@@ -12,8 +12,7 @@ import Signup from "./pages/Signup";
 import UserInfo from "./pages/UserInfo";
 import ConnectFourBoard from "./components/ConnectFourBoard";
 import AlienGame from "./pages/AlienGamePage";
-import NavBar from "./components/NavBar";
-
+import NavBar from "./pages/NavBar";
 
 const App = () => {
   const location = useLocation();
@@ -31,7 +30,6 @@ const App = () => {
       "spaceshipBackground",
       "gameboy",
       "signup-background"
-
     );
 
     if (location.pathname === "/tic-tac-toe") {
@@ -52,15 +50,18 @@ const App = () => {
       document.body.classList.add("arcade-pong1");
     } else if (location.pathname === "/HomePage") {
       document.body.classList.add("spaceshipBackground");
-    } else if (location.pathname === "/" || "/signup") {
+    } else if (location.pathname === "/" || location.pathname === "/signup") {
       document.body.classList.add("gameboy");
-    }  else if (location.pathname === "/signup") {
+    } else if (location.pathname === "/signup") {
       document.body.classList.add("signup-background");
     }
   }, [location]);
 
+  const isAuthRoute = location.pathname === "/" || location.pathname === "/signup";
+
   return (
     <div>
+      {!isAuthRoute && <NavBar />}
       <Routes>
         <Route path="/nav" element={<NavBar />} />
         <Route path="/tic-tac-toe" element={<TicTacToe />} />
