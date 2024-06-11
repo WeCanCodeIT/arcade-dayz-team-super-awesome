@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../pages/HomePageStyle.css";
+import NavBar from "../components/NavBar";
+import "../components/NavBar.css";
 
-function HomePage() {
+function HomePage({ user }) {
   return (
-      <div className="home-page">
+    <><NavBar /><div className="navbar">
       <div className="home-container">
         <h1>Arcade Dayz</h1>
         <div className="home-links-container">
@@ -17,7 +19,9 @@ function HomePage() {
           <Link to="/alien-jump" className="home-link">Alien Jump</Link>
         </div>
       </div>
-   </div>
+
+    </div></>
+   
   );
 }
 

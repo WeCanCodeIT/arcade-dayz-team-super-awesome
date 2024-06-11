@@ -12,7 +12,7 @@ import Signup from "./pages/Signup";
 import UserInfo from "./pages/UserInfo";
 import ConnectFourBoard from "./components/ConnectFourBoard";
 import AlienGame from "./pages/AlienGamePage";
-import NavBar from "./pages/NavBar";
+import NavBar from "./components/NavBar";
 
 
 const App = () => {
@@ -62,6 +62,7 @@ const App = () => {
   return (
     <div>
       <Routes>
+        <Route path="/nav" element={<NavBar />} />
         <Route path="/tic-tac-toe" element={<TicTacToe />} />
         <Route path="/RPSJokerAce" element={<RPSJokerAce />} />
         <Route path="/PongGame" element={<PongGame />} />
@@ -75,7 +76,6 @@ const App = () => {
           element={<WhacAMole score={score} setScore={setScore} />}
         />
         <Route path="/connect-four" element={<ConnectFourBoard />} />
-        <Route path="/nav" element={<NavBar />} />
         <Route path="/HomePage" element={<HomePage />} />
       </Routes>
       {location.pathname === "/mole-smash" && (

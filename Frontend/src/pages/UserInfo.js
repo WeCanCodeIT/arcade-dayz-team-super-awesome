@@ -5,7 +5,7 @@ const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
 
-const UserInfo = () => {
+const UserInfo = ({ userData }) => {
     const [user, setUser] = useState(null);
     const location = useLocation();
     const query = useQuery();
@@ -21,6 +21,7 @@ const UserInfo = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setUser(data);
+                    userData(data);
                 } else {
                     alert('Error fetching user info');
                 }
@@ -32,7 +33,7 @@ const UserInfo = () => {
         if (username) {
             fetchUser();
         }
-    }, [username]);
+    }, [userData, username]);
 
     if (!user) {
         return <div>Loading...</div>;

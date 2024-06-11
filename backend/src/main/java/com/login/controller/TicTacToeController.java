@@ -46,4 +46,16 @@ public class TicTacToeController {
         }
         return ResponseEntity.ok(user);
     }
+
+    @GetMapping("/userinfo")
+    public ResponseEntity<?> userInfo(@RequestParam(required = false) String username) {
+        if (username == null || username.isEmpty()) {
+            return ResponseEntity.badRequest().body("Username parameter is missing");
+        }
+        User user = userServiceImpl.findByUsername(username);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(user);
+    }
 }
