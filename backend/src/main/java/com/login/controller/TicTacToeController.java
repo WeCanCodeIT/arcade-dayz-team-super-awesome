@@ -9,6 +9,8 @@ import com.login.model.User;
 import com.login.service.TicTacToeImpl;
 import com.login.service.UserServiceImpl;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/tictactoe")
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
@@ -22,15 +24,14 @@ public class TicTacToeController {
 
     @PostMapping("/winner")
     public ResponseEntity<String> winner(@RequestBody User user) {
-        int winner = 1;
-
         if (userServiceImpl.findByUsername(user.getUsername()) != null) {
-         if (ticTacToeServiceImpl.findScore(user.getUsername()) < 1){
-          ticTacToeServiceImpl.save(new TicTacToe(user.getId(), user.getUsername(), winner));
-         } else {
-          ticTacToeServiceImpl.save(new TicTacToe(user.getId(), user.getUsername(), winner ++));
-         }
-
+            TicTacToe ticTacToeRecord = ticTacToeServiceImpl.findByUsername(user.getUsername());
+            if (ticTacToeRecord == null) {
+                ticTacToeServiceImpl.save(new TicTacToe(user.getId(), user.getUsername(), 1));
+            } else {
+                ticTacToeRecord.setWins(ticTacToeRecord.getWins() + 1);
+                ticTacToeServiceImpl.save(ticTacToeRecord);
+            }
         }
         return ResponseEntity.ok("Winner!");
     }
@@ -48,10 +49,11 @@ public class TicTacToeController {
     }
 
     @GetMapping("/records")
-    public ResponseEntity<?> userInfo() {
-        if (!ticTacToeServiceImpl.findTopThree().isEmpty()){
-            return ResponseEntity.ok(ticTacToeServiceImpl.findTopThree());
+    public ResponseEntity<?> topScores() {
+        List<TicTacToe> topThreeScores = ticTacToeServiceImpl.findTopThree();
+        if (!topThreeScores.isEmpty()) {
+            return ResponseEntity.ok(topThreeScores);
         }
-        return ResponseEntity.ok("list is empty");
+        return ResponseEntity.ok("List is empty");
     }
 }

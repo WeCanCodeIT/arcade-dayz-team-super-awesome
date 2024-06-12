@@ -19,7 +19,7 @@ const Signup = () => {
         body: JSON.stringify({ username, password, fullName }),
         credentials: "include",
       });
-
+      
       if (response.ok) {
         const data = await response.text();
         alert(data);

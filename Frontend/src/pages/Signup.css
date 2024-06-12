@@ -24,7 +24,7 @@
   text-align: center;
   font-family: "Arial", sans-serif;
   margin-top: -418px;
-  margin-left: -35px;
+  margin-left: -55px;
   background-color: rgba(173, 216, 230, 0.2);
   border-radius: 10px;
   padding: 20px;
@@ -44,6 +44,7 @@
   margin-top: -10px;
   width: 100%;
   padding-top: -10px;
+ 
 }
 
 .signup-fields div {
@@ -83,13 +84,13 @@
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #14877f;
+  background-color: #364746;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .signup-button:hover {
-  background-color: #0a2830;
+  background-color: #059647;
   color: #ffffff;
 }
