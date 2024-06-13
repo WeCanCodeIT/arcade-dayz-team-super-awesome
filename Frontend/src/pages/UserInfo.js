@@ -13,8 +13,8 @@ const UserInfo = ({ onUserFetch }) => {
                     credentials: 'include',
                 });
                 if (response.ok) {
-                    const data = await response.json();
-                    onUserFetch(data); 
+                    const userData = await response.json();
+                    onUserFetch(userData); 
                 } else {
                     alert('Error fetching user info');
                 }
