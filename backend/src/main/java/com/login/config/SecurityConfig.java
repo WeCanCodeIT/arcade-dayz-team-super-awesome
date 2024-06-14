@@ -30,6 +30,9 @@ public class SecurityConfig {
         config.addAllowedHeader("*");
         config.addAllowedMethod(HttpMethod.GET);
         config.addAllowedMethod(HttpMethod.POST);
+        config.addAllowedMethod(HttpMethod.PUT);
+        config.addAllowedMethod(HttpMethod.DELETE);
+        config.addAllowedMethod(HttpMethod.OPTIONS);
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
@@ -37,14 +40,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors().and() 
-            .csrf().disable() 
-            .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/auth/signup").permitAll() 
-                .antMatchers(HttpMethod.GET, "/auth/userinfo").permitAll()
-                .anyRequest().authenticated() 
+            .csrf().disable()
+            .cors()
             .and()
-            .formLogin(); 
+            .authorizeRequests()
+                .antMatchers("/auth/signup", "/auth/login", "/auth/userinfo").permitAll()
+                .antMatchers("/tic-tac-toe/**").authenticated()
+                .anyRequest().authenticated()
+            .and()
+            .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .defaultSuccessUrl("/tic-tac-toe", true)
+            .and()
+            .logout()
+                .permitAll();
 
         return http.build();
     }

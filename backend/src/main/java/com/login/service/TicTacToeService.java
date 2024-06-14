@@ -6,7 +6,6 @@ import com.login.model.TicTacToe;
 
 public interface TicTacToeService {
     TicTacToe findByUsername(String username);
-    int findScore(String username);
-    TicTacToe save(TicTacToe ticTacToe);
-    List<TicTacToe> findTopThree();
+    void save(TicTacToe ticTacToe);
+    List<TicTacToe> findTopWinsByUsername(String username);
 }
