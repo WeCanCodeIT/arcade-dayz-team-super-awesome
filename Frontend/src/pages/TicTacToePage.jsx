@@ -90,23 +90,29 @@ const TicTacToePage = () => {
 
   return (
     <div className="App">
-      <div className="tic-tac-toe-background"></div>
       <div className="game-title">
         <h1>Tic Tac Toe</h1>
       </div>
+      <div className="tictactoe-container">
       <Board key={refreshData} onWinner={handleWinner} />
       <button className="refresh-btn" onClick={handleRefresh}>Refresh</button>
       <div className="top-scores">
-        <h2>Top 3 Scores</h2>
+        <h2>Top 3 Players</h2>
         <ul>
           {topScores.map((player, index) => (
             <li key={index}>
-              {player.username} - Wins: {player.wins}
-            </li>
+                <span>{player.username}</span> 
+                <span>Wins</span> 
+                <span>{player.wins}</span>
+              </li>
           ))}
         </ul>
+        </div>
+        </div>
+        <div className="tic-tac-toe-background"></div>
       </div>
-    </div>
+      
+
   );
 };
 

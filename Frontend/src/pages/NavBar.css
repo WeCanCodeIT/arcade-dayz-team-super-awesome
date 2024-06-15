@@ -1,12 +1,17 @@
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 60px;
   width: 100vw;
+  max-height: 100%;
   max-width: 100%;
   background-color: #033645;
   overflow: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-family: 'Arial', sans-serif;
 }
 
 .navbar a {
@@ -45,7 +50,6 @@
 .links-container {
   display: flex;
   flex-direction: row;
-  padding-top: 2px;
   padding-bottom: 3px;
 }
 
