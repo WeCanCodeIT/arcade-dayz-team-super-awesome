@@ -46,7 +46,6 @@ public class TicTacToeImpl implements TicTacToeService {
                 .sorted(Comparator.comparingInt(TicTacToe::getWins).reversed())
                 .limit(3)
                 .collect(Collectors.toList());
-        System.out.println("dsigjfdghdfgihd" + sortedList);
         return sortedList;
     }
 }

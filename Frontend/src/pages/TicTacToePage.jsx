@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Board from '../components/Board';
-import '../pages/TicTacToe.css'; // Make sure this is the correct path to your CSS file // Make sure this is the correct path to your CSS file
+import '../pages/TicTacToe.css'; 
 import { useCookies } from 'react-cookie';
 
 import UserInfo from './UserInfo';
