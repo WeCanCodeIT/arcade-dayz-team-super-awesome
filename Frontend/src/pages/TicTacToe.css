@@ -22,7 +22,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: -1; 
-  background-image: url('../public/tic-tac-toe-background.jpg'); 
+  background-image: url('/public/tic-tac-toe-background.jpg'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -147,3 +147,28 @@ body {
 .refresh-btn:hover {
   background-color: #63b6e0d2;
 }
+
+.top-scores {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.top-scores h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.top-scores ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.top-scores li {
+  margin: 5px 0;
+  font-size: 1.2em;
+}
+
+

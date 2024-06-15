@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const UserInfo = () => {
-    const [user, setUser] = useState(null);
-    const [useLocation] = useLocation();
-    const username = useLocation.get('username');
+const UserInfo = ({ onUserFetch }) => {
+    const location = useLocation();
+    const username = new URLSearchParams(location.search).get('username');
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -14,8 +13,8 @@ const UserInfo = () => {
                     credentials: 'include',
                 });
                 if (response.ok) {
-                    const data = await response.json();
-                    setUser(data);
+                    const userData = await response.json();
+                    onUserFetch(userData); 
                 } else {
                     alert('Error fetching user info');
                 }
@@ -27,19 +26,9 @@ const UserInfo = () => {
         if (username) {
             fetchUser();
         }
-    }, [username]);
+    }, [username, onUserFetch]);
 
-    if (!user) {
-        return <div>Loading...</div>;
-    }
-
-    return (
-        <div>
-            <h2>User Info</h2>
-            <p>Full Name: {user.fullName}</p>
-            <p>Username: {user.username}</p>
-        </div>
-    );
+    return null; 
 };
 
 export default UserInfo;

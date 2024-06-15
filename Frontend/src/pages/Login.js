@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import './Login.css'
+import { useCookies } from 'react-cookie';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigation();
+    const navigate = useNavigate();
 
+    const [cookie, setCookie, removeCookie] = useCookies(["user"]);
     const handleLogin = async (e) => {
         e.preventDefault();
         if (!username || !password) {
@@ -27,7 +30,8 @@ const Login = () => {
             if (response.ok) {
                 const data = await response.text();
                 alert(data);
-                navigate(`/userinfo?username=${username}`);
+                setCookie("user",username)
+                navigate(`/HomePage`);
             } else {
                 const errorText = await response.text();
                 alert(`Error: ${errorText}`);
@@ -39,11 +43,16 @@ const Login = () => {
         }
     };
 
+    const handleSignup = () => {
+        navigate('/signup');
+    };
+
     return (
-        <div>
+        <div className="login-background">
+        <div className="login-container">
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
-                <div>
+                <div className="username">
                     <label>Username: </label>
                     <input
                         type="text"
@@ -51,7 +60,7 @@ const Login = () => {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
-                <div>
+                <div className="password">
                     <label>Password: </label>
                     <input
                         type="password"
@@ -59,10 +68,14 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+                <div className="login-buttons">
                 <button type="submit" disabled={loading}>
                     {loading ? 'Logging in...' : 'Login'}
                 </button>
+                <button onClick={handleSignup}>Sign up</button> 
+                </div>
             </form>
+        </div>
         </div>
     );
 };

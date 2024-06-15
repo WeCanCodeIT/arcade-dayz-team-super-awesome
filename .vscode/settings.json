@@ -3,5 +3,6 @@
     "Goku",
     "Vegeta",
     "broly"
-  ]
+  ],
+  "java.configuration.updateBuildConfiguration": "automatic"
 }

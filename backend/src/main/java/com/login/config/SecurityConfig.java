@@ -37,14 +37,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors().and() 
-            .csrf().disable() 
+            .cors().and()
+            .csrf().disable()
             .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/auth/signup").permitAll() 
-                .antMatchers(HttpMethod.GET, "/auth/userinfo").permitAll()
-                .anyRequest().authenticated() 
+                .antMatchers(HttpMethod.POST, "/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/**").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
+                .anyRequest().authenticated()
             .and()
-            .formLogin(); 
+            .formLogin()
+            .and()
+            .headers().frameOptions().sameOrigin(); 
 
         return http.build();
     }
