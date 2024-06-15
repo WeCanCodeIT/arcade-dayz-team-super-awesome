@@ -1,19 +1,25 @@
+.tictactoe-container {
+  position: fixed;
+  top: 50;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* margin-bottom: 20px; */
+}
+
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Arial", sans-serif;
   background: #f0f2f5;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   height: 100vh;
   margin: 0;
+  overflow: hidden;
 }
-
-.title {
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
-  font-size: x-large;
-}
-
 
 .tic-tac-toe-background {
   position: fixed;
@@ -21,17 +27,26 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; 
-  background-image: url('/public/tic-tac-toe-background.jpg'); 
+  z-index: -1;
+  background-image: url("/public/tic-tac-toe-background.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .App {
+  font-family: "Arial", sans-serif;
   position: relative;
   width: 100%;
+  max-width: 600px;
   height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 60px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .game {
@@ -39,7 +54,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1; 
+  z-index: 1;
 }
 
 .game-board {
@@ -47,16 +62,15 @@ body {
   grid-template-columns: repeat(3, 100px);
   gap: 10px;
   margin-top: 20px;
+  justify-content: center;
+  position: relative;
 }
 
-.game-title{
+.game-title {
+  margin-top: -600px;
   color: white;
   text-align: center;
-  text-shadow: 
-   -1px -1px 0 #000, 
-    1px -1px 0 #000, 
-   -1px 1px 0 #000,
-    1px 1px 0 #000;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .status {
@@ -66,9 +80,9 @@ body {
   margin-bottom: 20px;
   color: #333;
   text-align: center;
-  background-color: #ffffff8e; 
+  background-color: #ffffff8e;
   border: 2px solid #ccc;
-  border-radius: 10px; 
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
@@ -78,7 +92,7 @@ body {
 .square {
   width: 100px;
   height: 100px;
-  background-color: rgba(255, 255, 255, 0.2); 
+  background-color: rgba(255, 255, 255, 0.2);
   border: 2px solid rgba(255, 255, 255, 0.6);
   font-size: 36px;
   font-weight: bold;
@@ -105,8 +119,8 @@ body {
 }
 
 .square:active {
-  background-color: rgba(255, 255, 255, 0.706); 
-  box-shadow: none; 
+  background-color: rgba(255, 255, 255, 0.706);
+  box-shadow: none;
 }
 
 .square-content {
@@ -114,8 +128,8 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-weight: bolder; 
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+  font-weight: bolder;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .square.o .square-content {
@@ -128,12 +142,9 @@ body {
   background-color: rgba(255, 255, 255, 0.878);
   border-color: rgba(242, 34, 253, 0.569);
   border-width: 4px;
-
-
 }
 
 .refresh-btn {
-  margin-top: 20px;
   padding: 10px 20px;
   font-size: 16px;
   background-color: #6ef5f7aa;
@@ -142,6 +153,8 @@ body {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .refresh-btn:hover {
@@ -149,26 +162,66 @@ body {
 }
 
 .top-scores {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  text-align: left;
+  position: fixed;
+  margin-top: -500px;
+  margin-left: -800px;
+  padding: 5px;
+  padding-bottom: 15px;
+  background: linear-gradient(#e1fff870, #98ada5d3);
+  border-radius: 20px;
+  text-align: center;
+  border: 5px solid rgba(255, 255, 255, 0.735);
+  width: 300px;
+  font-family: "Arial", sans-serif;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: min-content;
+  gap: 10px;
 }
 
 .top-scores h2 {
+  grid-column: 1 / span 3;
   font-size: 1.5em;
   margin-bottom: 10px;
+  color: #e0ff15;
+  text-shadow: 2px 2px 4px #000;
 }
 
 .top-scores ul {
+  grid-column: 1 / span 3;
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 .top-scores li {
-  margin: 5px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   font-size: 1.2em;
+  color: #98fae3;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px #000;
+  text-transform: uppercase;
 }
+
+.top-scores li span {
+  text-align: center;
+}
+
+.top-scores li span:nth-child(1) {
+  grid-column: 1;
+}
+
+.top-scores li span:nth-child(2) {
+  grid-column: 2;
+}
+
+.top-scores li span:nth-child(3) {
+  grid-column: 3;
+}
+
 
 
