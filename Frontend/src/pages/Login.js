@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'
+import { useCookies } from 'react-cookie';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -8,6 +9,7 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
+    const [cookie, setCookie, removeCookie] = useCookies(["user"]);
     const handleLogin = async (e) => {
         e.preventDefault();
         if (!username || !password) {
@@ -28,7 +30,8 @@ const Login = () => {
             if (response.ok) {
                 const data = await response.text();
                 alert(data);
-                navigate(`/login?username=${username}`);
+                setCookie("user",username)
+                navigate(`/HomePage`);
             } else {
                 const errorText = await response.text();
                 alert(`Error: ${errorText}`);

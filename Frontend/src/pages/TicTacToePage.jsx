@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Board from '../components/Board';
 import '../pages/TicTacToe.css'; // Make sure this is the correct path to your CSS file // Make sure this is the correct path to your CSS file
+import { useCookies } from 'react-cookie';
+
 import UserInfo from './UserInfo';
 
 const TicTacToePage = () => {
@@ -8,9 +10,35 @@ const TicTacToePage = () => {
   const [topScores, setTopScores] = useState([]);
   const [user, setUser] = useState(null);
 
+
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+
+
   const handleRefresh = () => {
     setRefreshData(!refreshData);
   };
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      
+      try {
+        const response = await fetch('http://localhost:8080/tictactoe/player?username=' + cookie.user, {
+          method: 'GET',
+          credentials: 'include',
+        });
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        } else {
+          console.log('Error fetching current player');
+        }
+      } catch (error) {
+        console.log('Error fetching current player', error);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
 
   useEffect(() => {
     const fetchTopScores = async () => {
@@ -24,24 +52,17 @@ const TicTacToePage = () => {
           setTopScores(data);
         } else {
           console.log('Error fetching top scores');
+          console.log(response.json())
         }
       } catch (error) {
-        console.log('Error fetching top scores');
+        console.log('Error fetching top scores', error);
       }
     };
 
     fetchTopScores();
   }, [refreshData]);
 
-  const handleUserFetch = (fetchedUser) => {
-    if (!fetchedUser) {
-      console.log("User not found");
-      return;
-    }
-    setUser(fetchedUser);
-  }
-
-  const handleWinner = async (user) => {
+  const handleWinner = async () => {
     if (user) {
       try {
         const response = await fetch("http://localhost:8080/tictactoe/winner", {
@@ -50,9 +71,9 @@ const TicTacToePage = () => {
             'Content-Type': 'application/json',
           },
           credentials: 'include',
-          body: JSON.stringify({ username: user.username, id: user.id }),
+          
+          body: JSON.stringify({ username: user.username}),
         });
-
         if (response.ok) {
           console.log("Winner posted successfully");
           setRefreshData((prev) => !prev);
@@ -85,7 +106,6 @@ const TicTacToePage = () => {
           ))}
         </ul>
       </div>
-      <UserInfo onUserFetch={handleUserFetch} />
     </div>
   );
 };

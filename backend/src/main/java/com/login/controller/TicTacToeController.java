@@ -26,13 +26,19 @@ public class TicTacToeController {
     public ResponseEntity<String> winner(@RequestBody User user) {
         if (userServiceImpl.findByUsername(user.getUsername()) != null) {
             TicTacToe ticTacToeRecord = ticTacToeServiceImpl.findByUsername(user.getUsername());
+            
             if (ticTacToeRecord == null) {
-                ticTacToeServiceImpl.save(new TicTacToe(user.getId(), user.getUsername(), 1));
+                System.out.println("DFSFSGSDG" + user.getUsername());
+                TicTacToe newWinner = new TicTacToe(user.getUsername(), 1);
+                ticTacToeServiceImpl.save(newWinner);
+                System.out.println("EFBHGE" + ticTacToeServiceImpl.findByUsername(user.getUsername()));
             } else {
                 ticTacToeRecord.setWins(ticTacToeRecord.getWins() + 1);
                 ticTacToeServiceImpl.save(ticTacToeRecord);
+                System.out.println("tiktaktoename " + ticTacToeRecord.getUsername());
             }
         }
+        
         return ResponseEntity.ok("Winner!");
     }
 
@@ -51,9 +57,13 @@ public class TicTacToeController {
     @GetMapping("/records")
     public ResponseEntity<?> topScores() {
         List<TicTacToe> topThreeScores = ticTacToeServiceImpl.findTopThree();
-        if (!topThreeScores.isEmpty()) {
+
+        if (topThreeScores != null && !topThreeScores.isEmpty()) {
+            System.out.println("Top three scores found: " + topThreeScores);
             return ResponseEntity.ok(topThreeScores);
         }
+
+        System.out.println("Top three scores list is empty");
         return ResponseEntity.ok("List is empty");
     }
 }

@@ -4,7 +4,8 @@ import "../pages/HomePageStyle.css";
 import NavBar from "../pages/NavBar";
 import "../components/NavBar.css";
 
-function HomePage({ user }) {
+function HomePage() {
+
   return (
 
       <div className="home-container">

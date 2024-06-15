@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import UserInfo from './UserInfo';
+import { useCookies } from 'react-cookie';
+
 import '../pages/NavBar.css';
 
 function NavBar() {
   const [userFullName, setUserFullName] = useState(null);
+  const [cookie, getCookie] = useCookies(["user"]);
 
-  const handleUserFetch = (user) => {
-    setUserFullName(user.fullName);
-  };
+  
+useEffect(() => {
+  console.log(cookie.user)
+  setUserFullName(cookie.user)
+
+},[]);
+
 
   return (
     <div className="navbar">
@@ -20,7 +27,6 @@ function NavBar() {
         <Link to="/about">About</Link>
         <Link to="/signup">Logout</Link>
       </div>
-      <UserInfo onUserFetch={handleUserFetch} />
     </div>
   );
 }

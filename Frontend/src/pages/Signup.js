@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 import "./Signup.css";
 
 const Signup = () => {
@@ -7,6 +8,8 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const navigate = useNavigate();
+
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -23,7 +26,8 @@ const Signup = () => {
       if (response.ok) {
         const data = await response.text();
         alert(data);
-        navigate(`/userinfo?username=${username}`);
+        setCookie("user",username)
+        navigate(`/HomePage`);
       } else {
         const errorText = await response.text();
         alert(`Error: ${errorText}`);
