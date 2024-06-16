@@ -61,7 +61,7 @@ p {
   margin-top: 10px;
 }
 
-body {
+body.dice-game {
   background-size: cover;
   background-image: url("../public/Dice_background.jpeg");
 }
