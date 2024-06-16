@@ -7,7 +7,7 @@ import dice3 from "../components/DiceImages/dice_3.jpeg";
 import dice4 from "../components/DiceImages/dice_4.jpeg";
 import dice5 from "../components/DiceImages/dice_5.jpeg";
 import dice6 from "../components/DiceImages/dice_6.jpeg";
-
+import { useCookies } from "react-cookie";
 
 const DiceGame = () => {
   const [dice, setDice] = useState([1, 1, 1]);
@@ -18,16 +18,90 @@ const DiceGame = () => {
   const [rounds, setRounds] = useState(0);
   const [showRules, setShowRules] = useState(false);
 
+  const [refreshData, setRefreshData] = useState(false);
+  const [topScores, setTopScores] = useState([]);
+  const [user, setUser] = useState(null);
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+
+  const handleRefresh = () => {
+    setRefreshData(!refreshData);
+  };
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/dice/player?username=" + cookie.user,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        } else {
+          console.log("Error fetching current player");
+        }
+      } catch (error) {
+        console.log("Error fetching current player", error);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
+
+  useEffect(() => {
+    const fetchTopScores = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/dice/records", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setTopScores(data);
+        } else {
+          console.log("Error fetching top scores");
+          console.log(response.json());
+        }
+      } catch (error) {
+        console.log("Error fetching top scores", error);
+      }
+    };
+
+    fetchTopScores();
+  }, [refreshData]);
+
+  const handleWinner = async () => {
+    if (user) {
+      try {
+        const response = await fetch("http://localhost:8080/dice/winner", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+
+          body: JSON.stringify({ username: user.username }),
+        });
+        if (response.ok) {
+          console.log("Winner posted successfully");
+          setRefreshData((prev) => !prev);
+        } else {
+          console.log("Error posting winner");
+        }
+      } catch (error) {
+        console.log("Error posting winner", error);
+      }
+    } else {
+      console.log("User not logged in");
+    }
+  };
+
   const [cheatWindowVisible, setCheatWindowVisible] = useState(false);
 
-  const diceImages = [
-    dice1,
-    dice2,
-    dice3,
-    dice4,
-    dice5,
-    dice6,
-  ];
+  const diceImages = [dice1, dice2, dice3, dice4, dice5, dice6];
 
   const rollDice = () => {
     setIsRolling(true);
@@ -95,6 +169,7 @@ const DiceGame = () => {
 
     if (updatedScore >= 100) {
       setHasWon(true);
+      handleWinner();
     }
   };
 
@@ -127,10 +202,9 @@ const DiceGame = () => {
   const handleCheatInput = (event) => {
     if (event.key === "Enter") {
       checkCheatCode(event.target.value);
-      event.target.value = ""; 
+      event.target.value = "";
       setCheatWindowVisible(false);
     }
-    
   };
 
   useEffect(() => {
@@ -146,19 +220,33 @@ const DiceGame = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-  
 
   return (
     <div className="dice-game">
       <h1>Dice Game</h1>
+
+      <div className="dice-top-scores">
+        <h2>Top 3 Scores</h2>
+        <ul>
+          {topScores.map((player, index) => (
+            <li key={index}>
+            <span>{player.username}</span> 
+            <span>Wins</span> 
+            <span>{player.wins}</span>
+          </li>
+          ))}
+        </ul>
+      </div>
+
       <div className="buttons-container">
         <button onClick={() => setShowRules(true)}>Show Rules</button>
         <button
           onClick={() => {
             rollDice();
-            if (score >= 100) {
-              resetScore();
-            }
+            // if (score >= 100) {
+            //   resetScore();
+            // }
+
           }}
         >
           Roll Dice
@@ -166,10 +254,14 @@ const DiceGame = () => {
         <button onClick={resetScore}>Reset Game</button>
       </div>
       <div className="dice-container">
-  {dice.map((die, index) => (
-    <div key={index} className="die" style={{ backgroundImage: `url(${diceImages[die - 1]})` }}></div>
-  ))}
-</div>
+        {dice.map((die, index) => (
+          <div
+            key={index}
+            className="die"
+            style={{ backgroundImage: `url(${diceImages[die - 1]})` }}
+          ></div>
+        ))}
+      </div>
       <p>
         Score: {score}
         {calculations.length > 0 && (
@@ -181,10 +273,8 @@ const DiceGame = () => {
         <div className="rolling-gif">
           <iframe
             src="https://giphy.com/embed/K1bX4ydTVOByfp9M8Z"
-            width="480"
-            height="430"
-            className="giphy-embed"
-            allowFullScreen
+            width="450"
+            height="200"
           ></iframe>
           <p></p>
         </div>
@@ -196,18 +286,15 @@ const DiceGame = () => {
       )}
       <DiceRulesModal show={showRules} onClose={() => setShowRules(false)} />
       {cheatWindowVisible && (
-  <div className="cheat-window">
-    <input
-      type="text"
-      placeholder="Enter cheat code"
-      onKeyDown={handleCheatInput}
-    />
-  </div>
-)}
-      
+        <div className="cheat-window">
+          <input
+            type="text"
+            placeholder="Enter cheat code"
+            onKeyDown={handleCheatInput}
+          />
+        </div>
+      )}
     </div>
-    
-    
   );
 };
 
