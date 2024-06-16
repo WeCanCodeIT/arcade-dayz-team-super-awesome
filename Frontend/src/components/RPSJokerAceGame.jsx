@@ -175,7 +175,7 @@ const RPSJokerAceGame = () => {
               Play
             </button>
           )}
-          <button onClick={handleRefreshClick}>Refresh</button>
+          {/* <button onClick={handleRefreshClick}>Refresh</button> */}
         </div>
         <div className="cpu-container">
           {cpuChoice && <p>CPU chose: {cpuChoice}</p>}
