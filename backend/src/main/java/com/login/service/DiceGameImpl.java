@@ -29,21 +29,18 @@ public class DiceGameImpl implements DiceGameService {
 
     @Override
     public int findScore(String username) {
-       return DiceGameRepository.findByUsername(username).getWins();
+       return DiceGameRepository.findByUsername(username).getRounds();
     }
 
     @Override
     public List<DiceGame> findTopThree() {
         List<DiceGame> diceGameList = DiceGameRepository.findAll();
-    
         if (diceGameList == null || diceGameList.isEmpty()) {
             return Collections.emptyList();
         }
-    
 
-    
         List<DiceGame> sortedList = diceGameList.stream()
-                .sorted(Comparator.comparingInt(DiceGame::getWins).reversed())
+                .sorted(Comparator.comparingInt(DiceGame::getRounds))
                 .limit(3)
                 .collect(Collectors.toList());
         return sortedList;

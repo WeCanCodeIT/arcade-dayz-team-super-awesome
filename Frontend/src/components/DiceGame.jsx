@@ -82,8 +82,7 @@ const DiceGame = () => {
             "Content-Type": "application/json",
           },
           credentials: "include",
-
-          body: JSON.stringify({ username: user.username }),
+          body: JSON.stringify({ username: user.username, rounds: rounds + 1}),
         });
         if (response.ok) {
           console.log("Winner posted successfully");
@@ -168,8 +167,9 @@ const DiceGame = () => {
     setCalculations(pointsGained);
 
     if (updatedScore >= 100) {
-      setHasWon(true);
-      handleWinner();
+    setRounds((prevRounds) => prevRounds); 
+    setHasWon(true);
+    handleWinner();
     }
   };
 
@@ -231,8 +231,8 @@ const DiceGame = () => {
           {topScores.map((player, index) => (
             <li key={index}>
             <span>{player.username}</span> 
-            <span>Wins</span> 
-            <span>{player.wins}</span>
+            <span>Rounds</span> 
+            <span>{player.rounds}</span>
           </li>
           ))}
         </ul>
@@ -243,10 +243,6 @@ const DiceGame = () => {
         <button
           onClick={() => {
             rollDice();
-            // if (score >= 100) {
-            //   resetScore();
-            // }
-
           }}
         >
           Roll Dice
@@ -281,7 +277,7 @@ const DiceGame = () => {
       )}
       {hasWon && (
         <div className="winner-message">
-          <h2>You Won in {rounds} rounds!</h2>
+          <h2>You Win!</h2>
         </div>
       )}
       <DiceRulesModal show={showRules} onClose={() => setShowRules(false)} />

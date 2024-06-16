@@ -21,12 +21,12 @@ public class DiceGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
-    private int wins;
+    private int rounds;
 
 
-    public DiceGame(String username, int wins) {
+    public DiceGame(String username, int rounds) {
         this.username = username;
-        this.wins = wins;
+        this.rounds = rounds;
     }
 
 

@@ -16,7 +16,6 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class DiceGameController {
 
-
     @Autowired
     private DiceGameImpl DiceGameServiceImpl;
 
@@ -24,16 +23,20 @@ public class DiceGameController {
     private UserServiceImpl userServiceImpl;
 
     @PostMapping("/winner")
-    public ResponseEntity<String> winner(@RequestBody User user) {
-        if (userServiceImpl.findByUsername(user.getUsername()) != null) {
-            DiceGame diceGameRecord = DiceGameServiceImpl.findByUsername(user.getUsername());
+    public ResponseEntity<String> winner(@RequestBody DiceGame winnerData) {
+        User user = userServiceImpl.findByUsername(winnerData.getUsername());
+        if (user != null) {
+            DiceGame diceGameRecord = DiceGameServiceImpl.findByUsername(winnerData.getUsername());
 
             if (diceGameRecord == null) {
-                DiceGame newWinner = new DiceGame(user.getUsername(), 1);
+                DiceGame newWinner = new DiceGame(winnerData.getUsername(), winnerData.getRounds());
                 DiceGameServiceImpl.save(newWinner);
             } else {
-                diceGameRecord.setWins(diceGameRecord.getWins() + 1);
-                DiceGameServiceImpl.save(diceGameRecord);
+                // Update only if the new score (rounds) is better (lower)
+                if (winnerData.getRounds() < diceGameRecord.getRounds()) {
+                    diceGameRecord.setRounds(winnerData.getRounds());
+                    DiceGameServiceImpl.save(diceGameRecord);
+                }
             }
         }
 
@@ -55,7 +58,6 @@ public class DiceGameController {
     @GetMapping("/records")
     public ResponseEntity<?> topScores() {
         List<DiceGame> topThreeScores = DiceGameServiceImpl.findTopThree();
-
         if (topThreeScores != null && !topThreeScores.isEmpty()) {
             return ResponseEntity.ok(topThreeScores);
         }
