@@ -79,12 +79,7 @@ const App = () => {
         <Route path="/connect-four" element={<ConnectFourBoard />} />
         <Route path="/HomePage" element={<HomePage />} />
       </Routes>
-      {location.pathname === "/mole-smash" && (
-        <div className="app">
-          <WhacAMoleScoreBadge score={score} />
-        </div>
-      )}
-    </div>
+     </div>
   );
 };
 
