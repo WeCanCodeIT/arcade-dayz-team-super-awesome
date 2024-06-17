@@ -89,7 +89,6 @@ const RPSJokerAcePage = () => {
     <div className="RPSJokerAce-container">
       <div className="RPSJokerAce-background"></div>
       <RPSJokerAceGame key={refreshData} onWinner={handleWinner} />
-      <button className="refresh-btn" onClick={handleRefresh}>Refresh</button>
       <div className="top-scores">
         <h2>Top 3 Players</h2>
         <ul>

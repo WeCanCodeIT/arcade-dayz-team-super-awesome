@@ -119,7 +119,6 @@ const RPSJokerAceGame = ({ onWinner }) => {
         </div>
         <div className="player-container">
           <Player
-            name="Player"
             choice={playerChoice}
             playGame={playGame}
             availableChoices={playerChoices.filter(
@@ -131,12 +130,12 @@ const RPSJokerAceGame = ({ onWinner }) => {
           <button className="rules-btn" onClick={handleShowModal}>
             Rules
           </button>
-          {/* {!matchEnded && (
+           {!matchEnded && (
             <button onClick={() => playGame(playerChoice)} disabled={!playerChoice}>
               Play
             </button>
-          )}*/
-          <button onClick={resetGame}>Refresh</button> }
+          )}
+          <button onClick={resetGame}>Retry</button> 
         </div>
         <div className="cpu-container">
           {cpuChoice && <p>CPU chose: {cpuChoice}</p>}

@@ -10,12 +10,12 @@
 
 .RPSJokerAce-container .App {
   text-align: center;
+  width: 100%;
 }
 
 .RPSJokerAce-container .game {
   background: rgba(255, 146, 146, 0.827);
   border: 5px solid #ffa3a3;
- 
   padding: 20px;
   border-radius: 10px;
   color: #ffffff;
@@ -173,12 +173,13 @@ body.RPS_background {
   border-radius: 20px;
   text-align: center;
   border: 5px solid rgba(255, 255, 255, 0.735);
-  width: 300px;
+  max-width: 300px;
+  width: 20%;
   font-family: "Arial", sans-serif;
   box-sizing: border-box;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  display: grid;
+  display: flex;
   flex-wrap: wrap;
   grid-template-columns: 1fr 1fr 1fr;
   grid-auto-rows: min-content;
