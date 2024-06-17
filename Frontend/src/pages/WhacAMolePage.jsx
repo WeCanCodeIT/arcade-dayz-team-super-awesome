@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import MoleHole from "../components/MoleHole";
 import WhacAMoleScoreBadge from "../components/WhacAMoleScoreBadge";
 import "./WhacAMole.css";
@@ -11,17 +12,46 @@ const WhacAMole = ({ score, setScore }) => {
   const [hitMonster, setHitMonster] = useState(null);
   const [activeCharacter, setActiveCharacter] = useState(null);
   const [intervalId, setIntervalId] = useState(null);
-  const [hitMessage, setHitMessage] = useState("Welcome to Super Mole Smash! Hit the moles, not the monsters... or else.");
+  const [hitMessage, setHitMessage] = useState(
+    "Welcome to Super Mole Smash! Smash as many moles as you can to score points, but be careful not to hit the monsters! You have 2 minutes. Moles are +1 and monsters are -2."
+  );
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameStart, setIsGameStart] = useState(false);
+  const [timer, setTimer] = useState(2 * 60 * 1000);
+  const [topScores, setTopScores] = useState([]);
+  const [user, setUser] = useState(null);
+  const [refreshData, setRefreshData] = useState(false);
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+
+  const handleRefresh = () => {
+    setRefreshData(!refreshData);
+  };
 
   useEffect(() => {
+    let gameInterval, timerInterval;
+
     if (isGameStart && !isGameOver) {
-      const interval = startNewInterval();
-      setIntervalId(interval);
-      return () => clearInterval(interval); 
+      gameInterval = startNewInterval();
+      timerInterval = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer <= 100) {
+            clearInterval(timerInterval);
+            setIsGameOver(true);
+            setHitMessage(`TIME'S UP! You scored ${score} points!`);
+            return 0;
+          }
+          return prevTimer - 100;
+        });
+      }, 100);
+
+      setIntervalId(gameInterval);
     }
-  }, [isGameStart, isGameOver]); 
+
+    return () => {
+      clearInterval(gameInterval);
+      clearInterval(timerInterval);
+    };
+  }, [isGameStart, isGameOver, score]);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -33,11 +63,11 @@ const WhacAMole = ({ score, setScore }) => {
   }, []);
 
   useEffect(() => {
-    return () => clearInterval(intervalId);  
-  }, []);
+    return () => clearInterval(intervalId);
+  }, [intervalId]);
 
   const startNewInterval = () => {
-    clearInterval(intervalId); 
+    clearInterval(intervalId);
     return setInterval(() => {
       const newActiveHole = Math.floor(Math.random() * 7);
       const isMonster = Math.random() < 0.5;
@@ -48,7 +78,7 @@ const WhacAMole = ({ score, setScore }) => {
   };
 
   const handleClick = () => {
-    if (!isGameStart || isGameOver) return; 
+    if (!isGameStart || isGameOver) return;
 
     setIsHammerDown(true);
     setTimeout(() => setIsHammerDown(false), 200);
@@ -113,6 +143,7 @@ const WhacAMole = ({ score, setScore }) => {
     setActiveHole(null);
     setActiveCharacter(null);
     setHitMessage("");
+    setTimer(2 * 60 * 100);
     const newInterval = startNewInterval();
     setIntervalId(newInterval);
   };
@@ -120,40 +151,142 @@ const WhacAMole = ({ score, setScore }) => {
   const handleRestart = (e) => {
     e.stopPropagation();
     clearInterval(intervalId);
-    setIsGameStart(true); 
+    setIsGameStart(true);
     setScore(0);
     setHitMole(null);
     setHitMonster(null);
     setActiveHole(null);
     setActiveCharacter(null);
     setHitMessage("");
+    setTimer(2 * 60 * 100);
     const newInterval = startNewInterval();
     setIntervalId(newInterval);
     setIsGameOver(false);
   };
 
-  return (
-   
-    <div
-      className={`whac-a-mole ${isGameOver ? "game-over" : ""} ${isGameStart && !isGameOver ? "hide-cursor" : ""}`}
-      onClick={handleClick}
-    >
-      <div className="mole-title">
-        <h1>Super Mole Smash!</h1>
+  const formatTime = (timer) => {
+    const minutes = Math.floor((timer / 60000) % 60);
+    const seconds = Math.floor((timer / 1000) % 60);
+    const milliseconds = Math.floor((timer / 10) % 100);
+    return (
+      <div className="timer">
+        {("0" + minutes).slice(-2)}:{("0" + seconds).slice(-2)}:
+        {("0" + milliseconds).slice(-2)}
       </div>
-      <div className="holes">
-        {[...Array(7)].map((_, index) => (
-          <MoleHole
-            key={index}
-            index={index}
-            isActive={isGameStart && !isGameOver && index === activeHole} 
-            isHit={index === hitMole || index === hitMonster}
-            activeCharacter={
-              isGameStart && !isGameOver && index === activeHole ? activeCharacter : null
-            }
-            isGameOver={isGameOver}
-          />
-        ))}
+    );
+  };
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/molesmash/player?username=" + cookie.user,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        if (response.ok) {
+          const userData = await response.json();
+          console.log("Fetched current user:", userData);
+          setUser(userData);
+        } else {
+          console.log("Error fetching current player");
+        }
+      } catch (error) {
+        console.log("Error fetching current player", error);
+      }
+    };
+
+    fetchCurrentUser();
+  }, [cookie.user]);
+
+  useEffect(() => {
+    const fetchTopScores = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/molesmash/records",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Fetched top scores:", data);
+          setTopScores(data);
+        } else {
+          console.log("Error fetching top scores");
+        }
+      } catch (error) {
+        console.log("Error fetching top scores", error);
+      }
+    };
+
+    fetchTopScores();
+  }, [refreshData]);
+
+  useEffect(() => {
+    if (isGameOver) {
+      handleWinner();
+    }
+  }, [isGameOver]);
+
+  const handleWinner = async () => {
+    if (user) {
+      try {
+        const response = await fetch("http://localhost:8080/molesmash/winner", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ username: user.username, score: score }),
+        });
+        if (response.ok) {
+          console.log("Winner posted successfully");
+          setRefreshData((prev) => !prev);
+        } else {
+          console.log("Error posting winner");
+        }
+      } catch (error) {
+        console.log("Error posting winner", error);
+      }
+    } else {
+      console.log("User not logged in");
+    }
+  };
+
+  return (
+    <div className="game-container">
+      <div
+        className={`whac-a-mole ${isGameOver ? "game-over" : ""} ${
+          isGameStart && !isGameOver ? "hide-cursor" : "game-start"
+        }`}
+        onClick={handleClick}
+      >
+        <div className="mole-title">
+          <h1>Super Mole Smash!</h1>
+        </div>
+        <div className="holes-wrapper">
+          {isGameStart && !isGameOver && <WhacAMoleScoreBadge score={score} />}
+          <div className="holes">
+            {[...Array(7)].map((_, index) => (
+              <MoleHole
+                key={index}
+                index={index}
+                isActive={isGameStart && !isGameOver && index === activeHole}
+                isHit={index === hitMole || index === hitMonster}
+                activeCharacter={
+                  isGameStart && !isGameOver && index === activeHole
+                    ? activeCharacter
+                    : null
+                }
+                isGameOver={isGameOver}
+              />
+            ))}
+          </div>
+        </div>
       </div>
       {!isGameOver && isGameStart && (
         <img
@@ -163,7 +296,6 @@ const WhacAMole = ({ score, setScore }) => {
           style={{ left: `${mousePosition.x}px`, top: `${mousePosition.y}px` }}
         />
       )}
-      {isGameStart && !isGameOver && <WhacAMoleScoreBadge score={score} /> }
       {hitMessage && <div className="hit-message">{hitMessage}</div>}
       {!isGameStart && (
         <div className="start-game">
@@ -171,15 +303,25 @@ const WhacAMole = ({ score, setScore }) => {
         </div>
       )}
       {isGameOver && (
-        <>
-          <div className="game-over-message"></div>
-          <div className="play-again">
-            <button onClick={handleRestart}>Play Again</button>
+        <div className="play-again">
+          <button onClick={handleRestart}>Play Again</button>
+          <div className="top-scores">
+            <h2>Top 3 Players</h2>
+            <ul>
+              {topScores.map((player, index) => (
+                <li key={index}>
+                  <span>{player.username}</span>
+                  <span>Score</span>
+                  <span>{player.score}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-        </>
+        </div>
       )}
+      <div>{formatTime(timer)}</div>
     </div>
-    );
+  );
 };
 
 export default WhacAMole;

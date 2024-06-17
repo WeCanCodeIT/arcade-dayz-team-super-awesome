@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter 
+@Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "whac_a_mole")
@@ -21,13 +21,13 @@ public class WhacAMole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
-    private int wins;
+    private int score;
 
-
-    public WhacAMole(String username, int wins) {
+    public WhacAMole(String username, int score) {
         this.username = username;
-        this.wins = wins;
+        this.score = score;
+       
+        
     }
-
 
 }

@@ -3,12 +3,10 @@ package com.login.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import com.login.model.WhacAMole;
 import com.login.model.User;
 import com.login.service.WhacAMoleImpl;
 import com.login.service.UserServiceImpl;
-
 import java.util.List;
 
 @RestController
@@ -23,20 +21,23 @@ public class WhacAMoleController {
     private UserServiceImpl userServiceImpl;
 
     @PostMapping("/winner")
-    public ResponseEntity<String> winner(@RequestBody User user) {
-        if (userServiceImpl.findByUsername(user.getUsername()) != null) {
-            WhacAMole whacAMoleRecord = whacAMoleServiceImpl.findByUsername(user.getUsername());
+    public ResponseEntity<String> winner(@RequestBody WhacAMole whacAMoleRequest) {
+        String username = whacAMoleRequest.getUsername();
+        int newScore = whacAMoleRequest.getScore();
+
+        if (userServiceImpl.findByUsername(username) != null) {
+            WhacAMole whacAMoleRecord = whacAMoleServiceImpl.findByUsername(username);
 
             if (whacAMoleRecord == null) {
-                WhacAMole newWinner = new WhacAMole(user.getUsername(), 1);
+                WhacAMole newWinner = new WhacAMole(username, newScore);
                 whacAMoleServiceImpl.save(newWinner);
             } else {
-                whacAMoleRecord.setWins(whacAMoleRecord.getWins() + 1);
+                whacAMoleRecord.setScore(Math.max(whacAMoleRecord.getScore(), newScore));
                 whacAMoleServiceImpl.save(whacAMoleRecord);
             }
         }
 
-        return ResponseEntity.ok("Winner!");
+        return ResponseEntity.ok("High score!");
     }
 
     @GetMapping("/player")
@@ -61,4 +62,3 @@ public class WhacAMoleController {
         return ResponseEntity.ok("List is empty");
     }
 }
-
