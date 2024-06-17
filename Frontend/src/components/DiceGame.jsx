@@ -221,7 +221,15 @@ const DiceGame = () => {
     };
   }, []);
 
+  useEffect(() => {
+    document.body.classList.add("dice-game-body");
+    return () => {
+      document.body.classList.remove("dice-game-body");
+    };
+  }, []);
+
   return (
+    
     <div className="dice-game">
       <h1>Dice Game</h1>
 

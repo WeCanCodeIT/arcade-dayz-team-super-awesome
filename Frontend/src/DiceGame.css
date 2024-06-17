@@ -61,9 +61,10 @@ p {
   margin-top: 10px;
 }
 
-body.dice-game {
+.dice-game-body {
   background-size: cover;
   background-image: url("../public/Dice_background.jpeg");
+  z-index: -1;
 }
 
 .rolling-gif {
