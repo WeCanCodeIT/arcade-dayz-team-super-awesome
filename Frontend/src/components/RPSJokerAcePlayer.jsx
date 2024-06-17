@@ -1,9 +1,9 @@
 import React from 'react';
-import '../RPSJokerAce.css'; 
+import '../RPSJokerAce.css';
 
-const Player = ({ name, choice, setChoice, availableChoices }) => {
+const Player = ({ name, choice, playGame, availableChoices }) => {
   const handleChoice = (selectedChoice) => {
-    setChoice(selectedChoice);
+    playGame(selectedChoice);
   };
 
   return (
