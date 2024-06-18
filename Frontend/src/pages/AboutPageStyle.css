@@ -1,0 +1,77 @@
+body,
+.about-page {
+  font-family: Arial, sans-serif;
+}
+
+.profile-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.profile-card {
+    position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px;
+  width: 250px;
+  height: 350px;
+  text-align: center;
+  border: thick double #bb18be;
+  border-block-start: 2rem solid #e09be1;
+  writing-mode: horizontal-tb;
+}
+
+.profile-image {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin: 10px 0;
+  color: #181664;
+  
+}
+
+p.description{
+    font-size: 1em;
+  color: #ffffff;
+  margin-bottom: 20px; 
+}
+
+p.projects {
+    font-size: 1em;
+
+    text-align:left;
+    color: #ffffff;
+}
+
+.social-icons {
+    position: absolute;
+  bottom: 20px; 
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  }
+  
+.social-icons a {
+    margin: 0 8px; 
+    color: #000; 
+    font-size: 24px; 
+  
+}
+
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #bb18be;
+}
+
+

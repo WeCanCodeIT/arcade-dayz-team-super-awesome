@@ -5,6 +5,7 @@ import RPSJokerAce from "./pages/RPSJokerAcePage";
 import PongGame from "./pages/PongGamePage";
 import WhacAMole from "./pages/WhacAMolePage";
 import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
 import WhacAMoleScoreBadge from "./components/WhacAMoleScoreBadge";
 import DiceGame from "./components/DiceGame";
 import Login from "./pages/Login";
@@ -54,6 +55,8 @@ const App = () => {
       document.body.classList.add("gameboy");
     } else if (location.pathname === "/signup") {
       document.body.classList.add("signup-background");
+    } else if (location.pathname === "/AboutPage") {
+      document.body.classList.add("spaceshipBackground");
     }
   }, [location]);
 
@@ -72,12 +75,15 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/userInfo" element={<UserInfo />} />
+        <Route path="/AboutPage" element={<AboutPage />} />
+
         <Route
           path="/mole-smash"
           element={<WhacAMole score={score} setScore={setScore} />}
         />
         <Route path="/connect-four" element={<ConnectFourBoard />} />
         <Route path="/HomePage" element={<HomePage />} />
+        
       </Routes>
      </div>
   );
