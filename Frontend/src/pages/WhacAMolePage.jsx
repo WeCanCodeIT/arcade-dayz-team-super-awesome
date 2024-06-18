@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import MoleHole from "../components/MoleHole";
 import WhacAMoleScoreBadge from "../components/WhacAMoleScoreBadge";
 import "./WhacAMole.css";
+import Navbar from "./NavBar";
 
 const WhacAMole = ({ score, setScore }) => {
   const [activeHole, setActiveHole] = useState(null);
@@ -26,6 +27,14 @@ const WhacAMole = ({ score, setScore }) => {
   const handleRefresh = () => {
     setRefreshData(!refreshData);
   };
+
+
+    useEffect(() => {
+      document.body.classList.add("mole-background");
+      return () => {
+        document.body.classList.remove("mole-background");
+      };
+    }, []);
 
   useEffect(() => {
     let gameInterval, timerInterval;
@@ -311,23 +320,35 @@ const WhacAMole = ({ score, setScore }) => {
       {isGameOver && (
         <div className="play-again">
           <button onClick={handleRestart}>Play Again</button>
-          <div className="top-scores">
-            <h2>Top 3 Players</h2>
-            <ul>
-              {topScores.map((player, index) => (
-                <li key={index}>
-                  <span>{player.username}</span>
-                  <span>Score</span>
-                  <span>{player.score}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        
         </div>
       )}
       <div>{formatTime(timer)}</div>
+      <div className="top-scores">
+            <h2>Top 3 Players</h2>
+            <ul>
+            <li className="header">
+              <span>Username</span>
+              <span></span>
+              <span>Score</span>
+            </li>
+            <div className="score-container">
+              {topScores.map((player, index) => (
+                <li key={index}>
+                  <span>{player.username}</span>
+                  <span></span>
+                  <span>{player.score}</span>
+                </li>
+                 ))}
+                 </div>
+            </ul>
+          </div>
+          <Navbar    />
     </div>
+    
+    
   );
+  
 };
 
 export default WhacAMole;
