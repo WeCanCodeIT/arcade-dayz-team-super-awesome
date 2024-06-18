@@ -5,6 +5,7 @@ import PongGame from "../src/pages/PongGame";
 import RPSJokerAce from "./src/components/RPSJokerAce";
 import WhacAMole from "./components/WhacAMole";
 import HomePage from "../src/pages/HomePage";
+import AboutPage from "../src/pages/AboutPage";
 
 import ConnectFourBoardPage from "./src/pages/ConnectFourBoardPage";
 
@@ -26,6 +27,8 @@ function App() {
           <Route path="/alien-jump" exact component={AlienGame} />
           <Route path="/DiceGame" exact component={DiceGame} />
           <Route path="/HomePage" exact component={HomePage} />
+          <Route path="/AboutPage" exact component={AboutPage} />
+
         </Switch>
       </div>
     </Router>
