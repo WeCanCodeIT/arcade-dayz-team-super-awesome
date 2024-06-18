@@ -3,6 +3,7 @@ import { useCookies } from "react-cookie";
 import MoleHole from "../components/MoleHole";
 import WhacAMoleScoreBadge from "../components/WhacAMoleScoreBadge";
 import "./WhacAMole.css";
+import Navbar from "./NavBar";
 
 const WhacAMole = ({ score, setScore }) => {
   const [activeHole, setActiveHole] = useState(null);
@@ -21,11 +22,19 @@ const WhacAMole = ({ score, setScore }) => {
   const [topScores, setTopScores] = useState([]);
   const [user, setUser] = useState(null);
   const [refreshData, setRefreshData] = useState(false);
-  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
   const handleRefresh = () => {
     setRefreshData(!refreshData);
   };
+
+
+    useEffect(() => {
+      document.body.classList.add("mole-background");
+      return () => {
+        document.body.classList.remove("mole-background");
+      };
+    }, []);
 
   useEffect(() => {
     let gameInterval, timerInterval;
@@ -102,11 +111,15 @@ const WhacAMole = ({ score, setScore }) => {
       if (distance < hammerRadius + characterRadius) {
         clearInterval(intervalId);
         if (activeCharacter === "mole") {
-          setScore((prevScore) => prevScore + 1);
+          setScore((prevScore) => {
+            console.log("Hit Mole, new score: ", prevScore + 1);
+            return prevScore + 1;
+          });
           setHitMole(activeHole);
         } else if (activeCharacter === "monster") {
           setScore((prevScore) => {
             const newScore = prevScore > 2 ? prevScore - 2 : 0;
+            console.log("Hit Monster, new score: ", newScore);
             if (newScore <= 0) {
               setIsGameOver(true);
               setHitMessage("YOU LOSE!");
@@ -179,8 +192,9 @@ const WhacAMole = ({ score, setScore }) => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
+        console.log("Fetching current user with cookie:", cookies.user);
         const response = await fetch(
-          "http://localhost:8080/molesmash/player?username=" + cookie.user,
+          "http://localhost:8080/molesmash/player?username=" + cookies.user,
           {
             method: "GET",
             credentials: "include",
@@ -199,7 +213,7 @@ const WhacAMole = ({ score, setScore }) => {
     };
 
     fetchCurrentUser();
-  }, [cookie.user]);
+  }, [cookies.user]);
 
   useEffect(() => {
     const fetchTopScores = async () => {
@@ -235,6 +249,7 @@ const WhacAMole = ({ score, setScore }) => {
   const handleWinner = async () => {
     if (user) {
       try {
+        console.log("Posting winner with user:", user, "and score:", score);
         const response = await fetch("http://localhost:8080/molesmash/winner", {
           method: "POST",
           headers: {
@@ -305,23 +320,35 @@ const WhacAMole = ({ score, setScore }) => {
       {isGameOver && (
         <div className="play-again">
           <button onClick={handleRestart}>Play Again</button>
-          <div className="top-scores">
-            <h2>Top 3 Players</h2>
-            <ul>
-              {topScores.map((player, index) => (
-                <li key={index}>
-                  <span>{player.username}</span>
-                  <span>Score</span>
-                  <span>{player.score}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        
         </div>
       )}
       <div>{formatTime(timer)}</div>
+      <div className="top-scores">
+            <h2>Top 3 Players</h2>
+            <ul>
+            <li className="header">
+              <span>Username</span>
+              <span></span>
+              <span>Score</span>
+            </li>
+            <div className="score-container">
+              {topScores.map((player, index) => (
+                <li key={index}>
+                  <span>{player.username}</span>
+                  <span></span>
+                  <span>{player.score}</span>
+                </li>
+                 ))}
+                 </div>
+            </ul>
+          </div>
+          <Navbar    />
     </div>
+    
+    
   );
+  
 };
 
 export default WhacAMole;

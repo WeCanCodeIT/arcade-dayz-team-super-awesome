@@ -26,8 +26,5 @@ public class WhacAMole {
     public WhacAMole(String username, int score) {
         this.username = username;
         this.score = score;
-       
-        
     }
-
 }
