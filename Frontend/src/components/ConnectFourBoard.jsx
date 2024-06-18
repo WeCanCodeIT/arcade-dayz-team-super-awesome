@@ -136,11 +136,6 @@ const ConnectFourBoard = () => {
   return (
     <div className="board">
       <h1 className="title">Welcome to Connect Four!</h1>
-      {!startClicked && (
-        <button className="start-button" onClick={handleStart}>
-          Start Game
-        </button>
-      )}
       {gameState.message && <div className="message">{gameState.message}</div>}
       {gameState.board.map((row, rowIndex) => (
         <div key={rowIndex} className="row">
@@ -153,11 +148,18 @@ const ConnectFourBoard = () => {
           ))}
         </div>
       ))}
-      {gameState.gameOver && (
-        <button className="try-again-button" onClick={handleStart}>
-          Try Again
-        </button>
-      )}
+      <div className="button-container">
+        {!startClicked && (
+          <button className="start-button" onClick={handleStart}>
+            Start Game
+          </button>
+        )}
+        {gameState.gameOver && (
+          <button className="try-again-button" onClick={handleStart}>
+            Try Again
+          </button>
+        )}
+      </div>
     </div>
   );
 };
