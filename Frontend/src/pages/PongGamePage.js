@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./pong-game.css";
 import Header from "../components/PongHeader";
 import GameCanvas from "../components/GameCanvas";
+import Navbar from "./NavBar";
 
 const PongGamePage = () => {
   const [score, setScore] = useState({ player1: 0, player2: 0 });
@@ -19,6 +20,7 @@ const PongGamePage = () => {
           <GameCanvas updateScore={updateScore} />
         </div>
       </div>
+      <Navbar />
     </div>
   );
 };
