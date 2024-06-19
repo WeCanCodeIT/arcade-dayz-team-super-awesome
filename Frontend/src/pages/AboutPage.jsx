@@ -13,15 +13,16 @@ function AboutPage() {
       imageUrl: profile,
       github: "https://github.com/bpalmiero85",
       linkedin: "",
-      backgroundColor: "#e16577" 
+      backgroundColor: "#e16577", // Example background color for the first profile
     },
     {
       name: "Kanaka M",
-      description: "more ipsum",
-      imageUrl: profile,
-      github: "https://github.com/kanakam",
-      linkedin: "",
-      backgroundColor: "#4CAF50" 
+      description:
+        "As a passionate Junior Full Stack Developer and devoted mom, I bring a unique perspective to my work. Proficient in Java, Spring Framework, JPA, HTML, CSS, JavaScript, React, TypeScript, and Tailwind CSS, I specialize in creating dynamic and user-friendly applications. My experience in Test-Driven Development, Agile methodologies, and Git/GitHub ensures the delivery of high-quality code. With a solid foundation in OOP, MVC architecture, and algorithms, I thrive on solving complex challenges. My role as a mom has taught me resilience, time management, and empathy, which I integrate into my tech career to foster collaboration, adaptability, and creativity. I am enthusiastic about applying my skills and diverse experiences to drive innovation in the tech industry.",
+      imageUrl: "/pages/ProfileImage/kanakas-profile-picture.jpg",
+      github: "https://github.com/kanaka19",
+      linkedin: "https://www.linkedin.com/in/kanaka-meier-b431a2129/",
+      backgroundColor: "#e16577" 
     },
     {
       name: "Chan Lee",
@@ -30,8 +31,8 @@ function AboutPage() {
       imageUrl: Chan,
       github: "https://github.com/Amritlee",
       linkedin: "",
-      backgroundColor: "#2196F3" 
-    }
+
+    },
   ];
 
   return (
@@ -84,7 +85,7 @@ function AboutPage() {
                   <path
                     fill="#0077B5"
                     d="M22.23 0H1.77C.792 0 0 .775 0 1.729v20.543C0 23.224.792 24 1.77 24h20.46C23.208 24 24 23.224 24 22.272V1.729C24 .775 23.208 0 22.23 0zM7.06 20.452H3.56V9.048h3.5v11.404zm-1.75-13.05c-1.116 0-2.021-.908-2.021-2.026a2.02 2.02 0 1 1 4.042 0c0 1.117-.905 2.026-2.021 2.026zM20.452 20.452h-3.5v-5.604c0-1.338-.027-3.062-1.866-3.062-1.867 0-2.153 1.458-2.153 2.964v5.702h-3.5V9.048h3.36v1.557h.048c.467-.885 1.605-1.818 3.306-1.818 3.54 0 4.192 2.33 4.192 5.361v6.304z"
-                />
+                  />
                 </svg>
               </a>
             </div>

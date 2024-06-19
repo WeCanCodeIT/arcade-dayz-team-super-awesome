@@ -116,7 +116,7 @@ const GameCanvas = ({ updateScore }) => {
 
       if (player1Scored) {
         setScores((currentScores) => {
-          const newScore = currentScores.player1 += 20;
+          const newScore = currentScores.player1 + 20;
           return {
             ...currentScores,
             player1: newScore > 100 ? 100 : newScore,
@@ -175,6 +175,13 @@ const GameCanvas = ({ updateScore }) => {
   const pauseGame = () => {
     setGameRunning(false);
   };
+
+  useEffect(() => {
+    document.body.classList.add("pong-game");
+    return () => {
+      document.body.classList.remove("pong-game");
+    };
+  }, []);
 
   return (
     <div className="pong-game-page">
