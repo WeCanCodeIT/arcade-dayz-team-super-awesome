@@ -89,7 +89,7 @@ const RPSJokerAcePage = () => {
     <div className="RPSJokerAce-container">
       <div className="RPSJokerAce-background"></div>
       <RPSJokerAceGame key={refreshData} onWinner={handleWinner} />
-      <div className="top-scores">
+      <div className="RPS-top-scores">
         <h2>Top 3 Players</h2>
         <ul>
           {topScores.map((player, index) => (
