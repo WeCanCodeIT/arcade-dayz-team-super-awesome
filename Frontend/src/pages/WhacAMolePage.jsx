@@ -274,9 +274,9 @@ const WhacAMole = ({ score, setScore }) => {
   return (
     <div className="game-container">
       <div
-        className={`whac-a-mole ${isGameOver ? "game-over" : ""} ${
-          isGameStart && !isGameOver ? "hide-cursor" : "game-start"
-        }`}
+        className={`whac-a-mole ${
+          isGameStart && !isGameOver ? "hide-cursor" : "" }`
+        }
         onClick={handleClick}
       >
         <div className="mole-title">
@@ -326,18 +326,16 @@ const WhacAMole = ({ score, setScore }) => {
         <h2>Top 3 Players</h2>
         <ul>
           <li className="header">
-            <span>Username</span>
-            <span></span>
-            <span>Score</span>
+            <div className="username-header">Username</div>
+            <div className="score-header">Score</div>
           </li>
           {topScores.map((player, index) => (
             <li key={index}>
-            <div className="username">
-              <span>{player.username}</span>
+              <div className="username">
+                <span>{player.username}</span>
               </div>
-              <span></span>
-              <div className="score">
-              <span>{player.score}</span>
+              <div className="players-score">
+                <span>{player.score}</span>
               </div>
             </li>
           ))}
