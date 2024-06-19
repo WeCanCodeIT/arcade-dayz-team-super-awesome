@@ -17,7 +17,7 @@ const RPSRulesModal = ({ show, handleClose }) => {
           - Rock beats Scissors and Joker<br />
           - Paper beats Rock and Joker<br />
           - Scissors beat Paper and Joker<br />
-          - Joker beats Ace<br />
+          - Joker beats Ace; loses to Rock, Paper, and Scissors<br />
           - Ace beats Rock, Paper, and Scissors<br />
         </p>
         <p>
