@@ -28,13 +28,12 @@ const WhacAMole = ({ score, setScore }) => {
     setRefreshData(!refreshData);
   };
 
-
-    useEffect(() => {
-      document.body.classList.add("mole-background");
-      return () => {
-        document.body.classList.remove("mole-background");
-      };
-    }, []);
+  useEffect(() => {
+    document.body.classList.add("mole-background");
+    return () => {
+      document.body.classList.remove("mole-background");
+    };
+  }, []);
 
   useEffect(() => {
     let gameInterval, timerInterval;
@@ -320,35 +319,33 @@ const WhacAMole = ({ score, setScore }) => {
       {isGameOver && (
         <div className="play-again">
           <button onClick={handleRestart}>Play Again</button>
-        
         </div>
       )}
       <div>{formatTime(timer)}</div>
       <div className="top-scores">
-            <h2>Top 3 Players</h2>
-            <ul>
-            <li className="header">
-              <span>Username</span>
+        <h2>Top 3 Players</h2>
+        <ul>
+          <li className="header">
+            <span>Username</span>
+            <span></span>
+            <span>Score</span>
+          </li>
+          {topScores.map((player, index) => (
+            <li key={index}>
+            <div className="username">
+              <span>{player.username}</span>
+              </div>
               <span></span>
-              <span>Score</span>
+              <div className="score">
+              <span>{player.score}</span>
+              </div>
             </li>
-            <div className="score-container">
-              {topScores.map((player, index) => (
-                <li key={index}>
-                  <span>{player.username}</span>
-                  <span></span>
-                  <span>{player.score}</span>
-                </li>
-                 ))}
-                 </div>
-            </ul>
-          </div>
-          <Navbar    />
+          ))}
+        </ul>
+      </div>
+      <Navbar />
     </div>
-    
-    
   );
-  
 };
 
 export default WhacAMole;

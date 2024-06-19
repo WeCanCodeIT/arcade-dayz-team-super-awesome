@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../pages/AboutPageStyle.css";
 import "../components/NavBar.css";
 import profile from "../pages/ProfileImage/profile.jpeg";
+import Chan from "../pages/ProfileImage/Chan.jpg";
 
 function AboutPage() {
   const profiles = [
@@ -21,16 +22,16 @@ function AboutPage() {
       imageUrl: "/pages/ProfileImage/kanakas-profile-picture.jpg",
       github: "https://github.com/kanaka19",
       linkedin: "https://www.linkedin.com/in/kanaka-meier-b431a2129/",
-      backgroundColor: "#4CAF50", // Example background color for the second profile
+      backgroundColor: "#e16577" 
     },
     {
       name: "Chan Lee",
       description: "Amateur coder doing amateur work for fun.",
       projects: "Projects: RPSJokerAce Game, Dice Game",
-      imageUrl: profile,
+      imageUrl: Chan,
       github: "https://github.com/Amritlee",
       linkedin: "",
-      backgroundColor: "#2196F3", // Example background color for the third profile
+
     },
   ];
 

@@ -20,7 +20,7 @@ useEffect(() => {
   return (
     <div className="navbar">
       <div className="title">
-        <h1>Welcome to Arcade Dayz, {userFullName || 'Name unavailable'}!</h1>
+        <h1 className="title-name">Welcome to Arcade Dayz, {userFullName || 'Name unavailable'}!</h1>
       </div>
       <div>
         <Link to="/HomePage">Home</Link>
