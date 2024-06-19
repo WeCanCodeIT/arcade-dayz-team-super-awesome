@@ -4,6 +4,7 @@ import "../pages/AboutPageStyle.css";
 import "../components/NavBar.css";
 import profile from "../pages/ProfileImage/profile.jpeg";
 import Chan from "../pages/ProfileImage/Chan.jpg";
+import Kanaka from "../pages/ProfileImage/kanakas-profile-picture.JPG"
 
 function AboutPage() {
   const profiles = [
@@ -19,7 +20,7 @@ function AboutPage() {
       name: "Kanaka M",
       description:
         "As a passionate Junior Full Stack Developer and devoted mom, I bring a unique perspective to my work. Proficient in Java, Spring Framework, JPA, HTML, CSS, JavaScript, React, TypeScript, and Tailwind CSS, I specialize in creating dynamic and user-friendly applications. My experience in Test-Driven Development, Agile methodologies, and Git/GitHub ensures the delivery of high-quality code. With a solid foundation in OOP, MVC architecture, and algorithms, I thrive on solving complex challenges. My role as a mom has taught me resilience, time management, and empathy, which I integrate into my tech career to foster collaboration, adaptability, and creativity. I am enthusiastic about applying my skills and diverse experiences to drive innovation in the tech industry.",
-      imageUrl: "/pages/ProfileImage/kanakas-profile-picture.jpg",
+      imageUrl: Kanaka,
       github: "https://github.com/kanaka19",
       linkedin: "https://www.linkedin.com/in/kanaka-meier-b431a2129/",
       backgroundColor: "#e16577" 
