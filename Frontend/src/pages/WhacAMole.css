@@ -33,18 +33,9 @@ body {
   font-family: Arial, sans-serif;
   position: relative;
   overflow: hidden;
-  border: 3px solid blue;
 }
 
-.whac-a-mole {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 500px;
-  height: 700px;
-  position: relative;
-}
+
 
 .hide-cursor {
   cursor: none;
@@ -60,18 +51,18 @@ body {
 }
 
 .holes {
-  margin-top: 255px;
+  margin-top: 5px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   width: 400px;
   height: 400px;
-  position: relative;
+  position: absolute;
 }
 
 .mole-title {
-  height: 60px;
+  height: 65px;
   line-height: 15px;
   text-align: center;
   background-color: rgba(24, 178, 37, 0.484);
@@ -79,12 +70,13 @@ body {
   border-radius: 10px;
   margin-bottom: 10px;
   font-size: 18px;
-  color: black;
+  color: rgb(0, 0, 0);
   padding: 0 20px;
   z-index: 1;
   position: absolute;
-  top: 105px;
+  top: 75px;
   box-sizing: border-box;
+  margin-left: -180px;
 }
 
 .hammer {
@@ -101,8 +93,25 @@ body {
   transform: translate(-50px, -50px) rotate(20deg);
 }
 
+.welcome-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 45%;
+  text-align: center;
+  font-size: 24px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  border: 3px solid black;
+  border-radius: 15px;
+  background-color: rgb(239, 185, 7);
+  padding: 10px;
+  z-index: 3000;
+}
+
 .hit-message {
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 52%;
   transform: translate(-50%, -50%);
@@ -115,6 +124,7 @@ body {
   border-radius: 15px;
   background-color: rgb(212, 230, 6);
   padding: 10px;
+  margin-left: -28px;
   z-index: 2000;
 }
 
@@ -130,10 +140,13 @@ body {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   padding: 5px;
-  margin-top: 10px;
+  margin-top: 215px;
+  margin-left: -52px;
+  position: fixed;
 }
 
-.play-again {
+/* .play-again {
+  margin-left: -28px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -143,7 +156,7 @@ body {
   left: 50.5%;
   transform: translateX(-50%);
   z-index: 2;
-}
+} */
 
 .mole-background {
   background-size: cover;
@@ -152,9 +165,10 @@ body {
 }
 
 .play-again button {
+  position: fixed;
   padding: 10px 20px;
-  margin-top: 10px;
-  margin-left: 45px;
+  margin-top: 50px;
+  margin-left: -62px;
   font-size: 18px;
   background-color: rgb(24, 178, 37);
   border: none;
@@ -282,7 +296,7 @@ body {
 
 .badge {
   position: absolute;
-  top: 185px;
+  top: -265px;
   left: 50%;
   transform: translate(-50%, 0);
   padding: 10px 20px;
