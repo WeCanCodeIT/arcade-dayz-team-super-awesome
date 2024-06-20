@@ -39,10 +39,11 @@ const Signup = () => {
 
   return (
     <div className="signup-background">
-      <div className="signup-container">
-        <div className="signup-title">
+      <div className="signup-title">
           <h2>Sign up</h2>
         </div>
+      <div className="signup-container">
+        
         <form onSubmit={handleSignup}>
           <div className="signup-fields">
             <div className="signup-fullname">

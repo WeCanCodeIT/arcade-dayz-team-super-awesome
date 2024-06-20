@@ -25,7 +25,7 @@ useEffect(() => {
       <div>
         <Link to="/HomePage">Home</Link>
         <Link to="/AboutPage">About</Link>
-        <Link to="/signup">Logout</Link>
+        <Link to="/">Logout</Link>
       </div>
     </div>
   );
