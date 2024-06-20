@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 import "../pages/AboutPageStyle.css";
 import "../components/NavBar.css";
 import Chan from "../pages/ProfileImage/Chan.jpg";
-
-import Kanaka from "../pages/ProfileImage/kanakas-profile-picture.JPG"
 import Brian from "../pages/ProfileImage/brian-business.jpeg";
-
 import Kanaka from "../pages/ProfileImage/Kanaka.jpg";
 
 
