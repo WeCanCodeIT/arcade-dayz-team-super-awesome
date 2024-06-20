@@ -2,16 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../pages/AboutPageStyle.css";
 import "../components/NavBar.css";
-import profile from "../pages/ProfileImage/profile.jpeg";
 import Chan from "../pages/ProfileImage/Chan.jpg";
 import Kanaka from "../pages/ProfileImage/kanakas-profile-picture.JPG"
+import Brian from "../pages/ProfileImage/brian-business.jpeg";
 
 function AboutPage() {
   const profiles = [
     {
       name: "Brian Palmiero",
       description: "ipsum",
-      imageUrl: profile,
+      imageUrl: Brian,
       github: "https://github.com/bpalmiero85",
       linkedin: "",
       backgroundColor: "#e16577", // Example background color for the first profile
