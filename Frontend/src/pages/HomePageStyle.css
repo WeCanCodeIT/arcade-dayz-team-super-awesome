@@ -1,5 +1,5 @@
 body {
-  background-image: url("/public/home_background.jpeg");
+  background-image: url("/public/homepage-background.jpg");
   background-size: cover;
 }
 
@@ -44,7 +44,7 @@ body::after {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  /* margin-top: 400px; */
+
 }
 
 .carousel-slide {
@@ -61,7 +61,7 @@ body::after {
 }
 
 .card {
-  background-color: #033645a9;
+  background-color: #1144de;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -99,7 +99,7 @@ body::after {
 
 .carousel-control {
   cursor: pointer;
-  background-color: #033645a9;
+  background-color: #033645;
   border: 3px solid #a31ba8;
   border-radius: 15px;
   display: flex;
