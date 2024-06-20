@@ -30,7 +30,8 @@ const App = () => {
       "Dice_background",
       "spaceshipBackground",
       "gameboy",
-      "signup-background"
+      "signup-background",
+      "homepage-background"
     );
 
     if (location.pathname === "/tic-tac-toe") {
@@ -50,7 +51,7 @@ const App = () => {
     } else if (location.pathname === "/signup") {
       document.body.classList.add("arcade-pong1");
     } else if (location.pathname === "/HomePage") {
-      document.body.classList.add("spaceshipBackground");
+      document.body.classList.add("homepage-background");
     } else if (location.pathname === "/" || location.pathname === "/signup") {
       document.body.classList.add("gameboy");
     } else if (location.pathname === "/signup") {

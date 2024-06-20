@@ -4,6 +4,7 @@ import Platform from "../components/Platform";
 import Spaceship from "../components/Spaceship";
 import Fireball from "../components/Fireball";
 import "./AlienGame.css";
+import NavBar from "./NavBar";
 
 const initialPlatforms = [
   { id: 1, left: 0, top: 800, width: 100, height: 20, isMoving: false }, 
@@ -147,6 +148,7 @@ const AlienGame = () => {
         {!isGameStart && <button className="start-button" onClick={handleStart}>{buttonText}</button>}
         {(gameLost || gameWon) && <button className="start-button" onClick={handleStart}>{buttonText}</button>}
       </div>
+      <NavBar />
     </div>
   );
 };
