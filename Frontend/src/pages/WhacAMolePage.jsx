@@ -13,7 +13,8 @@ const WhacAMole = ({ score, setScore }) => {
   const [hitMonster, setHitMonster] = useState(null);
   const [activeCharacter, setActiveCharacter] = useState(null);
   const [intervalId, setIntervalId] = useState(null);
-  const [hitMessage, setHitMessage] = useState(
+  const [hitMessage, setHitMessage] = useState("");
+  const [welcomeMessage, setWelcomeMessage] = useState(
     "Welcome to Super Mole Smash! Smash as many moles as you can to score points, but be careful not to hit the monsters! You have 2 minutes. Moles are +1 and monsters are -2."
   );
   const [isGameOver, setIsGameOver] = useState(false);
@@ -274,9 +275,7 @@ const WhacAMole = ({ score, setScore }) => {
   return (
     <div className="game-container">
       <div
-        className={`whac-a-mole ${isGameOver ? "game-over" : ""} ${
-          isGameStart && !isGameOver ? "hide-cursor" : "game-start"
-        }`}
+        className={isGameStart && !isGameOver ? "hide-cursor" : ""}
         onClick={handleClick}
       >
         <div className="mole-title">
@@ -312,9 +311,12 @@ const WhacAMole = ({ score, setScore }) => {
       )}
       {hitMessage && <div className="hit-message">{hitMessage}</div>}
       {!isGameStart && (
-        <div className="start-game">
-          <button onClick={handleStart}>Play</button>
-        </div>
+        <>
+          <div className="start-game">
+            <button onClick={handleStart}>Play</button>
+          </div>
+          <div className="welcome-message">{welcomeMessage}</div>
+        </>
       )}
       {isGameOver && (
         <div className="play-again">
@@ -332,12 +334,12 @@ const WhacAMole = ({ score, setScore }) => {
           </li>
           {topScores.map((player, index) => (
             <li key={index}>
-            <div className="username">
-              <span>{player.username}</span>
+              <div className="username">
+                <span>{player.username}</span>
               </div>
               <span></span>
               <div className="score">
-              <span>{player.score}</span>
+                <span>{player.score}</span>
               </div>
             </li>
           ))}
