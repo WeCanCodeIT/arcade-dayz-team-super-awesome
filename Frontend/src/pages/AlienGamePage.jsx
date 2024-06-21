@@ -7,7 +7,7 @@ import "./AlienGame.css";
 import NavBar from "./NavBar";
 
 const initialPlatforms = [
-  { id: 1, left: 0, top: 800, width: 100, height: 20, isMoving: false }, 
+  { id: 1, left: 0, top: 700, width: 100, height: 20, isMoving: false }, 
   { id: 2, left: 150, top: 730, width: 100, height: 20, isMoving: false }, 
   { id: 3, left: 300, top: 660, width: 100, height: 20, isMoving: false }, 
   { id: 4, left: 450, top: 590, width: 100, height: 20, isMoving: true, range: { start: 450, end: 550 }, speed: 2 }, 
@@ -37,7 +37,30 @@ const AlienGame = () => {
   const [fireballs, setFireballs] = useState([]);
   const [playerPosition, setPlayerPosition] = useState({ left: 0, top: 0, width: 50, height: 50 });
   const [isGameStart, setIsGameStart] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [timer, setTimer] = useState(0);
+  const [intervalId, setIntervalId] = useState(null);
+  const [topTimes, setTopTimes] = useState([]);
   const MAX_FIREBALLS = 4;
+
+  useEffect(() => {
+    let timerInterval = null;
+
+    if (isGameStart && !gameWon && !gameLost) {
+      timerInterval = setInterval(() => {
+        setTimer((prevTime) => prevTime + 1);
+      }, 1000)
+    }
+
+    return () => {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+      }
+    };
+  }, [isGameStart, gameWon, gameLost]);
+
+
+
 
   useEffect(() => {
     const updateGameArea = () => {
@@ -74,6 +97,32 @@ const AlienGame = () => {
     }
   }, [isGameStart, gameArea]);
 
+  useEffect(() => {
+    if(gameWon) {
+      fetch("/alienjump/winner", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username: "playerUsername", time: timer })
+      }).then(response => response.json())
+        .then(data => console.log(data));
+    }
+  }, [gameWon]);
+
+  useEffect(() => {
+    fetch("alienjump/records")
+      .then(response => response.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setTopTimes(data.map(game => ({
+            username: game.username,
+            time: Math.min(...game.times)
+          })));
+        }
+      });
+  }, []);
+
   const updatePlatformPosition = (id, newPosition) => {
     setPlatforms((prevPlatforms) =>
       prevPlatforms.map((platform) =>
@@ -93,8 +142,10 @@ const AlienGame = () => {
     setGameLost(false);
     setGameWon(false);
     setFireballs([]);
+    setTimer(0);
     setButtonText("Start");
     setShowWinMessage("");
+    
   };
 
   const handleHit = () => {
@@ -117,6 +168,7 @@ const AlienGame = () => {
     <div className="game-container" ref={gameAreaRef}>
       {showWinMessage && <div className="win-message">{showWinMessage}</div>}
       <div className="alien-game">
+      <div className="alien-timer">Time: {timer} seconds</div>
         <Spaceship position={spaceshipPosition} />
         {isGameStart && !gameWon && !gameLost && (
           <Alien
@@ -149,7 +201,29 @@ const AlienGame = () => {
         {(gameLost || gameWon) && <button className="start-button" onClick={handleStart}>{buttonText}</button>}
       </div>
       <NavBar />
+      <div className="alien-top-scores">
+        <h2>Top 3 Players</h2>
+        <ul>
+          <li className="alien-header">
+            <span>Username</span>
+            <span></span>
+            <span>Fastest Time</span>
+          </li>
+          {topTimes.map((player, index) => (
+            <li key={index}>
+              <div className="alien-username">
+                <span>{player.username}</span>
+              </div>
+              <span></span>
+              <div className="alien-score">
+                <span>{player.time}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
+    
   );
 };
 

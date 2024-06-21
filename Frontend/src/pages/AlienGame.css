@@ -1,4 +1,5 @@
 .game-container {
+  padding-top: 150px;
   width: 100vw;
   height: 100vh;  
   margin: 0;
@@ -51,3 +52,89 @@
     text-align: center;
   
   }
+
+  .alien-timer {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    color: white;
+  }
+
+  .alien-top-scores {
+    height: 200px;
+    margin-top: -325px;
+    margin-left: -1100px;
+    position: fixed;
+    padding: 15px;
+    background: linear-gradient(#ffa20075, #e6b800ae);
+    border-radius: 20px;
+    text-align: left;
+    border: 5px solid rgba(255, 166, 0, 0.735);
+    width: 300px;
+    font-family: "Arial", sans-serif;
+    box-sizing: border-box;
+    box-shadow: 8px 8px 3px rgba(0, 0, 0, 0.511);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .alien-top-scores h2 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: -70px;
+    box-shadow: 2px 3px 2px black;
+    background-color: rgba(165, 42, 42, 0.523);
+    color: #f9924eea;
+    border-radius: 15px;
+    width: 100%;
+    text-shadow: 2px 2px 4px #000;
+    padding: 5px 0;
+  }
+  
+  .alien-top-scores ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .alien-top-scores li.header,
+  .alien-top-scores li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000;
+  }
+  
+  .alien-score {
+    margin-top: 5px;
+    margin-left: 10px;
+  }
+  
+  .alien-top-scores li.header {
+    font-size: 1.4em;
+    color: #eccb27f9;
+    border-bottom: 2px solid #eccb27f9;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .alien-top-scores li {
+    color: #bcfc55;
+  }
+  
+  .alien-top-scores li span {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .alien-top-scores li span:nth-child(2) {
+    flex: 0.1;
+  }
+  
+
+
