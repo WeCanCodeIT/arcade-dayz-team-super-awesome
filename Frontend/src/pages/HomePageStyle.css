@@ -3,7 +3,6 @@ body {
   background-size: cover;
 }
 
-
 body::after {
   content: "";
   position: absolute;
@@ -11,8 +10,8 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
-  z-index: -1; 
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 
 .home-container {
@@ -20,13 +19,27 @@ body::after {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; 
+  height: 100vh;
   padding: 20px;
   font-family: Arial, sans-serif;
 }
 
+.home-title {
+  background: linear-gradient(90deg, #f60000, #fcfc06, #01f7fb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 78px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  padding: 20px 0;
+  z-index: 1;
+}
+
 .content {
-  flex: 1; 
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +57,6 @@ body::after {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-
 }
 
 .carousel-slide {
@@ -67,7 +79,7 @@ body::after {
   flex-direction: column;
   justify-content: space-between;
   border: 4px solid #a31ba8;
-  transition: transform 0.3s ease; 
+  transition: transform 0.3s ease;
 }
 
 .card:hover {
@@ -128,5 +140,4 @@ body::after {
 .carousel-control:hover {
   background-color: #a31ba8;
   border-color: #a31ba8;
-
 }
