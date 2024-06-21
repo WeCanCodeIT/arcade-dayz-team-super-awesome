@@ -32,7 +32,7 @@ public class DiceGameController {
                 DiceGame newWinner = new DiceGame(winnerData.getUsername(), winnerData.getRounds());
                 DiceGameServiceImpl.save(newWinner);
             } else {
-                // Update only if the new score (rounds) is better (lower)
+
                 if (winnerData.getRounds() < diceGameRecord.getRounds()) {
                     diceGameRecord.setRounds(winnerData.getRounds());
                     DiceGameServiceImpl.save(diceGameRecord);
