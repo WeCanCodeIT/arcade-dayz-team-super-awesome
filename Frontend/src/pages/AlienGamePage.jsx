@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import Alien from "../components/Alien";
 import Platform from "../components/Platform";
 import Spaceship from "../components/Spaceship";
@@ -7,16 +8,16 @@ import "./AlienGame.css";
 import NavBar from "./NavBar";
 
 const initialPlatforms = [
-  { id: 1, left: 0, top: 700, width: 100, height: 20, isMoving: false }, 
-  { id: 2, left: 150, top: 730, width: 100, height: 20, isMoving: false }, 
-  { id: 3, left: 300, top: 660, width: 100, height: 20, isMoving: false }, 
-  { id: 4, left: 450, top: 590, width: 100, height: 20, isMoving: true, range: { start: 450, end: 550 }, speed: 2 }, 
-  { id: 5, left: 600, top: 520, width: 100, height: 20, isMoving: false }, 
-  { id: 6, left: 750, top: 450, width: 100, height: 20, isMoving: false }, 
-  { id: 7, left: 900, top: 400, width: 100, height: 20, isMoving: false }, 
-  { id: 8, left: 1050, top: 350, width: 100, height: 20, isMoving: false }, 
-  { id: 9, left: 1125, top: 300, width: 100, height: 20, isMoving: false }, 
-  { id: 10, left: 965, top: 250, width: 100, height: 20, isMoving: false } 
+  { id: 1, left: 0, top: 700, width: 100, height: 20, isMoving: false },
+  { id: 2, left: 150, top: 730, width: 100, height: 20, isMoving: false },
+  { id: 3, left: 300, top: 660, width: 100, height: 20, isMoving: false },
+  { id: 4, left: 450, top: 590, width: 100, height: 20, isMoving: true, range: { start: 450, end: 550 }, speed: 2 },
+  { id: 5, left: 600, top: 520, width: 100, height: 20, isMoving: false },
+  { id: 6, left: 750, top: 450, width: 100, height: 20, isMoving: false },
+  { id: 7, left: 900, top: 400, width: 100, height: 20, isMoving: false },
+  { id: 8, left: 1050, top: 350, width: 100, height: 20, isMoving: false },
+  { id: 9, left: 1125, top: 300, width: 100, height: 20, isMoving: false },
+  { id: 10, left: 965, top: 250, width: 100, height: 20, isMoving: false }
 ];
 
 const spaceshipPosition = {
@@ -39,28 +40,25 @@ const AlienGame = () => {
   const [isGameStart, setIsGameStart] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [timer, setTimer] = useState(0);
-  const [intervalId, setIntervalId] = useState(null);
   const [topTimes, setTopTimes] = useState([]);
+  const [user, setUser] = useState(null);
+  const [cookies] = useCookies(["user"]);
+  const [refreshData, setRefreshData] = useState(false);
   const MAX_FIREBALLS = 4;
 
   useEffect(() => {
     let timerInterval = null;
-
     if (isGameStart && !gameWon && !gameLost) {
       timerInterval = setInterval(() => {
         setTimer((prevTime) => prevTime + 1);
-      }, 1000)
+      }, 1000);
     }
-
     return () => {
       if (timerInterval) {
         clearInterval(timerInterval);
       }
     };
   }, [isGameStart, gameWon, gameLost]);
-
-
-
 
   useEffect(() => {
     const updateGameArea = () => {
@@ -69,59 +67,37 @@ const AlienGame = () => {
         setGameArea({ width, height });
       }
     };
-
     updateGameArea();
     window.addEventListener('resize', updateGameArea);
-
     return () => {
       window.removeEventListener('resize', updateGameArea);
     };
   }, []);
 
-  useEffect(() => {
-    if (isGameStart && gameArea.width && gameArea.height) { 
-      const addFireball = () => {
-        setFireballs((prevFireballs) => {
-          if (prevFireballs.length < MAX_FIREBALLS) {
-            return [
-              ...prevFireballs,
-              { id: Math.random(), top: 0, left: Math.random() * gameArea.width, width: 50, height: 50 }
-            ];
-          }
-          return prevFireballs;
-        });
-      };
-
-      const interval = setInterval(addFireball, 5000); 
-      return () => clearInterval(interval);
-    }
-  }, [isGameStart, gameArea]);
-
-  useEffect(() => {
-    if(gameWon) {
-      fetch("/alienjump/winner", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username: "playerUsername", time: timer })
-      }).then(response => response.json())
-        .then(data => console.log(data));
-    }
-  }, [gameWon]);
-
-  useEffect(() => {
-    fetch("alienjump/records")
-      .then(response => response.json())
-      .then(data => {
-        if (Array.isArray(data)) {
-          setTopTimes(data.map(game => ({
-            username: game.username,
-            time: Math.min(...game.times)
-          })));
+  const fetchTopTimes = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/alienjump/records",
+        {
+          method: 'GET',
+          credentials: 'include',
         }
-      });
-  }, []);
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Fetched top scores:", data);
+        setTopTimes(data);
+      } else {
+        console.log("Error fetching top scores");
+      }
+    } catch (error) {
+      console.log("Error fetching top scores", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTopTimes();
+  }, [refreshData]);
 
   const updatePlatformPosition = (id, newPosition) => {
     setPlatforms((prevPlatforms) =>
@@ -131,31 +107,73 @@ const AlienGame = () => {
     );
   };
 
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        console.log("Fetching current user with cookie:", cookies.user);
+        const response = await fetch(
+          "http://localhost:8080/alienjump/player?username=" + cookies.user,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        if (response.ok) {
+          const userData = await response.json();
+          console.log("Fetched current user:", userData);
+          setUser(userData);
+        } else {
+          console.log("Error fetching current player");
+        }
+      } catch (error) {
+        console.log("Error fetching current player", error);
+      }
+    };
+    fetchCurrentUser();
+  }, [cookies.user]);
+
   const handleWin = () => {
     setGameWon(true);
+    setIsGameOver(true);
+    const completedTime = timer; // Capture the final timer value as time
     setShowWinMessage("You helped the alien find their way home! YOU WIN!");
     setButtonText("Play Again");
+
+    handleWinner(completedTime);
   };
 
   const handleStart = () => {
     setIsGameStart(true);
     setGameLost(false);
+    setIsGameOver(false);
     setGameWon(false);
     setFireballs([]);
     setTimer(0);
     setButtonText("Start");
     setShowWinMessage("");
-    
+  };
+
+  const handleRestart = () => {
+    setIsGameStart(true);
+    setGameLost(false);
+    setIsGameOver(false);
+    setGameWon(false);
+    setFireballs([]);
+    setTimer(0);
+    setButtonText("Play Again");
+    setShowWinMessage("");
   };
 
   const handleHit = () => {
     setGameLost(true);
+    setIsGameOver(true);
     setShowWinMessage("Game Over! The alien was hit!");
     setButtonText("Play Again");
   };
 
   const handleFall = () => {
     setGameLost(true);
+    setIsGameOver(true);
     setShowWinMessage("The alien fell. YOU LOSE!");
     setButtonText("Play Again");
   };
@@ -164,11 +182,37 @@ const AlienGame = () => {
     setPlayerPosition(newPosition);
   };
 
+  const handleWinner = async (completedTime) => {
+    if (user) {
+      try {
+        console.log("Posting winner with user:", user, "and score:", completedTime);
+        const response = await fetch("http://localhost:8080/alienjump/winner", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ username: user.username, time: completedTime }),
+        });
+        if (response.ok) {
+          console.log("Winner posted successfully");
+          setRefreshData((prev) => !prev);
+        } else {
+          console.log("Error posting winner");
+        }
+      } catch (error) {
+        console.log("Error posting winner", error);
+      }
+    } else {
+      console.log("User not logged in");
+    }
+  };
+
   return (
     <div className="game-container" ref={gameAreaRef}>
       {showWinMessage && <div className="win-message">{showWinMessage}</div>}
       <div className="alien-game">
-      <div className="alien-timer">Time: {timer} seconds</div>
+        <div className="alien-timer">Time: {timer} seconds</div>
         <Spaceship position={spaceshipPosition} />
         {isGameStart && !gameWon && !gameLost && (
           <Alien
@@ -197,8 +241,8 @@ const AlienGame = () => {
         {isGameStart && fireballs.map((fireball) => (
           <Fireball key={fireball.id} position={fireball} gameArea={gameArea} playerPosition={playerPosition} onHit={handleHit} />
         ))}
-        {!isGameStart && <button className="start-button" onClick={handleStart}>{buttonText}</button>}
-        {(gameLost || gameWon) && <button className="start-button" onClick={handleStart}>{buttonText}</button>}
+        {!isGameStart && <button className="alien-start-button" onClick={handleStart}>{buttonText}</button>}
+        {(gameLost || gameWon) && <button className="alien-restart-button" onClick={handleRestart}>{buttonText}</button>}
       </div>
       <NavBar />
       <div className="alien-top-scores">
@@ -216,14 +260,13 @@ const AlienGame = () => {
               </div>
               <span></span>
               <div className="alien-score">
-                <span>{player.time}</span>
+                <span>{player.fastestTime} seconds</span>
               </div>
             </li>
           ))}
         </ul>
       </div>
     </div>
-    
   );
 };
 

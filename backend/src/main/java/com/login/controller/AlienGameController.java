@@ -9,7 +9,10 @@ import com.login.model.User;
 import com.login.service.AlienGameImpl;
 import com.login.service.UserServiceImpl;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/alienjump")
@@ -27,7 +30,10 @@ public class AlienGameController {
         String username = alienGameRequest.getUsername();
         double newTime = alienGameRequest.getTime();
 
-        if (userServiceImpl.findByUsername(username) != null) {
+        System.out.println("Received winner request for user: " + username + " with time: " + newTime);
+
+        User user = userServiceImpl.findByUsername(username);
+        if (user != null) {
             AlienGame alienGameRecord = alienGameServiceImpl.findByUsername(username);
 
             if (alienGameRecord == null) {
@@ -35,10 +41,14 @@ public class AlienGameController {
                 times.add(newTime);
                 AlienGame newWinner = new AlienGame(username, times);
                 alienGameServiceImpl.save(newWinner);
+                System.out.println("New record created for user: " + username + " with time: " + newTime);
             } else {
                 alienGameRecord.addTime(newTime);
                 alienGameServiceImpl.save(alienGameRecord);
+                System.out.println("Updated record for user: " + username + " with new time: " + newTime);
             }
+        } else {
+            System.out.println("User not found: " + username);
         }
 
         return ResponseEntity.ok("New record time!");
@@ -61,8 +71,17 @@ public class AlienGameController {
         List<AlienGame> topThreeTimes = alienGameServiceImpl.findTopThreeTimes();
 
         if (topThreeTimes != null && !topThreeTimes.isEmpty()) {
-            return ResponseEntity.ok(topThreeTimes);
+            List<Map<String, Object>> result = topThreeTimes.stream()
+                    .map(game -> {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("username", game.getUsername());
+                        map.put("fastestTime", game.getFastestTime());
+                        return map;
+                    })
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(result);
         }
-        return ResponseEntity.ok("List is empty");
+
+        return ResponseEntity.ok(new ArrayList<>());
     }
 }

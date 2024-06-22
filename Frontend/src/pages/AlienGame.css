@@ -45,13 +45,45 @@
 
   }
 
-  .start-button {
-    position: absolute;
-    bottom: 30%; 
-    left: 45%;
-    text-align: center;
-  
+  .alien-start-button:hover{
+    background-color: #600bba;
+    color: white;
   }
+
+  .alien-start-button {
+    position: absolute;
+      padding: 10px 20px;
+      font-size: 22px;
+      background-color: #8c3de0;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 460px;
+      margin-left: -40px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .alien-restart-button:hover{
+      background-color: #600bba; 
+      color: white;
+    }
+
+    .alien-restart-button {
+      position: absolute;
+      padding: 10px 20px;
+      font-size: 22px;
+      background-color: #8c3de0;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 420px;
+      margin-left: -80px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
 
   .alien-timer {
     position: absolute;
@@ -62,15 +94,15 @@
   }
 
   .alien-top-scores {
-    height: 200px;
+    height: auto;
     margin-top: -325px;
     margin-left: -1100px;
     position: fixed;
     padding: 15px;
-    background: linear-gradient(#ffa20075, #e6b800ae);
+    background: linear-gradient(#bd8eeb75, #4900e6ae);
     border-radius: 20px;
     text-align: left;
-    border: 5px solid rgba(255, 166, 0, 0.735);
+    border: 5px solid rgba(157, 0, 255, 0.735);
     width: 300px;
     font-family: "Arial", sans-serif;
     box-sizing: border-box;
@@ -83,10 +115,10 @@
   .alien-top-scores h2 {
     text-align: center;
     font-size: 1.5em;
-    margin-bottom: -70px;
+    margin-bottom: 8px;
     box-shadow: 2px 3px 2px black;
-    background-color: rgba(165, 42, 42, 0.523);
-    color: #f9924eea;
+    background-color: rgba(63, 42, 165, 0.523);
+    color: #5fd3f9ea;
     border-radius: 15px;
     width: 100%;
     text-shadow: 2px 2px 4px #000;
@@ -115,16 +147,16 @@
     margin-left: 10px;
   }
   
-  .alien-top-scores li.header {
+  .alien-top-scores li.alien-header {
     font-size: 1.4em;
-    color: #eccb27f9;
-    border-bottom: 2px solid #eccb27f9;
+    color: #bae8fff9;
+    border-bottom: 2px solid #ff03fb98;
     padding-bottom: 5px;
     margin-bottom: 5px;
   }
   
   .alien-top-scores li {
-    color: #bcfc55;
+    color: #55fc84;
   }
   
   .alien-top-scores li span {
