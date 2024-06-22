@@ -43,7 +43,7 @@ public class AlienGameController {
                 alienGameServiceImpl.save(newWinner);
                 System.out.println("New record created for user: " + username + " with time: " + newTime);
             } else {
-                alienGameRecord.addTime(newTime);
+                // alienGameRecord.addTime(newTime);
                 alienGameServiceImpl.save(alienGameRecord);
                 System.out.println("Updated record for user: " + username + " with new time: " + newTime);
             }

@@ -28,9 +28,9 @@ public class AlienGame {
         this.times = times;
     }
 
-    public void addTime(double time) {
-        this.times.add(time);
-    }
+    // public void addTime(double time) {
+    //     this.times.add(time);
+    // }
 
     public double getFastestTime() {
         return Collections.min(this.times);
