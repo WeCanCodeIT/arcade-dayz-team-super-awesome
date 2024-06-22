@@ -96,7 +96,7 @@ const TicTacToePage = () => {
       <div className="tictactoe-container">
       <Board key={refreshData} onWinner={handleWinner} />
       <button className="refresh-btn" onClick={handleRefresh}>Refresh</button>
-      <div className="top-scores">
+      <div className="Tic-tac-top-scores">
         <h2>Top 3 Players</h2>
         <ul>
           {topScores.map((player, index) => (
