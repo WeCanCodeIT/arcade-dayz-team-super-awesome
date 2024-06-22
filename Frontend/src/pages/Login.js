@@ -7,16 +7,22 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [hasError, setHasError] = useState(false);
   const navigate = useNavigate();
 
   const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!username || !password) {
-      alert("Please enter both username and password");
+      setMessage("Please enter both username and password");
+      setHasError(true);
       return;
     }
     setLoading(true);
+    setMessage(""); 
+    setHasError(false);
     try {
       const response = await fetch("http://localhost:8080/auth/login", {
         method: "POST",
@@ -29,15 +35,17 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.text();
-        alert(data);
+        setMessage(data); 
         setCookie("user", username);
         navigate(`/HomePage`);
       } else {
         const errorText = await response.text();
-        alert(`Error: ${errorText}`);
+        setMessage(`Error: ${errorText}`); 
+        setHasError(true);
       }
     } catch (error) {
-      alert("Error logging in");
+      setMessage("Error logging in"); 
+      setHasError(true);
     } finally {
       setLoading(false);
     }
@@ -50,7 +58,7 @@ const Login = () => {
   return (
     <div className="login-background">
       <div className="login-container">
-        <div className=".login-title">
+        <div className="login-title">
           <h2>Login</h2>
         </div>
         <form onSubmit={handleLogin}>
@@ -60,7 +68,7 @@ const Login = () => {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="login-input"
+              className={`login-input ${hasError ? 'error' : ''}`}
             />
           </div>
           <div className="password">
@@ -69,14 +77,17 @@ const Login = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="login-input"
+              className={`login-input ${hasError ? 'error' : ''}`}
             />
           </div>
+          {message && <div className="err-message">{message}</div>} 
           <div className="login-buttons">
             <button type="submit" disabled={loading} className="login-button">
               {loading ? "Logging in..." : "Login"}
             </button>
-            <button onClick={handleSignup} className="signup-button">Sign up</button>
+            <button type="button" onClick={handleSignup} className="signup-button">
+              Sign up
+            </button>
           </div>
         </form>
       </div>
