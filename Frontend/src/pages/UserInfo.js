@@ -16,10 +16,10 @@ const UserInfo = ({ onUserFetch }) => {
                     const userData = await response.json();
                     onUserFetch(userData); 
                 } else {
-                    alert('Error fetching user info');
+                    console.error('Error fetching user info');
                 }
             } catch (error) {
-                alert('Error fetching user info');
+                console.error('Error fetching user info');
             }
         };
 
