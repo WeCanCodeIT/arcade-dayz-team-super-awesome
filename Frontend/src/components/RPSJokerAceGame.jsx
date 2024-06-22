@@ -58,22 +58,20 @@ const RPSJokerAceGame = ({ onWinner }) => {
     const newCpuChoice = getCpuChoice();
     const gameResult = determineWinner(selectedChoice, newCpuChoice);
     
-    if (playerUsedChoices.length + 1 === maxRounds) {
-      handleEndMatch();
-    } else {
-      if (gameResult === "Player wins!") {
-        setPlayerMatchScore(prevScore => prevScore + 1);
-      } else if (gameResult === "CPU wins!") {
-        setCpuMatchScore(prevScore => prevScore + 1);
-      }
+    if (gameResult === "Player wins!") {
+      setPlayerMatchScore(playerMatchScore + 1);
+    } else if (gameResult === "CPU wins!") {
+      setCpuMatchScore(cpuMatchScore + 1);
     }
-    
-    setPlayerUsedChoices(prevChoices => [...prevChoices, selectedChoice]);
-    setCpuUsedChoices(prevChoices => [...prevChoices, newCpuChoice]);
-  
+
+    setPlayerUsedChoices([...playerUsedChoices, selectedChoice]);
+    setCpuUsedChoices([...cpuUsedChoices, newCpuChoice]);
     setCpuChoice(newCpuChoice);
     setResult(gameResult);
-  
+
+    if (playerUsedChoices.length === maxRounds) {
+      handleEndMatch();
+    }
   };
 
   const handleShowModal = () => {
