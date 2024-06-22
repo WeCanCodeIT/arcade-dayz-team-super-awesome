@@ -8,12 +8,12 @@ const Logout = () => {
                 credentials: 'include',
             });
             if (response.ok) {
-                alert('Logout successful');
+                console.error('Logout successful');
             } else {
-                alert('Error logging out');
+                console.error('Error logging out');
             }
         } catch (error) {
-            alert('Error logging out');
+            console.error('Error logging out');
         }
     };
 

@@ -13,7 +13,11 @@ import alien from "../components/HomeCards/alien.jpeg";
 function HomePage() {
   const [startIndex, setStartIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [featuredGame] = useState({ to: "/PongGame", text: "Pong", image: pong }); // Example featured game
+  const [featuredGame] = useState({
+    to: "/PongGame",
+    text: "Pong",
+    image: pong,
+  });
 
   const links = [
     { to: "/tic-tac-toe", text: "Tic Tac Toe", image: ticcard },
@@ -51,29 +55,30 @@ function HomePage() {
     }
   };
 
-
-
   const filteredLinks = links.filter((link) =>
     link.text.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="home-container">
-      
-
+      <h1 className="home-title homepage-title">Arcade Dayz</h1>
       <div className="carousel-container">
         <button className="carousel-control prev" onClick={prevSet}>
           &lt;
         </button>
         <div className="carousel-slide">
           {[0, 1, 2].map((offset) => {
-            const index = (startIndex + offset) % filteredLinks.length; 
+            const index = (startIndex + offset) % filteredLinks.length;
             const link = filteredLinks[index];
             return (
               <div key={link.to} className="card-container">
                 <Link to={link.to} className="card-link">
                   <div className="card">
-                    <img src={link.image} alt={link.text} className="card-image" />
+                    <img
+                      src={link.image}
+                      alt={link.text}
+                      className="card-image"
+                    />
                     <div className="card-content">
                       <span>{link.text}</span>
                     </div>

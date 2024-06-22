@@ -25,16 +25,21 @@ const Signup = () => {
       
       if (response.ok) {
         const data = await response.text();
-        alert(data);
-        setCookie("user",username)
+        console.log(data);
+        setCookie("user", username);
         navigate(`/HomePage`);
       } else {
         const errorText = await response.text();
-        alert(`Error: ${errorText}`);
+        console.error(`Error: ${errorText}`);
       }
     } catch (error) {
-      alert("Error signing up");
+      console.error("Error signing up", error);
     }
+  };
+  
+
+  const handleLogin = () => {
+    navigate("/");
   };
 
   return (
@@ -75,6 +80,9 @@ const Signup = () => {
             </div>
           </div>
           <div className="signup-buttons">
+            <button type="button" onClick={handleLogin} className="login-button">
+              Login
+            </button>
             <button type="submit" className="signup-button">
               Sign up
             </button>
