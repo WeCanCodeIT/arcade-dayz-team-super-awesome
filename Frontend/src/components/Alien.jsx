@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Alien.css';
 
 const GRAVITY = 0.5;
-const JUMP_STRENGTH = -15;
+const JUMP_STRENGTH = -12;
 const PLAYER_HEIGHT = 50;
 const PLAYER_WIDTH = 50;
 const COLLISION_OFFSET = 12;

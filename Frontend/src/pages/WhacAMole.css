@@ -145,19 +145,6 @@ body {
   position: fixed;
 }
 
-/* .play-again {
-  margin-left: -28px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  position: fixed;
-  top: 55%;
-  left: 50.5%;
-  transform: translateX(-50%);
-  z-index: 2;
-} */
-
 .mole-background {
   background-size: cover;
   background-image: url("/public/mole-background.png");

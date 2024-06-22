@@ -23,7 +23,7 @@ const WhacAMole = ({ score, setScore }) => {
   const [topScores, setTopScores] = useState([]);
   const [user, setUser] = useState(null);
   const [refreshData, setRefreshData] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [cookies] = useCookies(["user"]);
 
   const handleRefresh = () => {
     setRefreshData(!refreshData);
