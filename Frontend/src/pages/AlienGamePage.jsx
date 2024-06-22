@@ -132,10 +132,25 @@ const AlienGame = () => {
     fetchCurrentUser();
   }, [cookies.user]);
 
+  const generateFireballs = () => {
+    let newFireballs = [];
+    for (let i = 0; i < MAX_FIREBALLS; i++) {
+      newFireballs.push({
+        id: i,
+        left: Math.random() * (gameArea.width - 50), 
+        top: Math.random() * (gameArea.height - 50), 
+        width: 50,
+        height: 50,
+      });
+    }
+    console.log("Generated fireballs:", newFireballs); 
+    setFireballs(newFireballs);
+  };
+
   const handleWin = () => {
     setGameWon(true);
     setIsGameOver(true);
-    const completedTime = timer; // Capture the final timer value as time
+    const completedTime = timer; 
     setShowWinMessage("You helped the alien find their way home! YOU WIN!");
     setButtonText("Play Again");
 
@@ -151,6 +166,7 @@ const AlienGame = () => {
     setTimer(0);
     setButtonText("Start");
     setShowWinMessage("");
+    generateFireballs(); // Ensure fireballs are generated when starting the game
   };
 
   const handleRestart = () => {
@@ -162,6 +178,7 @@ const AlienGame = () => {
     setTimer(0);
     setButtonText("Play Again");
     setShowWinMessage("");
+    generateFireballs(); // Ensure fireballs are generated when restarting the game
   };
 
   const handleHit = () => {

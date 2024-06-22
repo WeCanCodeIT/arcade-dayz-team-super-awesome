@@ -6,12 +6,24 @@ const JUMP_STRENGTH = -12;
 const PLAYER_HEIGHT = 50;
 const PLAYER_WIDTH = 50;
 const COLLISION_OFFSET = 12;
+const FALL_OFFSET = 200; // Adjust this value to ensure the alien drops lower before triggering the fall
 
-const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updatePlayerPosition, gameArea }) => {
+const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updatePlayerPosition, gameArea, isGameStart }) => {
   const [position, setPosition] = useState({ left: platforms[0].left, top: platforms[0].top - PLAYER_HEIGHT });
   const [velocity, setVelocity] = useState({ x: 0, y: 0 });
   const [isJumping, setIsJumping] = useState(false);
   const [onPlatform, setOnPlatform] = useState(null);
+  const [gameOver, setGameOver] = useState(false); // Track game over state
+
+  useEffect(() => {
+    if (isGameStart) {
+      setPosition({ left: platforms[0].left, top: platforms[0].top - PLAYER_HEIGHT });
+      setVelocity({ x: 0, y: 0 });
+      setIsJumping(false);
+      setOnPlatform(null);
+      setGameOver(false); // Reset game over state on game start
+    }
+  }, [isGameStart, platforms]);
 
   const handleKeyDown = (e) => {
     switch (e.key) {
@@ -74,7 +86,7 @@ const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updateP
       const fireballLeft = fireball.left;
       const fireballRight = fireball.left + 50;
       const fireballTop = fireball.top;
-      const fireballBottom = fireball.top + 50
+      const fireballBottom = fireball.top + 50;
 
       if (
         pos.left + PLAYER_WIDTH > fireballLeft &&
@@ -107,6 +119,17 @@ const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updateP
     return false;
   };
 
+  const isBelowLowestPlatform = (pos) => {
+    const lowestPlatform = platforms.reduce((lowest, platform) => {
+      return platform.top > lowest.top ? platform : lowest;
+    }, platforms[1]); // Initialize with the second platform in the list
+    const alienTop = pos.top;
+    const platformBottom = lowestPlatform.top + lowestPlatform.height;
+    const result = alienTop > platformBottom + FALL_OFFSET; // Adjusted with FALL_OFFSET
+    console.log(`Checking fall: Alien Top = ${alienTop}, Platform Bottom = ${platformBottom}, Result = ${result}`);
+    return result;
+  };
+
   useEffect(() => {
     const gameLoop = setInterval(() => {
       setPosition((prev) => {
@@ -133,18 +156,37 @@ const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updateP
 
         const spaceshipCollision = checkSpaceshipCollision({ left: newLeft, top: newTop });
         if (spaceshipCollision) {
-          onWin();
+          if (!gameOver) {
+            setGameOver(true);
+            onWin();
+          }
           return prev;
         }
 
         const fireballCollision = checkFireballCollision({ left: newLeft, top: newTop });
         if (fireballCollision) {
-          onLose();
+          if (!gameOver) {
+            setGameOver(true);
+            onLose();
+          }
+          return prev;
+        }
+
+        if (isBelowLowestPlatform({ left: newLeft, top: newTop })) {
+          if (!gameOver) {
+            console.log("Triggering fall due to being below the lowest platform");
+            setGameOver(true);
+            onLose();
+          }
           return prev;
         }
 
         if (newTop > gameArea.height) {
-          onLose();
+          if (!gameOver) {
+            console.log(`Triggering fall due to exceeding game area height: Alien Top = ${newTop}, Game Area Height = ${gameArea.height}`);
+            setGameOver(true);
+            onLose();
+          }
           return prev;
         }
 
@@ -155,7 +197,7 @@ const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updateP
     }, 20);
 
     return () => clearInterval(gameLoop);
-  }, [velocity, platforms, spaceshipPosition, fireballs, gameArea, onWin, onLose, updatePlayerPosition]);
+  }, [velocity, platforms, spaceshipPosition, fireballs, gameArea, onWin, onLose, updatePlayerPosition, gameOver]);
 
   useEffect(() => {
     if (onPlatform && onPlatform.isMoving) {
