@@ -28,7 +28,7 @@ function AboutPage() {
     },
     {
       name: "Chan Lee",
-      description: "A programmer with over six months of hands-on experience. I have experience working with various coding languages such as JavaScript, Java, HTML, and CSS. In the future, my goal is to expand my knowledge of additional programming languages and create my own game or application one day.",
+      description: "A programmer with over six months of hands-on experience. I have experience working with various coding languages such as JavaScript, Java, HTML, and CSS. In the future, my goal is to expand my knowledge of programming languages and create my own game or application one day.",
       projects: "Projects: RPSJokerAce Game, Dice Game",
       imageUrl: Chan,
       github: "https://github.com/Amritlee",
