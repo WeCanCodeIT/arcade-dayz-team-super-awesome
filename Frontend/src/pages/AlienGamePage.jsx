@@ -135,20 +135,36 @@ const AlienGame = () => {
   const handleWin = () => {
     setGameWon(true);
     setIsGameOver(true);
-    const completedTime = timer; // Capture the final timer value as time
+    const completedTime = timer; 
     setShowWinMessage("You helped the alien find their way home! YOU WIN!");
     setButtonText("Play Again");
-
+    setFireballs([]);
     handleWinner(completedTime);
   };
+
+  const generateFireballs = () => {
+    let newFireballs = [];
+    for (let i = 0; i < MAX_FIREBALLS; i++) {
+      newFireballs.push({
+        id: i,
+        left: Math.random() * (gameArea.width - 50), 
+        top: Math.random() * (gameArea.height - 50), 
+        width: 50,
+        height: 50,
+      });
+    }
+    console.log("Generated fireballs:", newFireballs); 
+    setFireballs(newFireballs);
+  };
+  
 
   const handleStart = () => {
     setIsGameStart(true);
     setGameLost(false);
     setIsGameOver(false);
     setGameWon(false);
-    setFireballs([]);
     setTimer(0);
+    generateFireballs();
     setButtonText("Start");
     setShowWinMessage("");
   };
@@ -159,24 +175,20 @@ const AlienGame = () => {
     setIsGameOver(false);
     setGameWon(false);
     setFireballs([]);
+    generateFireballs();
     setTimer(0);
     setButtonText("Play Again");
-    setShowWinMessage("");
+    setShowWinMessage("YOU LOSE!");
   };
 
   const handleHit = () => {
     setGameLost(true);
     setIsGameOver(true);
-    setShowWinMessage("Game Over! The alien was hit!");
+    setFireballs([]);
+    setShowWinMessage("The alien was hit! GAME OVER!");
     setButtonText("Play Again");
   };
 
-  const handleFall = () => {
-    setGameLost(true);
-    setIsGameOver(true);
-    setShowWinMessage("The alien fell. YOU LOSE!");
-    setButtonText("Play Again");
-  };
 
   const updatePlayerPosition = (newPosition) => {
     setPlayerPosition(newPosition);
@@ -221,7 +233,7 @@ const AlienGame = () => {
             fireballs={fireballs}
             onWin={handleWin}
             onHit={handleHit}
-            onLose={handleFall}
+            onLose={handleRestart}
             updatePlayerPosition={updatePlayerPosition}
             gameArea={gameArea}
           />

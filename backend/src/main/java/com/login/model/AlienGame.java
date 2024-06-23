@@ -1,38 +1,48 @@
 package com.login.model;
 
-import javax.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import java.util.ArrayList;
-import java.util.Collections;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@Table(name = "alien_game")
 public class AlienGame {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String username;
 
     @ElementCollection
-    private List<Double> times = new ArrayList<>();
+    private List<Double> times;
+
+    public AlienGame() {
+    }
 
     public AlienGame(String username, List<Double> times) {
         this.username = username;
         this.times = times;
     }
 
-    public void addTime(double time) {
-        this.times.add(time);
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<Double> getTimes() {
+        return times;
+    }
+
+    public void setTimes(List<Double> times) {
+        this.times = times;
     }
 
     public double getFastestTime() {
-        return Collections.min(this.times);
+        return times.stream().min(Double::compare).orElse(0.0);
+    }
+
+    public void addTime(double time) {
+        times.add(time);
     }
 }

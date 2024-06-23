@@ -103,7 +103,7 @@
     border-radius: 20px;
     text-align: left;
     border: 5px solid rgba(157, 0, 255, 0.735);
-    width: 300px;
+    width: 350px;
     font-family: "Arial", sans-serif;
     box-sizing: border-box;
     box-shadow: 8px 8px 3px rgba(0, 0, 0, 0.511);
@@ -148,11 +148,13 @@
   }
   
   .alien-top-scores li.alien-header {
-    font-size: 1.4em;
+    font-size: 1.2em;
     color: #bae8fff9;
     border-bottom: 2px solid #ff03fb98;
     padding-bottom: 5px;
     margin-bottom: 5px;
+    text-transform: uppercase;
+    padding-top: 10px;
   }
   
   .alien-top-scores li {
