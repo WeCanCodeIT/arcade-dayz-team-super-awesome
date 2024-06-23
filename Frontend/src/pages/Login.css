@@ -29,7 +29,7 @@
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 0 15px rgba(0, 0, 255, 0.2);
-  color: #ffffff;
+  color: #000000;
   position: relative;
 }
 
@@ -37,6 +37,10 @@
   font-size: 24px;
   color: rgb(0, 0, 0);
   padding-bottom: 15px;
+}
+
+.login-title h2{
+  color: rgb(0, 0, 0);
 }
 
 .login-fields {
@@ -61,7 +65,7 @@
 .login-label {
   font-size: 18px;
   margin-bottom: 5px;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .login-input {
@@ -93,7 +97,7 @@
   padding: 10px 30px 10px 20px; 
   border-radius: 5px;
   background-color: #3f4363;
-  color: white;
+  color: rgb(255, 255, 255);
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
@@ -117,7 +121,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: rgba(173, 216, 230, 0.4);
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .err-message {
