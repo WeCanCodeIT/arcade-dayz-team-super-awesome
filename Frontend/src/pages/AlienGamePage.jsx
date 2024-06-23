@@ -142,6 +142,22 @@ const AlienGame = () => {
     handleWinner(completedTime);
   };
 
+  const generateFireballs = () => {
+    let newFireballs = [];
+    for (let i = 0; i < MAX_FIREBALLS; i++) {
+      newFireballs.push({
+        id: i,
+        left: Math.random() * (gameArea.width - 50), 
+        top: Math.random() * (gameArea.height - 50), 
+        width: 50,
+        height: 50,
+      });
+    }
+    console.log("Generated fireballs:", newFireballs); 
+    setFireballs(newFireballs);
+  };
+  
+
   const handleStart = () => {
     setIsGameStart(true);
     setGameLost(false);
@@ -149,6 +165,7 @@ const AlienGame = () => {
     setGameWon(false);
     setFireballs([]);
     setTimer(0);
+    generateFireballs();
     setButtonText("Start");
     setShowWinMessage("");
   };
@@ -159,6 +176,7 @@ const AlienGame = () => {
     setIsGameOver(false);
     setGameWon(false);
     setFireballs([]);
+    generateFireballs();
     setTimer(0);
     setButtonText("Play Again");
     setShowWinMessage("");

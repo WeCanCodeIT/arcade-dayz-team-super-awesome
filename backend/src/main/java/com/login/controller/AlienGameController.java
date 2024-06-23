@@ -8,6 +8,7 @@ import com.login.model.AlienGameRequest;
 import com.login.model.User;
 import com.login.service.AlienGameImpl;
 import com.login.service.UserServiceImpl;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,9 +44,14 @@ public class AlienGameController {
                 alienGameServiceImpl.save(newWinner);
                 System.out.println("New record created for user: " + username + " with time: " + newTime);
             } else {
-                // alienGameRecord.addTime(newTime);
-                alienGameServiceImpl.save(alienGameRecord);
-                System.out.println("Updated record for user: " + username + " with new time: " + newTime);
+                double fastestTime = alienGameRecord.getFastestTime();
+                if (newTime < fastestTime || fastestTime == 0) {
+                    alienGameRecord.addTime(newTime);
+                    alienGameServiceImpl.save(alienGameRecord);
+                    System.out.println("Updated record for user: " + username + " with new time: " + newTime);
+                } else {
+                    System.out.println("New time is not faster than the existing fastest time for user: " + username);
+                }
             }
         } else {
             System.out.println("User not found: " + username);

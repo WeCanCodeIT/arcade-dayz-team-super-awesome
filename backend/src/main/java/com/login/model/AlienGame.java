@@ -4,6 +4,7 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,11 +29,11 @@ public class AlienGame {
         this.times = times;
     }
 
-    // public void addTime(double time) {
-    //     this.times.add(time);
-    // }
+    public void addTime(double time) {
+        this.times.add(time);
+    }
 
     public double getFastestTime() {
-        return Collections.min(this.times);
+        return times.isEmpty() ? 0 : Collections.min(this.times);
     }
 }
