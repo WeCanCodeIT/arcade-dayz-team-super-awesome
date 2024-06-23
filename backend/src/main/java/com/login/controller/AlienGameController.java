@@ -74,10 +74,12 @@ public class AlienGameController {
 
     @GetMapping("/records")
     public ResponseEntity<?> topTimes() {
-        List<AlienGame> topThreeTimes = alienGameServiceImpl.findTopThreeTimes();
-
-        if (topThreeTimes != null && !topThreeTimes.isEmpty()) {
-            List<Map<String, Object>> result = topThreeTimes.stream()
+        List<AlienGame> allTimes = alienGameServiceImpl.findAll();
+        
+        if (allTimes != null && !allTimes.isEmpty()) {
+            List<Map<String, Object>> topThreeTimes = allTimes.stream()
+                    .sorted((a, b) -> Double.compare(a.getFastestTime(), b.getFastestTime()))
+                    .limit(3)
                     .map(game -> {
                         Map<String, Object> map = new HashMap<>();
                         map.put("username", game.getUsername());
@@ -85,7 +87,7 @@ public class AlienGameController {
                         return map;
                     })
                     .collect(Collectors.toList());
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok(topThreeTimes);
         }
 
         return ResponseEntity.ok(new ArrayList<>());
