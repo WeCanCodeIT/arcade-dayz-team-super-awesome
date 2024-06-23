@@ -1,6 +1,7 @@
 body,
 .about-page {
   font-family: Arial, sans-serif;
+  position: relative; 
 }
 
 body::after {
@@ -33,13 +34,26 @@ body::after {
   border-block-start: 2rem solid #683569;
   writing-mode: horizontal-tb;
   background: linear-gradient(to bottom right, #e66465, #9198e5);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  overflow: hidden; 
+}
+
+.profile-card:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .profile-image {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 2px solid #bb18be;
+  transition: opacity 0.2s ease-in-out; 
+}
+
+.profile-card:hover .profile-image {
+  opacity: 0; 
 }
 
 h2 {
@@ -48,17 +62,28 @@ h2 {
   color: #f4f4f4;
 }
 
+.profile-card:hover h2 {
+  display: block;
+  margin-top: -150px;
+}
+
+.profile-card:hover p.description {
+  color: #ffffff;
+}
+
 p.description {
   font-size: 18px;
   color: #ffffff;
   margin-bottom: 20px;
   font-style: bold;
+  display: none; 
 }
 
 p.projects {
   font-size: 18px;
   text-align: left;
   color: #ffffff;
+  display: block; 
 }
 
 .social-icons {
@@ -83,3 +108,10 @@ p.projects {
   border: 2px solid #bb18be;
 }
 
+.profile-card:hover .projects {
+  display: none; 
+}
+
+.profile-card:hover .description {
+  display: block;
+}

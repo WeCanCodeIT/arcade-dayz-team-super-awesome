@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./pong-game.css";
-import Header from "../components/PongHeader";
 import GameCanvas from "../components/GameCanvas";
 import Navbar from "./NavBar";
 
@@ -11,16 +10,23 @@ const PongGamePage = () => {
     setScore(newScore);
   };
 
-  return (
+   return (
     <div className="pong-game-page">
-      <div className="game-container">
-        <h1 className="title">Welcome to the Pong Game</h1>
-        <div className="player-info"></div>
-        <div className="game-border">
+      <Navbar />
+        <h1 className="pong-title">Welcome to the Pong Game</h1>
+        <div className="pong-player-info">
+          <div className="pong-player-score">
+            Player 1:  <span>{score.player1}</span>
+          </div>
+          <div className="pong-player-score">
+            Player 2:  <span>{score.player2}</span>
+          </div>
+        </div>
+      <div className="pong-game-container">
+        <div className="pong-game-border">
           <GameCanvas updateScore={updateScore} />
         </div>
       </div>
-      <Navbar />
     </div>
   );
 };

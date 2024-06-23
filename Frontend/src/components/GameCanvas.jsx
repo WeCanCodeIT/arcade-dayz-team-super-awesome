@@ -28,13 +28,6 @@ const GameCanvas = ({ updateScore }) => {
       context.arc(ball.x, ball.y, 10, 0, Math.PI * 2);
       context.fillStyle = "#FFFFFF";
       context.fill();
-
-      context.font = "bold 20px Arial";
-      context.fillStyle = "#FFFFFF";
-      context.textAlign = "left";
-      context.fillText(`Player 1: ${scores.player1}`, 10, 70);
-      context.textAlign = "right";
-      context.fillText(`Player 2: ${scores.player2}`, canvas.width - 10, 70);
     };
 
     const intervalId = setInterval(() => {

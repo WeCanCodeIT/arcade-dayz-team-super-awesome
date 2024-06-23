@@ -15,13 +15,14 @@ const RPSJokerAceGame = ({ onWinner }) => {
   const [cpuUsedChoices, setCpuUsedChoices] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [matchEnded, setMatchEnded] = useState(false);
+  const [winnerMessage, setWinnerMessage] = useState("");
   const maxRounds = 5;
 
   useEffect(() => {
     if (playerUsedChoices.length === maxRounds) {
       handleEndMatch();
     }
-  }, [playerUsedChoices]); 
+  }, [playerUsedChoices]);
 
   const getCpuChoice = () => {
     const availableCpuChoices = cpuChoices.filter(
@@ -53,9 +54,10 @@ const RPSJokerAceGame = ({ onWinner }) => {
   };
 
   const playGame = (selectedChoice) => {
+
     const newCpuChoice = getCpuChoice();
     const gameResult = determineWinner(selectedChoice, newCpuChoice);
-
+    
     if (gameResult === "Player wins!") {
       setPlayerMatchScore(playerMatchScore + 1);
     } else if (gameResult === "CPU wins!") {
@@ -91,9 +93,8 @@ const RPSJokerAceGame = ({ onWinner }) => {
     } else {
       matchResult = "It's a tie game!";
     }
-    window.alert(matchResult);
-    resetGame();
-  };
+    setWinnerMessage(matchResult);
+  };  
 
   const resetGame = () => {
     setPlayerChoice("");
@@ -105,6 +106,8 @@ const RPSJokerAceGame = ({ onWinner }) => {
     setCpuUsedChoices([]);
     setShowModal(false);
     setMatchEnded(false);
+    setWinnerMessage("");
+    
   };
 
   return (
@@ -130,21 +133,17 @@ const RPSJokerAceGame = ({ onWinner }) => {
           <button className="rules-btn" onClick={handleShowModal}>
             Rules
           </button>
-           {!matchEnded && (
-            <button onClick={() => playGame(playerChoice)} disabled={!playerChoice}>
-              Play
-            </button>
-          )}
-          <button onClick={resetGame}>Retry</button> 
+          <button onClick={resetGame}>{matchEnded ? "Play Again" : "Reset"}</button>
         </div>
         <div className="cpu-container">
           {cpuChoice && <p>CPU chose: {cpuChoice}</p>}
         </div>
-        {result && <h2>{result}</h2>}
+        {!winnerMessage && result && <h2>{result}</h2>}
+        {winnerMessage && <h2>{winnerMessage}</h2>}
         <RPSRulesModal show={showModal} handleClose={handleCloseModal} />
       </div>
     </div>
-  );
+  );  
 };
 
 export default RPSJokerAceGame;
