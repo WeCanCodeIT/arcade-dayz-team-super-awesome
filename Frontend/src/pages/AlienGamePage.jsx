@@ -156,6 +156,14 @@ const AlienGame = () => {
     console.log("Generated fireballs:", newFireballs); 
     setFireballs(newFireballs);
   };
+
+  const handleFall = () => {
+    setGameLost(true);
+    setIsGameOver(true);
+    setFireballs([]);
+    setShowWinMessage("");
+    setButtonText("Play Again");
+  };
   
 
   const handleStart = () => {
@@ -178,7 +186,8 @@ const AlienGame = () => {
     generateFireballs();
     setTimer(0);
     setButtonText("Play Again");
-    setShowWinMessage("YOU LOSE!");
+    setShowWinMessage("")
+
   };
 
   const handleHit = () => {
@@ -233,7 +242,7 @@ const AlienGame = () => {
             fireballs={fireballs}
             onWin={handleWin}
             onHit={handleHit}
-            onLose={handleRestart}
+            onLose={handleFall}
             updatePlayerPosition={updatePlayerPosition}
             gameArea={gameArea}
           />
