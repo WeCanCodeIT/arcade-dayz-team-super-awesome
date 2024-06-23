@@ -118,6 +118,10 @@ p {
   margin-top: 20px;
   padding: 10px 20px;
   cursor: pointer;
+  border: 5px solid #4fffe5;
+  border-radius: 15px;
+  background-color: black;
+  color: white;
 }
 
 .dice-top-scores {

@@ -41,6 +41,7 @@
   text-align: center;
   margin-left: 1%;
   padding-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .active {
@@ -49,6 +50,7 @@
 
 .title-name {
   font-size: 22px;
+  
 }
 
 .links-container {
