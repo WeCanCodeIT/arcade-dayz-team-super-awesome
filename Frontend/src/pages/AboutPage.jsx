@@ -12,6 +12,7 @@ function AboutPage() {
     {
       name: "Brian Palmiero",
       description: "ipsum",
+      projects: "Projects: Alien Game, Mole Smash Game",
       imageUrl: Brian,
       github: "https://github.com/bpalmiero85",
       linkedin: "",
@@ -21,6 +22,7 @@ function AboutPage() {
       name: "Kanaka M",
       description:
         "Mom in tech, junior full-stack developer crafting user-centric solutions with Java expertise.",
+      projects: "Projects: Pong Game, Connect 4 Game",
       imageUrl: Kanaka,
       github: "https://github.com/kanaka19",
       linkedin: "https://www.linkedin.com/in/kanaka-meier-b431a2129/",
