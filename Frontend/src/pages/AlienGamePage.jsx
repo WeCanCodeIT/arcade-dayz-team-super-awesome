@@ -135,7 +135,7 @@ const AlienGame = () => {
   const handleWin = () => {
     setGameWon(true);
     setIsGameOver(true);
-    const completedTime = timer; 
+    const completedTime = timer;
     setShowWinMessage("You helped the alien find their way home! YOU WIN!");
     setButtonText("Play Again");
     setFireballs([]);
@@ -143,7 +143,7 @@ const AlienGame = () => {
   };
 
   const generateFireballs = () => {
-    let newFireballs = [];
+    const newFireballs = [];
     for (let i = 0; i < MAX_FIREBALLS; i++) {
       newFireballs.push({
         id: i,
@@ -156,7 +156,15 @@ const AlienGame = () => {
     console.log("Generated fireballs:", newFireballs); 
     setFireballs(newFireballs);
   };
-  
+
+  const handleFall = () => {
+    console.log("Player has fallen below the game area");
+    setGameLost(true);
+    setIsGameOver(true);
+    setFireballs([]);
+    setShowWinMessage("The alien fell. GAME OVER!");
+    setButtonText("Play Again");
+  };
 
   const handleStart = () => {
     setIsGameStart(true);
@@ -178,7 +186,7 @@ const AlienGame = () => {
     generateFireballs();
     setTimer(0);
     setButtonText("Play Again");
-    setShowWinMessage("YOU LOSE!");
+    setShowWinMessage("");
   };
 
   const handleHit = () => {
@@ -188,7 +196,6 @@ const AlienGame = () => {
     setShowWinMessage("The alien was hit! GAME OVER!");
     setButtonText("Play Again");
   };
-
 
   const updatePlayerPosition = (newPosition) => {
     setPlayerPosition(newPosition);
@@ -233,7 +240,7 @@ const AlienGame = () => {
             fireballs={fireballs}
             onWin={handleWin}
             onHit={handleHit}
-            onLose={handleRestart}
+            onLose={handleFall}
             updatePlayerPosition={updatePlayerPosition}
             gameArea={gameArea}
           />

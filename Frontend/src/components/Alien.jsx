@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import './Alien.css';
+import React, { useState, useEffect, useRef } from "react";
+import "./Alien.css";
 
 const GRAVITY = 0.5;
 const JUMP_STRENGTH = -12;
@@ -7,23 +7,34 @@ const PLAYER_HEIGHT = 50;
 const PLAYER_WIDTH = 50;
 const COLLISION_OFFSET = 12;
 
-const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updatePlayerPosition, gameArea }) => {
-  const [position, setPosition] = useState({ left: platforms[0].left, top: platforms[0].top - PLAYER_HEIGHT });
+const Alien = ({
+  platforms,
+  spaceshipPosition,
+  onWin,
+  onLose,
+  fireballs,
+  updatePlayerPosition,
+  gameArea,
+}) => {
+  const [position, setPosition] = useState({
+    left: platforms[0].left,
+    top: platforms[0].top - PLAYER_HEIGHT,
+  });
   const [velocity, setVelocity] = useState({ x: 0, y: 0 });
   const [isJumping, setIsJumping] = useState(false);
   const [onPlatform, setOnPlatform] = useState(null);
 
   const handleKeyDown = (e) => {
     switch (e.key) {
-      case 'ArrowLeft':
+      case "ArrowLeft":
         e.preventDefault();
         setVelocity((prev) => ({ ...prev, x: -5 }));
         break;
-      case 'ArrowRight':
+      case "ArrowRight":
         e.preventDefault();
         setVelocity((prev) => ({ ...prev, x: 5 }));
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
         if (!isJumping) {
           setVelocity((prev) => ({ ...prev, y: JUMP_STRENGTH }));
@@ -36,17 +47,17 @@ const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updateP
   };
 
   const handleKeyUp = (e) => {
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
       setVelocity((prev) => ({ ...prev, x: 0 }));
     }
   };
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
     };
   }, [isJumping]);
 
@@ -54,11 +65,14 @@ const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updateP
     for (let platform of platforms) {
       const platformLeft = platform.left;
       const platformRight = platform.left + platform.width;
+      const platformTop = platform.top;
+      const platformBottom = platform.top + platform.height;
+
       if (
         pos.left + PLAYER_WIDTH > platformLeft &&
         pos.left < platformRight &&
-        pos.top + PLAYER_HEIGHT + COLLISION_OFFSET >= platform.top &&
-        pos.top + PLAYER_HEIGHT + COLLISION_OFFSET <= platform.top + platform.height
+        pos.top + PLAYER_HEIGHT + COLLISION_OFFSET >= platformTop &&
+        pos.top + PLAYER_HEIGHT + COLLISION_OFFSET <= platformBottom
       ) {
         return platform;
       }
@@ -68,13 +82,12 @@ const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updateP
 
   const checkFireballCollision = (pos) => {
     if (!Array.isArray(fireballs)) return false;
-    
-    for (let i = 0; i < fireballs.length; i++) {
-      const fireball = fireballs[i];
+
+    for (let fireball of fireballs) {
       const fireballLeft = fireball.left;
       const fireballRight = fireball.left + 50;
       const fireballTop = fireball.top;
-      const fireballBottom = fireball.top + 50
+      const fireballBottom = fireball.top + 50;
 
       if (
         pos.left + PLAYER_WIDTH > fireballLeft &&
@@ -93,14 +106,16 @@ const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updateP
     const offset = -45;
     const offsetBottom = -38;
     const spaceshipLeft = spaceshipPosition.left + offset;
-    const spaceshipRight = spaceshipPosition.left + spaceshipPosition.width - offset;
-    const spaceshipBottom = spaceshipPosition.top + spaceshipPosition.height + offsetBottom;
+    const spaceshipRight =
+      spaceshipPosition.left + spaceshipPosition.width - offset;
+    const spaceshipBottom =
+      spaceshipPosition.top + spaceshipPosition.height + offsetBottom;
 
     if (
-      pos.left + PLAYER_WIDTH / 2 > spaceshipLeft && 
+      pos.left + PLAYER_WIDTH / 2 > spaceshipLeft &&
       pos.left + PLAYER_WIDTH / 2 < spaceshipRight &&
       pos.top + PLAYER_HEIGHT >= spaceshipBottom &&
-      pos.top <= spaceshipBottom + 10 
+      pos.top <= spaceshipBottom + 10
     ) {
       return true;
     }
@@ -112,6 +127,10 @@ const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updateP
       setPosition((prev) => {
         let newTop = prev.top + velocity.y;
         let newLeft = prev.left + velocity.x;
+
+        console.log(`Player Position Before Update - Left: ${prev.left}, Top: ${prev.top}`);
+        console.log(`Player Position After Update - Left: ${newLeft}, Top: ${newTop}`);
+        console.log(`Game Area Height: ${gameArea.height}`);
 
         const platformCollision = checkPlatformCollision({
           left: newLeft,
@@ -131,31 +150,52 @@ const Alien = ({ platforms, spaceshipPosition, onWin, onLose, fireballs, updateP
           setOnPlatform(null);
         }
 
-        const spaceshipCollision = checkSpaceshipCollision({ left: newLeft, top: newTop });
+        const spaceshipCollision = checkSpaceshipCollision({
+          left: newLeft,
+          top: newTop,
+        });
         if (spaceshipCollision) {
           onWin();
           return prev;
         }
 
-        const fireballCollision = checkFireballCollision({ left: newLeft, top: newTop });
+        const fireballCollision = checkFireballCollision({
+          left: newLeft,
+          top: newTop,
+        });
         if (fireballCollision) {
           onLose();
           return prev;
         }
 
-        if (newTop > gameArea.height) {
+        if (newTop + PLAYER_HEIGHT + COLLISION_OFFSET > gameArea.height) {
+          console.log("Player has fallen below the game area");
           onLose();
           return prev;
         }
 
-        const newPosition = { left: newLeft, top: newTop, width: PLAYER_WIDTH, height: PLAYER_HEIGHT };
+        const newPosition = {
+          left: newLeft,
+          top: newTop,
+          width: PLAYER_WIDTH,
+          height: PLAYER_HEIGHT,
+        };
         updatePlayerPosition(newPosition);
         return newPosition;
       });
     }, 20);
 
     return () => clearInterval(gameLoop);
-  }, [velocity, platforms, spaceshipPosition, fireballs, gameArea, onWin, onLose, updatePlayerPosition]);
+  }, [
+    velocity,
+    platforms,
+    spaceshipPosition,
+    fireballs,
+    gameArea,
+    onWin,
+    onLose,
+    updatePlayerPosition,
+  ]);
 
   useEffect(() => {
     if (onPlatform && onPlatform.isMoving) {
