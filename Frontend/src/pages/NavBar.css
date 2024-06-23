@@ -12,6 +12,7 @@
   align-items: center;
   justify-content: space-between;
   font-family: 'Arial', sans-serif;
+  z-index: 1000;
 }
 
 .navbar a {
@@ -60,4 +61,4 @@
 .navbar-title {
   color: white;
   font-size: 20px;
-}
+} 

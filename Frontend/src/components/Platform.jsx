@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Platform.css";
 
 const Platform = ({
@@ -10,10 +10,11 @@ const Platform = ({
 }) => {
   const [currentPosition, setCurrentPosition] = useState(position.left);
   const [direction, setDirection] = useState(1);
+  const movePlatformRef = useRef();
 
   useEffect(() => {
     if (isMoving) {
-      const movePlatform = setInterval(() => {
+      const movePlatform = () => {
         setCurrentPosition((prev) => {
           let newPos = prev + direction * speed;
           if (newPos > range.end || newPos < range.start) {
@@ -24,9 +25,11 @@ const Platform = ({
           updatePosition({ left: newPos, top: position.top });
           return newPos;
         });
-      }, 20);
+      };
 
-      return () => clearInterval(movePlatform);
+      movePlatformRef.current = setInterval(movePlatform, 20);
+
+      return () => clearInterval(movePlatformRef.current);
     }
   }, [isMoving, direction, range, speed, updatePosition, position.top]);
 

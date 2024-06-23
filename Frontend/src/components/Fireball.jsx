@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../Fireball.css";
 
 const Fireball = ({ position, onHit, gameArea, playerPosition }) => {
   const [currentPosition, setCurrentPosition] = useState(position);
+  const moveFireballRef = useRef();
 
   useEffect(() => {
     if (!gameArea.height) return;
 
-    const interval = setInterval(() => {
+    const moveFireball = () => {
       setCurrentPosition((prevPosition) => {
         const newTop = prevPosition.top + 15;
         if (newTop > gameArea.height) {
@@ -16,9 +17,11 @@ const Fireball = ({ position, onHit, gameArea, playerPosition }) => {
         }
         return { ...prevPosition, top: newTop };
       });
-    }, 100);
+    };
 
-    return () => clearInterval(interval);
+    moveFireballRef.current = setInterval(moveFireball, 100);
+
+    return () => clearInterval(moveFireballRef.current);
   }, [gameArea]);
 
   useEffect(() => {
@@ -46,7 +49,14 @@ const Fireball = ({ position, onHit, gameArea, playerPosition }) => {
     detectCollision();
   }, [currentPosition, playerPosition, onHit]);
 
-  return <img className="fireball" src="/alien-images/fireball.png" style={{ top: currentPosition.top, left: currentPosition.left, position: 'absolute' }} alt="Fireball" />;
+  return (
+    <img
+      className="fireball"
+      src="/alien-images/fireball.png"
+      style={{ top: currentPosition.top, left: currentPosition.left, position: 'absolute' }}
+      alt="Fireball"
+    />
+  );
 };
 
 export default Fireball;

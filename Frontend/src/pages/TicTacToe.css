@@ -9,7 +9,7 @@
   width: 100%;
 }
 
-body {
+tic-tac-toe-body {
   font-family: "Arial", sans-serif;
   background: #f0f2f5;
   display: flex;
