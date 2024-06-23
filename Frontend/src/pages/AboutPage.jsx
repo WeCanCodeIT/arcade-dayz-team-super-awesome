@@ -6,7 +6,6 @@ import Chan from "../pages/ProfileImage/Chan.jpg";
 import Brian from "../pages/ProfileImage/brian-business.jpeg";
 import Kanaka from "../pages/ProfileImage/Kanaka.jpg";
 
-
 function AboutPage() {
   const profiles = [
     {
@@ -15,25 +14,26 @@ function AboutPage() {
       imageUrl: Brian,
       github: "https://github.com/bpalmiero85",
       linkedin: "",
-      backgroundColor: "#e16577", 
+      backgroundColor: "#e16577",
     },
     {
       name: "Kanaka M",
       description:
-        "Mom in tech, junior full-stack developer crafting user-centric solutions with Java expertise.",
+        "As a mom in tech and a junior full-stack developer, I've gained experience in creating user-focused solutions. With comprehensive skills in Java, Tailwind CSS, OOP, and React, I bridge front-end and back-end development for seamless application performance. I am eager to bring my expertise to new projects and collaborate with like-minded professionals.",
+      projects: "Projects: Pong Game, Connect Four",
       imageUrl: Kanaka,
       github: "https://github.com/kanaka19",
       linkedin: "https://www.linkedin.com/in/kanaka-meier-b431a2129/",
-      backgroundColor: "#e16577" 
+      backgroundColor: "#e16577",
     },
     {
       name: "Chan Lee",
-      description: "A programmer with over six months of hands-on experience. I have experience working with various coding languages such as JavaScript, Java, HTML, and CSS. In the future, my goal is to expand my knowledge of programming languages and create my own game or application one day.",
+      description:
+        "A programmer with over six months of hands-on experience. I have experience working with various coding languages such as JavaScript, Java, HTML, and CSS. In the future, my goal is to expand my knowledge of programming languages and create my own game or application one day.",
       projects: "Projects: RPSJokerAce Game, Dice Game",
       imageUrl: Chan,
       github: "https://github.com/Amritlee",
       linkedin: "",
-
     },
   ];
 
@@ -54,7 +54,9 @@ function AboutPage() {
             <div className="profile-details">
               <h2>{profile.name}</h2>
               <p className="description">{profile.description}</p>
-              {profile.projects && <p className="projects">{profile.projects}</p>}
+              {profile.projects && (
+                <p className="projects">{profile.projects}</p>
+              )}
               <div className="social-icons">
                 <a
                   href={profile.github}
