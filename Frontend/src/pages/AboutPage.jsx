@@ -10,8 +10,9 @@ function AboutPage() {
   const profiles = [
     {
       name: "Brian Palmiero",
-      description: "ipsum",
+      description: "I'm a passionate Full Stack Junior Developer skilled in HTML, CSS, Java, JavaScript, React, Tailwind CSS, and Spring Boot. I thrive on creating immersive user experiences and am eager to apply my knowledge in both front-end and back-end technologies. My enthusiasm for coding drives me to continuously learn and adapt to new challenges.",
       imageUrl: Brian,
+      projects: "Projects: Super Mole Smash, Alien Jump",
       github: "https://github.com/bpalmiero85",
       linkedin: "",
       backgroundColor: "#e16577",
