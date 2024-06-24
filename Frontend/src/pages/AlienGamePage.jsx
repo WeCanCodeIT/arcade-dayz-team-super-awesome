@@ -158,11 +158,11 @@ const AlienGame = () => {
   };
 
   const handleFall = () => {
-    console.log("Player has fallen below the game area");
+    console.log("The alien fell. YOU LOSE!");
     setGameLost(true);
     setIsGameOver(true);
     setFireballs([]);
-    setShowWinMessage("The alien fell. GAME OVER!");
+    setShowWinMessage("The alien fell. YOU LOSE!");
     setButtonText("Play Again");
   };
 
@@ -190,6 +190,7 @@ const AlienGame = () => {
   };
 
   const handleHit = () => {
+    console.log("The alien was hit by a fireball. YOU LOSE!");
     setGameLost(true);
     setIsGameOver(true);
     setFireballs([]);
@@ -240,9 +241,10 @@ const AlienGame = () => {
             fireballs={fireballs}
             onWin={handleWin}
             onHit={handleHit}
-            onLose={handleFall}
+            onFall={handleFall}
             updatePlayerPosition={updatePlayerPosition}
             gameArea={gameArea}
+            isGameOver={isGameOver}
           />
         )}
         {isGameStart && platforms.map((platform) => (

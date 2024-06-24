@@ -19,11 +19,12 @@ const WhacAMole = ({ score, setScore }) => {
   );
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameStart, setIsGameStart] = useState(false);
-  const [timer, setTimer] = useState(2 * 60 * 1000);
+  const [timer, setTimer] = useState(2 * 60 * 250);
   const [topScores, setTopScores] = useState([]);
   const [user, setUser] = useState(null);
   const [refreshData, setRefreshData] = useState(false);
   const [cookies] = useCookies(["user"]);
+  const [aboutToLose, setAboutToLose] = useState(false);
 
   const handleRefresh = () => {
     setRefreshData(!refreshData);
@@ -121,8 +122,12 @@ const WhacAMole = ({ score, setScore }) => {
             const newScore = prevScore > 2 ? prevScore - 2 : 0;
             console.log("Hit Monster, new score: ", newScore);
             if (newScore <= 0) {
-              setIsGameOver(true);
+              setAboutToLose(true);
               setHitMessage("YOU LOSE!");
+              setTimeout(() => {
+                setIsGameOver(true);
+                setAboutToLose(false);
+              }, 1000); 
             } else {
               setHitMessage("Don't smash the monsters!");
               setTimeout(() => setHitMessage(""), 1000);
@@ -138,7 +143,7 @@ const WhacAMole = ({ score, setScore }) => {
           setActiveHole(null);
           setActiveCharacter(null);
 
-          if (!isGameOver) {
+          if (!isGameOver && !aboutToLose) {
             const newInterval = startNewInterval();
             setIntervalId(newInterval);
           }
@@ -156,7 +161,7 @@ const WhacAMole = ({ score, setScore }) => {
     setActiveHole(null);
     setActiveCharacter(null);
     setHitMessage("");
-    setTimer(2 * 60 * 100);
+    setTimer(2 * 60 * 250);
     const newInterval = startNewInterval();
     setIntervalId(newInterval);
   };
@@ -171,7 +176,7 @@ const WhacAMole = ({ score, setScore }) => {
     setActiveHole(null);
     setActiveCharacter(null);
     setHitMessage("");
-    setTimer(2 * 60 * 100);
+    setTimer(2 * 60 * 250);
     const newInterval = startNewInterval();
     setIntervalId(newInterval);
     setIsGameOver(false);
@@ -312,22 +317,22 @@ const WhacAMole = ({ score, setScore }) => {
       {hitMessage && <div className="hit-message">{hitMessage}</div>}
       {!isGameStart && (
         <>
-          <div className="start-game">
+          <div className="mole-start-game">
             <button onClick={handleStart}>Play</button>
           </div>
           <div className="welcome-message">{welcomeMessage}</div>
         </>
       )}
       {isGameOver && (
-        <div className="play-again">
+        <div className="mole-play-again">
           <button onClick={handleRestart}>Play Again</button>
         </div>
       )}
       <div>{formatTime(timer)}</div>
-      <div className="top-scores">
+      <div className="mole-top-scores">
         <h2>Top 3 Players</h2>
         <ul>
-          <li className="header">
+          <li className="mole-header">
             <span>Username</span>
             <span></span>
             <span>Score</span>
@@ -338,7 +343,7 @@ const WhacAMole = ({ score, setScore }) => {
                 <span>{player.username}</span>
               </div>
               <span></span>
-              <div className="score">
+              <div className="mole-score">
                 <span>{player.score}</span>
               </div>
             </li>

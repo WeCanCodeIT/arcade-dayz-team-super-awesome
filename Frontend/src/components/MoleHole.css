@@ -6,7 +6,7 @@
   position: absolute;
 }
 
-.mole-hole.game-over {
+.mole-hole.mole-game-over {
   cursor: pointer;
 }
 
