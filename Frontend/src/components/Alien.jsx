@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./Alien.css";
 
 const GRAVITY = 0.5;
@@ -11,10 +11,12 @@ const Alien = ({
   platforms,
   spaceshipPosition,
   onWin,
-  onLose,
+  onFall,
+  onHit,
   fireballs,
   updatePlayerPosition,
   gameArea,
+  isGameOver,
 }) => {
   const [position, setPosition] = useState({
     left: platforms[0].left,
@@ -25,6 +27,7 @@ const Alien = ({
   const [onPlatform, setOnPlatform] = useState(null);
 
   const handleKeyDown = (e) => {
+    if (isGameOver) return; 
     switch (e.key) {
       case "ArrowLeft":
         e.preventDefault();
@@ -59,7 +62,7 @@ const Alien = ({
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [isJumping]);
+  }, [isGameOver]);
 
   const checkPlatformCollision = (pos) => {
     for (let platform of platforms) {
@@ -123,6 +126,8 @@ const Alien = ({
   };
 
   useEffect(() => {
+    if (isGameOver) return;
+
     const gameLoop = setInterval(() => {
       setPosition((prev) => {
         let newTop = prev.top + velocity.y;
@@ -164,13 +169,14 @@ const Alien = ({
           top: newTop,
         });
         if (fireballCollision) {
-          onLose();
+          console.log("Collision with fireball detected");
+          onHit();
           return prev;
         }
 
         if (newTop + PLAYER_HEIGHT + COLLISION_OFFSET > gameArea.height) {
           console.log("Player has fallen below the game area");
-          onLose();
+          onFall();
           return prev;
         }
 
@@ -193,8 +199,10 @@ const Alien = ({
     fireballs,
     gameArea,
     onWin,
-    onLose,
+    onHit,
+    onFall,
     updatePlayerPosition,
+    isGameOver,
   ]);
 
   useEffect(() => {
