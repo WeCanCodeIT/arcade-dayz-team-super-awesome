@@ -14,7 +14,7 @@ function AboutPage() {
       imageUrl: Brian,
       projects: "Projects: Super Mole Smash, Alien Jump",
       github: "https://github.com/bpalmiero85",
-      linkedin: "",
+      linkedin: "https://linkedin.com/in/brian-palmiero",
       backgroundColor: "#e16577",
     },
     {

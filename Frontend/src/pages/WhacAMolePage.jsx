@@ -15,7 +15,12 @@ const WhacAMole = ({ score, setScore }) => {
   const [intervalId, setIntervalId] = useState(null);
   const [hitMessage, setHitMessage] = useState("");
   const [welcomeMessage, setWelcomeMessage] = useState(
-    "Welcome to Super Mole Smash! Smash as many moles as you can to score points, but be careful not to hit the monsters! You have 2 minutes. Moles are +1 and monsters are -2."
+    <div className="mole-welcome">
+      <div className="mole-welcome-title">Welcome to Super Mole Smash!</div> 
+      Smash as many moles as you can to score points, but be careful not to hit the monsters! 
+      <div className="two-minutes">You have 2 minutes.</div> 
+      Moles are <div className="mole-score-plus">+1</div> and monsters are <div className="mole-score-minus">-2</div>
+    </div>
   );
   const [isGameOver, setIsGameOver] = useState(false);
   const [isGameStart, setIsGameStart] = useState(false);
@@ -288,22 +293,25 @@ const WhacAMole = ({ score, setScore }) => {
         </div>
         <div className="holes-wrapper">
           {isGameStart && !isGameOver && <WhacAMoleScoreBadge score={score} />}
-          <div className="holes">
-            {[...Array(7)].map((_, index) => (
-              <MoleHole
-                key={index}
-                index={index}
-                isActive={isGameStart && !isGameOver && index === activeHole}
-                isHit={index === hitMole || index === hitMonster}
-                activeCharacter={
-                  isGameStart && !isGameOver && index === activeHole
-                    ? activeCharacter
-                    : null
-                }
-                isGameOver={isGameOver}
-              />
-            ))}
-          </div>
+          
+          {isGameStart && (
+            <div className="holes">
+              {[...Array(7)].map((_, index) => (
+                <MoleHole
+                  key={index}
+                  index={index}
+                  isActive={isGameStart && !isGameOver && index === activeHole}
+                  isHit={index === hitMole || index === hitMonster}
+                  activeCharacter={
+                    isGameStart && !isGameOver && index === activeHole
+                      ? activeCharacter
+                      : null
+                  }
+                  isGameOver={isGameOver}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
       {!isGameOver && isGameStart && (
